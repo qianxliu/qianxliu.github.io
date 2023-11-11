@@ -1,0 +1,18 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "type": "module",
+  "author": {
+    "email": "qianxin_2023@foxmail.com",
+    "name": "LIU Qianxi",
+    "url": "https://github.com/qianxliu/qianxliu.github.io"
+  },
+  "dependencies": {
+    "htmlclean": "latest",
+    "marked": "^0.7.0",
+    "terser": "latest"
+  },
+  "acknowledgement": {
+    "url": "https://github.com/kkocdko/kblog"
+  }
+}

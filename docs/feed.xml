@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <rss version="2.0">
+        <channel>
+          <title>兴趣使然的无名小站</title>
+          <link>https://qianxliu.github.io</link>
+          <description>兴趣使然的无名小站</description>
+          
+          <item>
+            <title>Home</title>
+            <description>About Myself, Even Not Only Me</description>
+            <link>https://qianxliu.github.io/post/202311112353</link>
+          </item>
+          
+        </channel>
+      </rss>
