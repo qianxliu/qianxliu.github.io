@@ -1,0 +1,91 @@
+<!DOCTYPE html><head><title> C++多线程Multithreading stdcondition_variable - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1> C++多线程Multithreading stdcondition_variable</h1><h1 id="多线程multithreading">多线程Multithreading</h1><pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;mutex&gt;
+#include &lt;condition_variable&gt;
+
+std::mutex mtx;
+std::condition_variable cv;
+bool isOdd = true;
+
+void printOdd() {
+    for (int i = 1; i &lt;= 100; i += 2) {
+        std::unique_lock&lt;std::mutex&gt; lock(mtx);
+        cv.wait(lock, [] { return isOdd; });
+        std::cout &lt;&lt; i &lt;&lt; std::endl;
+        isOdd = false;
+        cv.notify_all();
+    }
+}
+
+void printEven() {
+    for (int i = 2; i &lt;= 100; i += 2) {
+        std::unique_lock&lt;std::mutex&gt; lock(mtx);
+        cv.wait(lock, [] { return !isOdd; });
+        std::cout &lt;&lt; i &lt;&lt; std::endl;
+        isOdd = true;
+        cv.notify_all();
+    }
+}
+
+int main() {
+    std::thread t1(printOdd);
+    std::thread t2(printEven);
+
+    t1.join();
+    t2.join();
+
+    return 0;
+}</code></pre><pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;mutex&gt;
+
+std::mutex mtx;
+int num = 1;
+
+void printNumbers(bool isOdd) {
+    while (num &lt;= 100) {
+        if ((num % 2 == 1) == isOdd) {
+            std::unique_lock&lt;std::mutex&gt; lock(mtx);
+            std::cout &lt;&lt; num &lt;&lt; std::endl;
+            num++;
+        }
+    }
+}
+
+int main() {
+    std::thread t1(printNumbers, true);  // 打印奇数
+    std::thread t2(printNumbers, false); // 打印偶数
+
+    t1.join();
+    t2.join();
+
+    return 0;
+}</code></pre><pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;mutex&gt;
+#include &lt;condition_variable&gt;
+
+std::mutex mtx;
+std::condition_variable cv;
+int num = 1;
+
+void printNumbers(bool isOdd) {
+    while (num &lt;= 100) {
+        std::unique_lock&lt;std::mutex&gt; lock(mtx);
+        // Wait for the condition to be met (isOdd for t1, !isOdd for t2)
+        cv.wait(lock, [isOdd] { return (num % 2 == 1) == isOdd; });
+        std::cout &lt;&lt; num &lt;&lt; std::endl;
+        num++;
+        cv.notify_all(); // Notify other thread to proceed
+    }
+}
+
+int main() {
+    std::thread t1(printNumbers, true);  // Print odd numbers
+    std::thread t2(printNumbers, false); // Print even numbers
+
+    t1.join();
+    t2.join();
+
+    return 0;
+}</code></pre></article></main>

@@ -1,0 +1,59 @@
+<!DOCTYPE html><head><title>算法——数学归纳法（二分算法做例子） - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>算法——数学归纳法（二分算法做例子）</h1><blockquote><p>关于算法的内容我会以例子来解释 因为算法并不像数学那样严格，需要一定量的抽象例子 本文的核心是<b>数学归纳法</b> 转载请说明出处</p></blockquote><h1 id="数学归纳法">数学归纳法</h1><p>The simplest and most common form of mathematical induction infers that a statement involving a natural number n (that is, an integer n ≥ 0 or 1) holds for all values of n. The proof consists of two steps:</p><p>数学归纳法最简单和最常见的形式是推断包含自然数 n（即整数 n ≥ 0 或 1）的陈述对 n 的所有值都成立。证明包括两个步骤：</p><p>The initial or base case: prove that the statement holds for 0, or 1.</p><p>初始或基本情况：证明该陈述对 0 或 1 成立。</p><p>The induction step, inductive step, or step case: prove that for every n, if the statement holds for n, then it holds for n + 1. In other words, assume that the statement holds for some arbitrary natural number n, and prove that the statement holds for n + 1.</p><p>归纳步骤、归纳步骤或步骤案例：证明对于每个 n，如果该陈述对 n 成立，则它对 n + 1 成立。换句话说，假设该陈述对某个任意自然数 n 成立，并证明该陈述对 n + 1 成立。</p><p>The hypothesis in the inductive step, that the statement holds for a particular n, is called the induction hypothesis or inductive hypothesis. To prove the inductive step, one assumes the induction hypothesis for n and then uses this assumption to prove that the statement holds for n + 1.</p><p>归纳步骤中的假设，即该陈述对特定 n 成立，称为归纳假设或归纳假设。为了证明归纳步骤，我们假设 n 的归纳假设，然后使用这一假设来证明该陈述对 n + 1 成立。</p><p>Authors who prefer to define natural numbers to begin at 0 use that value in the base case; those who define natural numbers to begin at 1 use that value.</p><p>在基本情况下，喜欢将自然数定义为从 0 开始的人使用 0 值；那些将自然数定义为从 1 开始的人使用 1 值。</p><h2 id="一阶逻辑和二阶逻辑">一阶逻辑和二阶逻辑</h2><p>在逻辑和数学中，二阶逻辑是一阶逻辑的扩展，而一阶逻辑是命题逻辑的扩展。</p><p>First-order logic quantifies only variables that range over individuals (elements of the domain of discourse); second-order logic, in addition, also quantifies over relations. For example, the second-order sentence ${\displaystyle \forall P,\forall x(Px\lor \neg Px)}$ says that for every formula $P$ , and every individual $x$, either $Px$ is true or not($Px$) is true (this is the law of excluded middle). Second-order logic also includes quantification over sets, functions, and other variables (see section below). Both first-order and second-order logic use the idea of a domain of discourse（论域） (often called simply the &quot;domain&quot; or the &quot;universe&quot;). The domain is a set over which individual elements may be quantified.</p><p>一阶逻辑量词仅适用于个体范围内的变量（论域的元素）；而二阶逻辑也量化了关系。</p><p>First-order logic can quantify over individuals, but not over properties. That is, we can take an atomic sentence like Cube(b) and obtain a quantified sentence by replacing the name with a variable and attaching a quantifier:$∃x Cube(x)$。 一阶逻辑可以量化个体，但不能量化属性。也就是说，我们可以取一个像$Cube(b)$这样的原子语句，通过将名称替换为一个变量并附加一个量词来得到一个量化的句子：$∃x Cube(x)$。 但是我们不能对谓词做同样的事情。也就是说，下面的表达式：$∃P P(b)$不是一阶逻辑的句子。但这是一个合法的二阶逻辑语句。 又例如，$Shape$是二阶逻辑。</p><h2 id="数学归纳法形式化">数学归纳法形式化</h2><p>数学归纳法一般无法形式化，所以算法常常不如数学严谨。</p><p>在数学中的二阶逻辑中，可以写出“归纳公理”如下：</p><p>${\displaystyle \forall P{\Bigl (}P(0)\land \forall k{\bigl (}P(k)\to P(k+1){\bigr )}\to \forall n{\bigl (}P(n){\bigr )}{\Bigr )}}$</p><p>其中 P(.) 是涉及一个自然数的谓词的变量，k 和 n 是自然数的变量。</p><p>换句话说，基本情况 P(0) 和归纳步骤（即归纳假设 P(k) 暗示 P(k + 1)）一起暗示 P(n) 对于任何自然数 n。归纳公理断言从基本情况和归纳步骤推断 P(n) 对任何自然数 n 成立的有效性。</p><h3 id="良基关系">良基关系</h3><p>In mathematics, a binary relation $R$ is called well-founded (or wellfounded) on a class $X$ if every non-empty subset $S ⊆ X$ has a minimal element with respect to $R$, that is, an element $m$ not related by $sRm$ (for instance, &quot;$s$ is not smaller than $m/*{content}*/quot;) for any $s ∈ S$. In other words, a relation is well founded if ${\displaystyle (\forall S\subseteq X);[S\neq \emptyset \implies (\exists m\in S)(\forall s\in S)\lnot (sRm)].}$</p><p>一般算法的核心都是算法中具有良基关系的那部分关系。</p><h3 id="二分算法">二分算法</h3><h4 id="代码1">代码1</h4><p>这个代码在 <a href="https://leetcode-cn.com/problems/binary-search/solution/">https://leetcode-cn.com/problems/binary-search/solution/</a> 每次应该起码会得到平均起码85%的效率。 leetcode的测试用例只有47个，可能也没法明确体现速度，而且二分估计最多也就优化到这里了。</p><pre><code class="language-cpp">class Solution {
+public:
+    int search(vector&lt;int&gt;&amp; nums, int target) {
+            /**
+            基本情况： left 为第一个元素
+                      right 为最后一个元素
+            **/
+            short int left = 0;
+            short int right = nums.size() - 1;
+            short int mid;
+
+            /**
+            终止情况： 算法都是有穷的。
+                      1、left &gt; right 元素不存在。二分查找中的元素一定是在left和right中间的，不成立后返回-1。
+                      2、nums[mid] == target 返回 mid为结果。
+            **/
+            while(left &lt;= right)
+            {
+                /**
+                归纳步骤： mid为二分中间元素位置           
+                          然后根据与target比较大小，
+                          然后设置搜索区间的左右下标
+                **/
+                mid = left + (right - left) / 2;
+
+                if (nums[mid] &lt; target)
+                    left = mid + 1;
+                else if (nums[mid] &gt; target)
+                    right = mid - 1; 
+                else
+                    // 终止情况1
+                    return mid;
+            }
+            // 终止情况2
+            return -1;
+    }
+};</code></pre><p>二分查找难就难在它的两个终止情况和复杂的良基关系。但是这是一个只要尝试次数多一定能解答成功的问题。</p><h4 id="代码2">代码2</h4><p>这个代码在<a href="https://leetcode-cn.com/problems/search-insert-position">https://leetcode-cn.com/problems/search-insert-position</a> 测了2次左右 <img src="https://img2020.cnblogs.com/blog/2051127/202111/2051127-20211130171932884-1187217498.png" alt=""></p><pre><code class="language-cpp">class Solution {
+public:
+    int searchInsert(vector&lt;int&gt;&amp; nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
+        int mid;
+
+        while(left &lt;= right)
+        {
+            mid = left + (right - left) / 2;
+
+            if (nums[mid] &lt; target)
+                left = mid + 1;
+            else if (nums[mid] &gt; target)
+                right = mid - 1;
+            else
+                return mid;
+        }
+
+        return right + 1;
+    }
+};
+</code></pre><h4 id="解释">解释</h4><p>计算机中的算法，本质上是需要归纳记忆的计算方法。</p><p>计算机中的算法附着于数据结构上，因此学习算法的基本是要理解计算机数据的存储结构，然后才能在此基础上完成算法。 很多时候，擅用数据结构（比如C++中的unordered_set<T>之类的），同时以空间换时间，能得最优解。 比如这道题，纯数据结构题。 <a href="https://leetcode-cn.com/problems/contains-duplicate">https://leetcode-cn.com/problems/contains-duplicate</a></p><p>二分算法是很简单的算法，但是很久没练习，大部分人都会忘记。因为很少有人会一直记忆<b>计算机数据的存储结构</b>和<b>二分算法</b>的<b>核心思想</b>。一般只有ACMer才会把这两点一直记得，并不用翻阅也能自然背过。因为<b>计算机数据存储结构</b>的缘故，算法有时并不能<b>对应现实世界</b>。算法水平的提高，主要靠的是<b>题量</b>以及<b>悟性</b>。 ACMer及算法学的好的人通常具有不求甚解<b>(精确解)</b>的精神，但是不会试图去思考太多计算机科学之外的东西。 但算法也必然属于<b>计算机科学中</b>的专门<b>智力游戏</b>。算法好是非常杰出的计算机工程师的要素之一，而对一般普通计算机工程师而言，核心更多是<b>勤奋</b>。 很多应届生所缺乏的，是<b>真正的开发能力和勤奋</b>，而并非做题的智力。但是前者比较难以考察。</p><p>但是，算法依然对已经具备真正的开发能力和勤奋的计算机工程师，具有重要的开发效率提高和开发能力提高的意义。</p><h1 id="changelog">ChangeLog</h1><p>11月30日 16:37 本文基本还是讲计算机的，所以应该不会再更新了。最后一部分的解释可能会让人很迷惑，但是总结就是算法和（基本的）编程水平没有必然关系。但是很厉害的计算机工程师（很少见）算法一定是有的（也有例外，但是应该他们起码能做出leetcode的中级题）。本文旨在给很厉害的计算机工程师们和算法小白，或有兴趣的ACMer提供一个科学方法。 11月30日 17:41 想写一篇关于排序的算法文章。看情况要不要写吧。 12月06日 16:21 修改了部分代码，使得效率更高了。</p></article></main>

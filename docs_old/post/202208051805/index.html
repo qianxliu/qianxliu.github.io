@@ -1,0 +1,26 @@
+<!DOCTYPE html><head><title>数据结构珠玑——unordered_map - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>数据结构珠玑——unordered_map</h1><p>以下代码未优化且速度不快，主要为了数据结构</p><pre><code class="language-cpp">/*
+ * @lc app=leetcode.cn id=347 lang=cpp
+ *
+ * [347] 前 K 个高频元素
+ */
+
+// @lc code=start
+class Solution {
+public:
+    vector&lt;int&gt; topKFrequent(vector&lt;int&gt;&amp; nums, int k) {
+        unordered_map&lt;int,int&gt; map;
+        for (int&amp; num : nums)
+            ++map[num];
+
+        vector&lt;pair&lt;int, int&gt;&gt; A;
+        for (auto&amp; it : map) {
+            A.emplace_back(it);
+        }
+        sort(A.begin(), A.end(), [](pair&lt;int, int&gt; a, pair&lt;int, int&gt; b)
+             { return a.second &gt; b.second; });
+        vector&lt;int&gt; kth;
+        for (int i = 0; i &lt; k; ++i)
+            kth.emplace_back(A[i].first);
+        return kth;
+    }
+};</code></pre></article></main>

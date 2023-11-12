@@ -1,0 +1,19 @@
+<!DOCTYPE html><head><title>α-β剪枝 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>α-β剪枝</h1><h1 id="α-β剪枝">α-β剪枝</h1><h2 id="假言推理上下文（前提前项）">假言推理上下文（前提/前项）</h2><h3 id="对抗搜索（adversarial-search）">对抗搜索（adversarial search）</h3><p>剪枝允许我们在搜索树中忽略那些不影响最后决定的部分，启发式的评估函数允许我们在不进行完全搜索的情况下估计某状态的真实效用值。</p><h3 id="博弈（games）">博弈（games）</h3><p>人工智能中的博弈通常专指有完整信息的（perfect information）、确定性的、轮流行动的、两个游戏者的零和游戏(zero-sum games)。 这是指在确定的，完全可观察的环境中两个agent必须轮流行动，在游戏结束时效用值总是相等并且符号相反。 包含非常多agent的环境通常被视为经济体（economies），而不是博弈（games）。</p><h3 id="min-max算法">Min-Max算法</h3><p>Max在行棋时要考虑到MIN的每种可能的回应。Max类似AND-OR搜索算法中的OR结点，MIN类似AND结点。 博弈树中，每个单方招数称之为1层。 这个算法式是DFS的，递归定义如下。</p><pre><code>function MINIMAX-DECISION(state) returns an action
+  return argmaxa ∈ ACTIONS(s) MIN-VALUE(RESULT(state, a))
+
+function MAX-VALUE(state) returns a utility value
+  if TERMINAL-TEST(state) then return UTILITY(state)
+  v ← −∞
+  for each a in ACTIONS(state) do
+    v ← MAX(v, MIN-VALUE(RESULT(s, a)))
+  return v
+
+function MIN-VALUE(state) returns a utility value
+  if TERMINAL-TEST(state) then return UTILITY(state)
+  v ← ∞
+  for each a in ACTIONS(state) do
+    v ← MIN(v, MAX-VALUE(RESULT(s, a)))
+  return v</code></pre><p>utility值通常指Max的utility值。 因为在人工智能的games通常指zero-num games，所以Min的策略只要使Max的utility值降低，Min的utility值必将逐渐增加。因此对手(Min)一定会尽力按最小化utility值的方式采取action。 此算法返回返回对应于最佳可能移动的action，即可以导致最大效用结果的移动。 Min-Max即在(Max采取action后)Min的所有可能中挑选Max值。</p><h2 id="α-β剪枝-1">α-β剪枝</h2><pre><code>MINIMAX(root) = max(min(3, 12, 8), min(2, x, y), min(14, 5, 2))
+              = max(3, min(2, x, y), 2)
+              = max(3, z, 2) where z = min(2, x, y) ≤ 2
+              = 3</code></pre><p>因为对手(Min)一定会尽力按最小化utility的方式采取action， 在Max进行move选择时，第二个move分支的min(2,x,y)中由于Min可以采取使Max处于2 utility值的存在，Min一定会选择这个action。 因此，直接剪掉这个分支即可。 在采取action前，Max先初始化一个utility区间$(-∞,∞)$，然后检测采取特定move后Min的move会导致的区间变化。 可知由于Min一定采取能最小化utility的方式进行action，所以只要是全检测后的Min结点，一定会是$[min, min]$的区间。 <img src="https://img2020.cnblogs.com/blog/2051127/202110/2051127-20211018174621576-1370519085.png" alt=""></p></article></main>

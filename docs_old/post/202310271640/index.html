@@ -1,0 +1,60 @@
+<!DOCTYPE html><head><title> LeetCode 2 Add Two Numbers - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1> LeetCode 2 Add Two Numbers</h1><blockquote><p><a href="https://leetcode.cn/problems/add-two-numbers/description/">https://leetcode.cn/problems/add-two-numbers/description/</a></p></blockquote><h1 id="add-two-numbers">Add Two Numbers</h1><pre><code class="language-cpp">#include&lt;iostream&gt;
+
+using namespace std;
+
+struct ListNode
+{
+    int val;
+    ListNode* next;
+    ListNode() : val(0), next(nullptr){};
+    ListNode(int x) : val(x), next(nullptr){};
+    ListNode(int x, ListNode *next) : val(x), next(next){};
+};
+
+ListNode* list(vector&lt;int&gt; v)
+{
+    ListNode* dummy = new ListNode(), *p = dummy;
+    for (auto i : v)
+    {
+        p-&gt;next = new ListNode(i);
+        p = p-&gt;next;
+    }
+    return dummy-&gt;next;
+}
+
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
+{
+    ListNode* dummy = new ListNode(), *p = dummy;
+    int carry = 0;
+    while(l1 || l2 || carry)
+    {
+        if (l1)
+        {
+            carry += l1-&gt;val;
+            l1 = l1-&gt;next;
+        }
+        if (l2)
+        {
+            carry += l2-&gt;val;
+            l2 = l2-&gt;next;
+        }
+        p-&gt;next = new ListNode(carry%10);
+        carry /= 10;
+        p = p-&gt;next;
+
+    }
+    return dummy-&gt;next;
+}
+
+int main()
+{
+    ListNode* l1 = list({9,9,9,9,9,9,9});
+    ListNode* l2 = list({9,9,9,9});
+
+    ListNode* res = addTwoNumbers(l1, l2);
+    while(res)
+    {
+        cout &lt;&lt; res-&gt;val &lt;&lt; &#39;\n&#39;;
+        res = res-&gt;next;
+    }
+}</code></pre><pre><code class="language-bash">g++ leetcode2.cpp -std=c++11</code></pre><p>-std=c++11 for list initialization {}.</p></article></main>

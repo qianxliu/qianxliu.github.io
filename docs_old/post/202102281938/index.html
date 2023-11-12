@@ -1,0 +1,33 @@
+<!DOCTYPE html><head><title>Valid Parentheses - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>Valid Parentheses</h1><pre><code class="language-c++">class Solution {
+public:
+    bool isValid(string s) {
+        int n = s.size();
+        if (n % 2 == 1) {
+            return false;
+        }
+
+        //Hash Table
+        unordered_map&lt;char, char&gt; pairs = {
+            {&#39;)&#39;, &#39;(&#39;},
+            {&#39;]&#39;, &#39;[&#39;},
+            {&#39;}&#39;, &#39;{&#39;}
+        };
+        stack&lt;char&gt; stk;
+        for (char ch: s) {
+            if (pairs.count(ch)) {
+                if (stk.empty() || stk.top() != pairs[ch]) {
+                    return false;
+                }
+                stk.pop();
+            }
+            else {
+                stk.push(ch);
+            }
+        }
+        return stk.empty();
+    }
+};
+
+作者：LeetCode-Solution
+链接：https://leetcode-cn.com/problems/valid-parentheses/solution/you-xiao-de-gua-hao-by-leetcode-solution/
+来源：力扣（LeetCode）</code></pre><p>这是一道很简单很基础的算法题。但是也有捋一捋的价值。</p></article></main>

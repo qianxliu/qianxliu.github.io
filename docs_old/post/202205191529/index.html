@@ -1,0 +1,70 @@
+<!DOCTYPE html><head><title>并发：线程和锁 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>并发：线程和锁</h1><pre><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;pthread.h&gt;
+
+pthread_mutex_t lock;
+
+//pthread_mutex_lock(&amp;lock);
+static volatile int counter = 0;
+//pthread_mutex_unlock(&amp;lock);
+
+void* myLockThread(void* arg)
+{
+        printf(&quot;%s: begin\n&quot;, (char*) arg);
+        int i;
+        //for (i=0; i&lt;1e7;++i) ++counter;
+        for (i = 0; i &lt; 1e8; ++i)
+        {
+                pthread_mutex_lock(&amp;lock);
+                ++counter;
+                pthread_mutex_unlock(&amp;lock);
+        }
+        printf(&quot;%s: done\n&quot;, (char*) arg);
+        return NULL;
+}
+
+void* myThread(void* arg)
+{
+        printf(&quot;%s: begin\n&quot;, (char*) arg);
+        int i;
+        for (i=0; i&lt;1e8; ++i) ++counter;
+        printf(&quot;%s:done\n&quot;, (char*) arg);
+        return NULL;
+}
+
+int main(int argc, char* argv[])
+{
+        pthread_t p1, p2;
+        printf(&quot;main: begin (counter = %d)\n&quot;, counter);
+        pthread_create(&amp;p1, NULL, myLockThread, &quot;A&quot;);
+        pthread_create(&amp;p2, NULL, myLockThread, &quot;B&quot;);
+
+        // join waits for the threads to finish
+        pthread_join(p1, NULL);
+        pthread_join(p2, NULL);
+        printf(&quot;main: done with both (counter = %d)\n&quot;, counter);
+        return 0;
+}</code></pre><pre><code class="language-bash">time ./lock
+main: begin (counter = 0)
+A: begin
+B: begin
+A: done
+
+B: done
+main: done with both (counter = 200000000)
+
+real    0m10.328s
+user    0m13.250s
+sys     0m6.297s
+
+
+time ./a.out
+main: begin (counter = 0)
+A: begin
+B: begin
+B:done
+A:done
+main: done with both (counter = 116098548)
+
+real    0m0.605s
+user    0m1.172s
+sys     0m0.000s</code></pre><p>可见对让线程在临界区持有锁的做法，由于循环的存在，大幅度降低了性能，从而不如简单的同步实现</p></article></main>

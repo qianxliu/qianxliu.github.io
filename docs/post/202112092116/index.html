@@ -1,0 +1,79 @@
+<!DOCTYPE html><head><title>算法——排序（选择排序） - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>算法——排序（选择排序）</h1><blockquote><p>选择排序是最不抽象的排序</p></blockquote><h1 id="算法排序（选择排序）">算法——排序（选择排序）</h1><p>选择排序是通过选择某个极值放置到序位的排序方法。所以选择排序每次的选取必将改变相对次序。 《算法导论》书中没有讲授简单选择排序。因为其和冒泡排序都是非常不实用的排序。 但是这两者的同类排序堆排序和快速排序，却非常强大。</p><h2 id="简单选择排序">简单选择排序</h2><p>核心是<b>选择最值，然后排序。</b></p><h2 id="堆排序（基于比较的选择排序）">堆排序（基于比较的选择排序）</h2><p>更多内容可以看 <a href="https://www.cnblogs.com/qianxinn/p/15705731.html">https://www.cnblogs.com/qianxinn/p/15705731.html</a></p><p><img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211221180612614-1186018138.gif" alt=""></p><p>In computer science, heapsort is a comparison-based sorting algorithm. Heapsort can be thought of as an improved selection sort: like selection sort, heapsort divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element from it and inserting it into the sorted region. Unlike selection sort, heapsort does not waste time with a linear-time scan of the unsorted region; rather, heap sort maintains the unsorted region in a heap data structure to find the largest element in each step more quickly.</p><p>堆排序是基于二叉堆(binary heap)的排序，二叉堆是一种优先队列，满足</p><ul><li>L(i) &gt;= L(2i) 且 L(i) &gt;= L(2i+1) 大根堆</li><li>L(i) &lt;= L(2i) 且 L(i) &lt;= L(2i+1) 小根堆</li></ul><p>堆排序最后一定会形成大根堆或小根堆。</p><p>（二叉）堆数据结构可以看作完全二叉树，但是树的每个结点对应数组中的一个元素。因此，<b>堆和BST完全不同</b>。</p><p>下面我给出堆排序的代码。好多书上这里都是错的。 本代码已精校，性能已尽可能优化。</p><pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+
+using namespace std;
+
+void heapMaxAdjust(vector&lt;int&gt;&amp; heap, int root, int size)
+{
+        heap[0] = heap[root];
+        for (int child = 2*root; child &lt; size; child*=2)
+        {
+                if (heap[child] &lt; heap[child+1])
+                        ++child;
+                if (heap[0] &lt; heap[child])
+                {
+                        heap[root] = heap[child];
+                        root = child;
+                } else break;
+        }
+        heap[root] = heap[0];
+}
+
+void buildMaxHeap(vector&lt;int&gt;&amp; heap, int size)
+{
+        for (int root = size/2; root &gt; 0; --root)
+                heapMaxAdjust(heap, root, size);
+}
+
+int main()
+{
+        vector&lt;int&gt; heap = {0, 53, 17, 78, 9, 45, 65, 87, 32};
+        buildMaxHeap(heap, heap.size());
+        for (int i : heap)
+                std::cout &lt;&lt; i &lt;&lt; &quot;\t&quot;;
+        std::cout &lt;&lt; &quot;\n&quot;;
+}</code></pre><p>纯算法部分。</p><pre><code class="language-cpp">void heapMaxAdjust(vector&lt;int&gt;&amp; heap, int root, int size)
+{
+        heap[0] = heap[root];
+        for (int child = 2*root; child &lt; size; child*=2)
+        {
+                if (heap[child] &lt; heap[child+1])
+                        ++child;
+                if (heap[0] &lt; heap[child])
+                {
+                        heap[root] = heap[child];
+                        root = child;
+                } else break;
+        }
+        heap[root] = heap[0];
+}
+
+void buildMaxHeap(vector&lt;int&gt;&amp; heap, int size)
+{
+        for (int root = size/2; root &gt; 0; --root)
+                heapMaxAdjust(heap, root, size);
+}</code></pre><p>堆排序的核心是<b>维护子树形成大根堆，并最终形成整个树的大根堆</b>。 二叉树的最后一个结点必然是第[n/2]个结点的子结点。 于是，堆排序通过对[n/2]处结点（每个大根堆子树的根结点）往前依次进行heapMaxAdjust，维护这些子树形成大根堆，并最终递归形成大根堆。</p><pre><code class="language-cpp">void buildMaxHeap(vector&lt;int&gt;&amp; heap, int size)
+{
+        for (int root = size/2; root &gt; 0; --root)
+                heapMaxAdjust(heap, root, size);
+}</code></pre><p>而子树通过以下方式形成大根堆。其中heap[0]在国内一般称为哨兵位，是为了提高性能使用的交换变量。 子树形成大根堆的方法，有点类似于DP中的自下而上的DP方法。</p><pre><code class="language-cpp">void heapMaxAdjust(vector&lt;int&gt;&amp; heap, int root, int size)
+{
+        // 基本情况: a(1) = heap[root]
+        heap[0] = heap[root];
+        // 归纳步骤: a(n+1) = a(n)*2，递归为子结点的子结点
+        for (int child = 2*root; child &lt; size; child*=2)
+        {
+                // 归纳步骤1：child = max(左结点，右结点)
+                if (heap[child] &lt; heap[child+1])
+                        ++child;
+                // 归纳步骤2：
+                // heap[0]和child结点对比，然后root变为其子结点，child在child*=2中又变为root子结点。
+                if (heap[0] &lt; heap[child])
+                {
+                        heap[root] = heap[child];
+                        root = child;
+                } else break;
+        }
+        // 终止情况：最终的root值即为开始heap[0]暂存应放置的位置
+        heap[root] = heap[0];
+}</code></pre></article></main>

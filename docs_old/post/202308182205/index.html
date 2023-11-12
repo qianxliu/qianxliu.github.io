@@ -1,0 +1,32 @@
+<!DOCTYPE html><head><title>Backtrace - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>Backtrace</h1><blockquote><p>占坑. Write it later. It&#39;s nearly impossible to model algorithms by mathematics. We can only pursue progressive rigors(actually, maybe we cannot call it mathematics). <a href="https://leetcode.com/problems/permutations/description/">https://leetcode.com/problems/permutations/description/</a></p></blockquote><h1 id="backtrace">Backtrace</h1><pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; res;
+    vector&lt;int&gt; permutation;
+
+    void backtrace(bool decision[], vector&lt;int&gt;&amp; nums)
+    {
+        if (permutation.size() == nums.size())
+        {
+            res.push_back(permutation);
+        }
+        else
+        {
+            for (int i = 0; i &lt; nums.size(); ++i)
+            {
+                if (decision[i])    continue;
+                permutation.push_back(nums[i]);
+                decision[i] = true;
+                backtrace(decision, nums);
+                decision[i] = false;
+                permutation.pop_back();
+            }
+        }
+    }
+
+    vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;&amp; nums) {
+        bool decision[nums.size()+1];
+        backtrace(decision, nums);
+
+        return res;
+    }
+};</code></pre></article></main>

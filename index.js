@@ -9,46 +9,50 @@ import path from "node:path";
 import marked from 'marked';
 import htmlclean from "htmlclean";
 import terser from "terser";
+import { Console } from "node:console";
 
 const modulePath = fileURLToPath(import.meta.url);
 
-if (process.argv.includes("develop")) {
-  const childs = [];
-  const exec = (argv) =>
-    childs.push(new Worker(modulePath, { argv }).on("error", console.error));
-  let i = 0;
-  const spawn = () => {
-    console.log("#", ++i);
-    childs.forEach(() => childs.pop().terminate());
-    exec(["serve", "--dev"]);
-  };
-  spawn();
-  process.stdin.on("data", spawn);
-  await new Promise(() => { }); // Prevent script from continuing to run
-} else if (process.argv.includes("serve")) {
-  const port = 4000;
-  const mime = {
-    html: "text/html;charset=utf8",
-    js: "text/javascript",
-    svg: "image/svg+xml",
-  };
-  const r2a = path.join.bind(null, path.dirname(modulePath), "docs");
-  createServer(({ url }, res) => {
-    const pair = [
-      [200, r2a(url)],
-      [200, r2a(url, "index.html")],
-      [404, r2a("404.html")],
-    ].find(([_, p]) => fs.existsSync(p) && fs.statSync(p).isFile());
-    if (!pair) return res.writeHead(404).end("404 Not Found");
-    const [status, local] = pair;
-    res.setHeader("content-type", mime[local.split(".").pop()] || "");
-    res.writeHead(status).end(fs.readFileSync(local));
-  }).listen(port);
-  console.info(`server: 127.0.0.1:${port}`);
-  // Fall through here, go ahead and run generator
-} else if (process.argv.includes("generate")) {
-} else {
-  throw new Error("unknown function"); // https://stackoverflow.com/questions/73742023
+try {
+
+  if (process.argv.includes("develop")) {
+    const childs = [];
+    const exec = (argv) =>
+      childs.push(new Worker(modulePath, { argv }).on("error", console.error));
+    let i = 0;
+    const spawn = () => {
+      console.log("#", ++i);
+      childs.forEach(() => childs.pop().terminate());
+      exec(["serve", "--dev"]);
+    };
+    spawn();
+    process.stdin.on("data", spawn);
+    await new Promise(() => { }); // Prevent script from continuing to run
+  } else if (process.argv.includes("serve")) {
+    const port = 4000;
+    const mime = {
+      html: "text/html;charset=utf8",
+      js: "text/javascript",
+      svg: "image/svg+xml",
+    };
+    const r2a = path.join.bind(null, path.dirname(modulePath), "docs");
+    createServer(({ url }, res) => {
+      const pair = [
+        [200, r2a(url)],
+        [200, r2a(url, "index.html")],
+        [404, r2a("404.html")],
+      ].find(([_, p]) => fs.existsSync(p) && fs.statSync(p).isFile());
+      if (!pair) return res.writeHead(404).end("404 Not Found");
+      const [status, local] = pair;
+      res.setHeader("content-type", mime[local.split(".").pop()] || "");
+      res.writeHead(status).end(fs.readFileSync(local));
+    }).listen(port);
+    console.info(`server: 127.0.0.1:${port}`);
+    // Fall through here, go ahead and run generator
+  } else if (process.argv.includes("generate")) {
+  }
+} catch (error) {
+  console.error("An error occurred:", error.message);
 }
 
 console.time("generate time");
@@ -63,7 +67,9 @@ const mapstr = (parts, ...inserts) => {
   let str = "";
   parts.forEach((part, i) => {
     if (part) str += (inserts[i] ?? []).keys ? part : part + inserts[i];
-    else inserts[i - 1].forEach((v, k) => (str += inserts[i](v, k)));
+    else {
+      inserts[i - 1].forEach((v, k) => (str += inserts[i](v, k)));
+    }
   });
   return str;
 };
@@ -100,22 +106,41 @@ const makePage = (() => {
   };
 })();
 
-const loadMdFile = (filePath) => {
+const loadMD = (filePath) => {
   const meta = {};
   const str = fs.readFileSync(filePath).toString();
-  const head = str.slice(0, str.indexOf("\n```"));
-  for (const line of head.split("\n").slice(1)) {
-    const key = line.slice(0, line.indexOf(":"));
-    meta[key] = line.slice(key.length + 1).trim();
+  let head;
+  // must be top
+  if (str.substring(0, 4) === "```\n") {
+    head = str.slice(0, str.indexOf("\n```"));
+    for (const line of head.split("\n").slice(1)) {
+      const key = line.slice(0, line.indexOf(":"));
+      meta[key] = line.slice(key.length + 1).trim();
+    }
   }
+  else return { meta, content: str };
   return { meta, content: str.slice(head.length + "\n```".length) };
 };
 
 // Init
 {
-  if (fs.existsSync(p`./docs`)) fs.renameSync(p`./docs`, p`./docs_old`);
-  fs.rm(p`./docs_old`, { recursive: true, force: true }, () => { });
-  fs.mkdirSync(p`./docs`);
+  const docsPath = path.resolve('./docs');
+  const docsOldPath = path.resolve('./docs_old');
+
+  try {
+    if (fs.existsSync(docsPath)) {
+      if (fs.existsSync(docsOldPath)) {
+        await fs.promises.rm(docsOldPath, { recursive: true });
+        console.log('Delete OldPath operation successful');
+      }
+      await fs.promises.rename(docsPath, docsOldPath);
+      console.log('Rename operation successful');
+    }
+    await fs.promises.mkdir(docsPath);
+    console.log('New directory created successfully');
+  } catch (err) {
+    console.error('Error occurred:', err);
+  }
 
   const f = ([r]) => fs.readFileSync(p`./units/${r}`).toString(); // Read file str
   const avatar = fs.readFileSync('./units/avatar.jpg', { encoding: 'base64' });
@@ -150,9 +175,35 @@ const posts = [];
 {
   const files = fs.readdirSync(p`./source/posts`);
   files.slice(isDev ? -12 : 0).forEach((fileName) => {
-    const { meta, content } = loadMdFile(p`./source/posts/${fileName}`);
-    meta.id = meta.date.replace(/:|\.| /g, "");
-    meta.tags = meta.tags.split(" ");
+    const { meta, content } = loadMD(p`./source/posts/${fileName}`);
+    console.log(fileName);
+
+    if (meta) {
+      if (meta.date) {
+        meta.id = meta.date.replace(/:|\.| /g, "");
+        delete meta.date;
+        const prefix = meta.id.slice(0, 8) + "-" + meta.id.slice(8);
+        if (fileName !== `${prefix} ${meta.title}.md`)
+          console.warn(`post file [ ${fileName} ] has incorrect name`);
+      }
+      if (meta.tags) meta.tags = meta.tags.split(",");
+    }
+    if (!meta.id) {
+      let i = 13;
+      meta.id = fileName.substring(0, 8) + fileName.substring(9, i);
+      meta.title = fileName.substring(i, fileName.length - 3);
+    }
+    if (!meta.date) {
+      const year = meta.id.substring(0, 4);
+      const month = meta.id.substring(4, 6);
+      const day = meta.id.substring(6, 8);
+      const hour = meta.id.substring(9, 11);
+      const minute = meta.id.substring(11, 13);
+
+      meta.date = `${year}.${month}.${day} ${hour}:${minute}`;
+    }
+    if (!meta.tags) meta.tags = ["blog"];
+
     posts.push(meta);
     makePage({
       ...meta,
@@ -160,10 +211,6 @@ const posts = [];
       path: `/post/${meta.id}/`,
       content,
     });
-    // Check filename
-    const prefix = meta.id.slice(0, 8) + "-" + meta.id.slice(8);
-    if (fileName !== `${prefix} ${meta.title}.md`)
-      console.warn(`post file [ ${fileName} ] has incorrect name`);
   });
   posts.sort((post1, post2) => post2.id - post1.id);
 }
@@ -172,7 +219,7 @@ const posts = [];
 const pages = [];
 {
   fs.readdirSync(p`./source/pages`).forEach((fileName) => {
-    const { meta, content } = loadMdFile(p`./source/pages/${fileName}`);
+    const { meta, content } = loadMD(p`./source/pages/${fileName}`);
     pages.push(meta);
     makePage({
       ...meta,

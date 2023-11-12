@@ -1,0 +1,45 @@
+<!DOCTYPE html><head><title> Memo Pack and LeetCode 3 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1> Memo Pack and LeetCode 3</h1><h1 id="memo-pack">Memo Pack</h1><p>Source code: git.suckless.org/sbase I don&#39;t know if it&#39;s the standard implementation for Linux bash command, but it&#39;s a good material. An example:</p><pre><code class="language-bash">diff $(strace -c find) $(strace -c grep)
+diff &lt;(strace -c find) &lt;(strace -c grep)</code></pre><p>The &lt;( expression: <a href="https://stackoverflow.com/questions/31703243/what-is-the-name-for-operator-in-bash">https://stackoverflow.com/questions/31703243/what-is-the-name-for-operator-in-bash</a> We can see the &quot;find&quot; is a more complex(stat, ..., and so on) implementation than the &quot;grep&quot;</p><h2 id="rigorous-leetcode-3">Rigorous LeetCode 3</h2><pre><code class="language-cpp">class Solution {
+public:
+    //You need to memo the count of characters
+    int lengthOfLongestSubstring(string s) {
+        unordered_map&lt;char,int&gt; window;
+        int left = 0, right = 0;
+        int maxLen = 0;
+        while(right &lt; s.size())
+        {
+            char c = s[right];
+            ++right;
+            ++window[c];
+            while(window[c] &gt; 1)
+            {
+                ++left;
+                --window[c];
+            }
+            maxLen = max(maxLen, right - left);
+        }
+        return maxLen;
+    }
+};</code></pre><p>Unfortunately, it&#39;s wrong. <strong>Everyone</strong> could be wrong.</p><pre><code class="language-cpp">class Solution {
+public:
+    //You need to memo the count of characters
+    int lengthOfLongestSubstring(string s) {
+        unordered_map&lt;char,int&gt; window;
+        int left = 0, right = 0;
+        int maxLen = 0;
+        while(right &lt; s.size())
+        {
+            char c = s[right];
+            ++window[c];
+            ++right;
+            while(window[c] &gt; 1)
+            {
+                char d = s[left];
+                --window[d];
+                ++left;
+            }
+            maxLen = max(maxLen, right - left);
+        }
+        return maxLen;
+    }
+};</code></pre><p>&quot;pww&quot;, and &quot;w&quot; will not be first. And if &quot;wabbw&quot;, the &quot;abbw&quot; still has the same pattern. The left window has no relation with the right.</p></article></main>

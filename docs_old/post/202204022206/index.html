@@ -1,0 +1,6 @@
+<!DOCTYPE html><head><title>算法珠玑——基本数据类型(1, 2) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>算法珠玑——基本数据类型(1, 2)</h1><p><img src="https://img2022.cnblogs.com/blog/2051127/202204/2051127-20220402220434268-551090598.png" alt=""></p><p><a href="https://leetcode-cn.com/problems/count-odd-numbers-in-an-interval-range/submissions/">https://leetcode-cn.com/problems/count-odd-numbers-in-an-interval-range/submissions/</a></p><pre><code class="language-c++">class Solution {
+public:
+    int countOdds(int low, int high) {
+        return low%2 + high%2 + (low%2 &amp;&amp; high%2 ? (high-low)/2-1 : (high-low)/2); 
+    }
+};</code></pre></article></main>

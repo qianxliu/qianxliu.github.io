@@ -1,0 +1,47 @@
+<!DOCTYPE html><head><title>QuickSort - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>QuickSort</h1><blockquote><p>Program not like Math, has few but vast ways. Program Pearls Series aims to find &quot;the way&quot;. 算法珠玑系列，旨在写出SoTA的算法代码，这种实现，实现那唯一的实现</p></blockquote><h1 id="quicksort">QuickSort</h1><pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+
+using namespace std;
+
+typedef int T;
+
+void swap(vector&lt;T&gt;&amp; v, int index1, int index2)
+{
+        T temp = v[index1];
+        v[index1] = v[index2];
+        v[index2] = temp;
+}
+
+
+int partition(vector&lt;T&gt;&amp; v, int left, int right)
+{
+        int smaller = left;
+        for (int i = left; i &lt; right; ++i)
+        {
+                if (v[i] &lt; v[right])
+                {
+                        swap(v, i, smaller);
+                        ++smaller;
+                }
+        }
+        // already find all smaller number
+        swap(v, smaller, right);
+        return smaller;
+}
+
+void quickSort(vector&lt;T&gt;&amp; v, int left, int right)
+{
+        if(left &lt; right)
+        {
+                int pi = partition(v, left, right);
+                quickSort(v, left, pi-1);
+                quickSort(v, pi+1, right);
+        }
+}
+
+int main()
+{
+        vector&lt;T&gt; v = {1,2,3,5,0,34,1,39,13909, 888};
+        quickSort(v, 0, v.size()-1);
+        for (T e : v) std::cout &lt;&lt; e &lt;&lt; &quot;\n&quot;;
+}</code></pre><p>以上即是快速排序。</p></article></main>

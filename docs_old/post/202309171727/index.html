@@ -1,0 +1,228 @@
+<!DOCTYPE html><head><title>C++ 贪吃蛇(Snake)，SDL,  bug - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>C++ 贪吃蛇(Snake)，SDL, bug</h1><h1 id="c-贪吃蛇snake，sdl，bug">C++ 贪吃蛇(Snake)，SDL，bug</h1><p><img src="https://img2023.cnblogs.com/blog/2051127/202309/2051127-20230917173528269-1803022120.png" alt=""></p><pre><code class="language-bash">g++ .\Untitled-2.cpp -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf</code></pre><h2 id="sdl">SDL</h2><pre><code class="language-cpp">#include &lt;SDL2/SDL.h&gt;
+#include &lt;SDL2/SDL_ttf.h&gt;
+#include &lt;iostream&gt;
+#include &lt;deque&gt;
+#include &lt;cstdlib&gt;
+#include &lt;ctime&gt;
+
+using namespace std;
+
+// Define constants
+const int WINDOW_WIDTH = 640;
+const int WINDOW_HEIGHT = 480;
+const int CELL_SIZE = 20;
+const int NUM_CELLS_X = WINDOW_WIDTH / CELL_SIZE;
+const int NUM_CELLS_Y = WINDOW_HEIGHT / CELL_SIZE;
+const std::string FONT_PATH = &quot;arial.ttf&quot;;
+const int FONT_SIZE = 20;
+
+// Declare functions
+void init();
+void update();
+void draw();
+void handleInput();
+void placeFood();
+bool checkCollision(int x, int y);
+
+// Declare global variables
+SDL_Window *window;
+SDL_Renderer *renderer;
+TTF_Font *font;
+std::deque&lt;std::pair&lt;int, int&gt;&gt; snake;
+std::pair&lt;int, int&gt; food;
+int direction = 0;
+int score = 0;
+
+int main(int argc, char *argv[])
+{
+    // Initialize SDL
+    SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
+
+    // Create a window and renderer
+    window = SDL_CreateWindow(&quot;Snake&quot;, SDL_WINDOWPOS_CENTERED,
+                              SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    // Load the font
+    font = TTF_OpenFont(FONT_PATH.c_str(), FONT_SIZE);
+    if (!font)
+    {
+        std::cout &lt;&lt; &quot;Failed to load font: &quot; &lt;&lt; TTF_GetError() &lt;&lt; std::endl;
+        exit(1);
+    }
+
+    // Initialize the snake
+    snake.push_back(std::make_pair(NUM_CELLS_X / 2, NUM_CELLS_Y / 2));
+    placeFood();
+
+    // Main loop
+    bool quit = false;
+    while (!quit)
+    {
+        handleInput();
+        update();
+        draw();
+        SDL_Delay(100);
+    }
+
+    // Clean up and exit
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return 0;
+}
+
+void update()
+{
+    // Move the snake
+    int x = snake.front().first;
+    int y = snake.front().second;
+    if (direction == 0)
+        y -= 1;
+    if (direction == 1)
+        x += 1;
+    if (direction == 2)
+        y += 1;
+    if (direction == 3)
+        x -= 1;
+    if (x &lt; 0)
+        x = NUM_CELLS_X - 1;
+    if (x &gt;= NUM_CELLS_X)
+        x = 0;
+    if (y &lt; 0)
+        y = NUM_CELLS_Y - 1;
+    if (y &gt;= NUM_CELLS_Y)
+        y = 0;
+    if (checkCollision(x, y))
+    {
+        std::cout &lt;&lt; &quot;Game over! Score: &quot; &lt;&lt; score &lt;&lt; std::endl;
+        SDL_Delay(1000);
+        exit(0);
+    }
+    snake.push_front(std::make_pair(x, y));
+    if (x == food.first &amp;&amp; y == food.second)
+    {
+        placeFood();
+        score++;
+    }
+    else
+    {
+        snake.pop_back();
+    }
+}
+
+void draw()
+{
+    // Clear the screen
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    // Draw the snake
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    for (std::pair&lt;int, int&gt; cell : snake)
+    {
+        SDL_Rect rect = {cell.first * CELL_SIZE, cell.second * CELL_SIZE,
+                         CELL_SIZE, CELL_SIZE};
+        SDL_RenderFillRect(renderer, &amp;rect);
+    }
+
+    // Draw the food
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_Rect rect = {food.first * CELL_SIZE, food.second * CELL_SIZE,
+                     CELL_SIZE, CELL_SIZE};
+    SDL_RenderFillRect(renderer, &amp;rect);
+
+    // Draw the score
+    std::string scoreText = &quot;Score: &quot; + std::to_string(score);
+    SDL_Color color = {255, 255, 255, 255};
+    SDL_Surface *surface = TTF_RenderText_Solid(font, scoreText.c_str(), color);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Rect scoreRect = {10, 10, surface-&gt;w, surface-&gt;h};
+    SDL_RenderCopy(renderer, texture, NULL, &amp;scoreRect);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+
+    // Update the screen
+    SDL_RenderPresent(renderer);
+}
+
+void handleInput()
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&amp;event))
+    {
+        cout &lt;&lt; event.type &lt;&lt; &#39;\t&#39;;
+        if (event.type == SDL_QUIT)
+        {
+            exit(0);
+        }
+        else if (event.type == SDL_KEYDOWN)
+        {
+            switch (event.key.keysym.sym)
+            {
+            case SDLK_UP:
+                if (direction != 2)
+                    direction = 0;
+                break;
+            case SDLK_RIGHT:
+                if (direction != 3)
+                    direction = 1;
+                break;
+            case SDLK_DOWN:
+                if (direction != 0)
+                    direction = 2;
+                break;
+            case SDLK_LEFT:
+                if (direction != 1)
+                    direction = 3;
+                break;
+            default:
+                break;
+            }
+        }
+        else if (event.type == SDL_TEXTEDITING)
+        {
+            // Handle text input
+            printf(&quot;Unicode character: %s\n&quot;, event.text.text);
+            SDL_FlushEvent(SDL_TEXTEDITING);
+            SDL_PumpEvents();
+        }
+    }
+}
+void placeFood()
+{
+    // Generate a random position for the food
+    srand(time(0));
+    int x = rand() % NUM_CELLS_X;
+    int y = rand() % NUM_CELLS_Y;
+    food = std::make_pair(x, y);
+    // Check that the food doesn&#39;t overlap with the snake
+    while (checkCollision(food.first, food.second))
+    {
+        x = rand() % NUM_CELLS_X;
+        y = rand() % NUM_CELLS_Y;
+        food = std::make_pair(x, y);
+    }
+}
+
+bool checkCollision(int x, int y)
+{
+    // Check if the given position collides with the snake
+    for (std::pair&lt;int, int&gt; cell : snake)
+    {
+        if (cell.first == x &amp;&amp; cell.second == y)
+        {
+            return true;
+        }
+    }
+    return false;
+}</code></pre><p>这是一个可玩的贪吃蛇，但是如果我们切换为中文输入法。 那么event.type == SDL_TEXTEDITING，所有键盘都失灵了。</p><p>This is a playable Snake game, but if we switch our input method to the Chinese input method. Then event.type == SDL_TEXTEDITING, and all keys including Arrow keys stuck.</p><p>许多人问过这个问题，包括德语输入法的用户。这也是为什么在有些游戏只能使用英文输入法。 Many people have asked this question, including German input method users. This may be also why somebody can only use the English input method in some games.</p><p>找不到简单的解决方案。 Unable to find a simple solution.</p><p>Edit: Solution 1:</p><pre><code class="language-cpp">        else if (event.type == SDL_TEXTEDITING)
+        {
+            if (!textInput)
+            {
+                SDL_StopTextInput();
+                SDL_FlushEvent(SDL_TEXTEDITING);
+                break;
+            }
+      }</code></pre></article></main>

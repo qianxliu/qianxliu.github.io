@@ -1,0 +1,17 @@
+<!DOCTYPE html><head><title>Longest Common Prefix - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>Longest Common Prefix</h1><blockquote><p><a href="https://leetcode.cn/problems/longest-common-prefix/description/">https://leetcode.cn/problems/longest-common-prefix/description/</a> What&#39;s the &quot;sort&quot;? A kind of overresearched cheating methods Loosely speaking, it is similar to calculus in mathematics</p></blockquote><pre><code class="language-cpp">class Solution {
+
+public:
+    string longestCommonPrefix(vector&lt;string&gt; &amp;strs) {
+        if (strs.size() == 1)   return strs[0];
+        sort(strs.begin(), strs.end());
+
+        string &amp;front = strs.front();
+        string &amp;back = strs.back();
+
+        for (int i = 0; i &lt; front.size(); ++i)
+        {
+            if (front[i] != back[i]) return front.substr(0, i);
+        }
+        return front;
+    }
+};</code></pre></article></main>

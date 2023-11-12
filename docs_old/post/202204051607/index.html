@@ -1,0 +1,16 @@
+<!DOCTYPE html><head><title>算法珠玑——动态规划(1035) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>算法珠玑——动态规划(1035)</h1><p><img src="https://img2022.cnblogs.com/blog/2051127/202204/2051127-20220405155645868-163730035.png" alt=""> <a href="https://leetcode-cn.com/problems/uncrossed-lines/submissions/">https://leetcode-cn.com/problems/uncrossed-lines/submissions/</a></p><h1 id="算法珠玑动态规划1035">算法珠玑——动态规划(1035)</h1><p>这道题很有意思！问了这么多，本质上是在求LCS。</p><pre><code class="language-cpp">class Solution {
+public:
+    int maxUncrossedLines(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B) {
+        int m = A.size();
+        int n = B.size();
+        short** dp = new short*[m+1];
+        for(int i = 0; i &lt;= m; ++i) dp[i] = new short[n+1]{0};
+
+        for(int i = 1; i &lt;= m; ++i)
+            for (int j = 1; j &lt;= n; ++j)
+                if(A[i-1] != B[j-1]) dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+                else dp[i][j] = dp[i-1][j-1]+1;
+
+        return dp[m][n];
+    }
+};</code></pre><p>在声明大量数组时，可能会产生性能问题，因此这里将传统的int数组改为short</p></article></main>
