@@ -13,46 +13,43 @@ import { Console } from "node:console";
 
 const modulePath = fileURLToPath(import.meta.url);
 
-try {
-
-  if (process.argv.includes("develop")) {
-    const childs = [];
-    const exec = (argv) =>
-      childs.push(new Worker(modulePath, { argv }).on("error", console.error));
-    let i = 0;
-    const spawn = () => {
-      console.log("#", ++i);
-      childs.forEach(() => childs.pop().terminate());
-      exec(["serve", "--dev"]);
-    };
-    spawn();
-    process.stdin.on("data", spawn);
-    await new Promise(() => { }); // Prevent script from continuing to run
-  } else if (process.argv.includes("serve")) {
-    const port = 4000;
-    const mime = {
-      html: "text/html;charset=utf8",
-      js: "text/javascript",
-      svg: "image/svg+xml",
-    };
-    const r2a = path.join.bind(null, path.dirname(modulePath), "docs");
-    createServer(({ url }, res) => {
-      const pair = [
-        [200, r2a(url)],
-        [200, r2a(url, "index.html")],
-        [404, r2a("404.html")],
-      ].find(([_, p]) => fs.existsSync(p) && fs.statSync(p).isFile());
-      if (!pair) return res.writeHead(404).end("404 Not Found");
-      const [status, local] = pair;
-      res.setHeader("content-type", mime[local.split(".").pop()] || "");
-      res.writeHead(status).end(fs.readFileSync(local));
-    }).listen(port);
-    console.info(`server: 127.0.0.1:${port}`);
-    // Fall through here, go ahead and run generator
-  } else if (process.argv.includes("generate")) {
-  }
-} catch (error) {
-  console.error("An error occurred:", error.message);
+if (process.argv.includes("develop")) {
+  const childs = [];
+  const exec = (argv) =>
+    childs.push(new Worker(modulePath, { argv }).on("error", console.error));
+  let i = 0;
+  const spawn = () => {
+    console.log("#", ++i);
+    childs.forEach(() => childs.pop().terminate());
+    exec(["serve", "--dev"]);
+  };
+  spawn();
+  process.stdin.on("data", spawn);
+  await new Promise(() => { }); // Prevent script from continuing to run
+} else if (process.argv.includes("serve")) {
+  const port = 4000;
+  const mime = {
+    html: "text/html;charset=utf8",
+    js: "text/javascript",
+    svg: "image/svg+xml",
+  };
+  const r2a = path.join.bind(null, path.dirname(modulePath), "docs");
+  createServer(({ url }, res) => {
+    const pair = [
+      [200, r2a(url)],
+      [200, r2a(url, "index.html")],
+      [404, r2a("404.html")],
+    ].find(([_, p]) => fs.existsSync(p) && fs.statSync(p).isFile());
+    if (!pair) return res.writeHead(404).end("404 Not Found");
+    const [status, local] = pair;
+    res.setHeader("content-type", mime[local.split(".").pop()] || "");
+    res.writeHead(status).end(fs.readFileSync(local));
+  }).listen(port);
+  console.info(`server: 127.0.0.1:${port}`);
+  // Fall through here, go ahead and run generator
+} else if (process.argv.includes("generate")) {
+} else {
+  throw new Error("unknown function"); // https://stackoverflow.com/questions/73742023
 }
 
 console.time("generate time");
@@ -111,8 +108,10 @@ const loadMD = (filePath) => {
   const str = fs.readFileSync(filePath).toString();
   let head;
   // must be top
-  if (str.substring(0, 4) === "```\n") {
+  if (str.substring(0, 3) === "```") {
     head = str.slice(0, str.indexOf("\n```"));
+    console.log(head);
+
     for (const line of head.split("\n").slice(1)) {
       const key = line.slice(0, line.indexOf(":"));
       meta[key] = line.slice(key.length + 1).trim();
@@ -221,6 +220,8 @@ const pages = [];
   fs.readdirSync(p`./source/pages`).forEach((fileName) => {
     const { meta, content } = loadMD(p`./source/pages/${fileName}`);
     pages.push(meta);
+    console.log(meta);
+    console.log(content);
     makePage({
       ...meta,
       isMarkdown: true,
