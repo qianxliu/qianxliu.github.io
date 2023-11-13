@@ -49,10 +49,7 @@ wrong proof, but we also could use the one-to-one (injective, but also remember 
 
 and other ways:
 
-Differential Approach: Assume $e^\pi i = e^{2\pi} i = 1$, hence, implying the derivative along this path is zero, which contradicts the non-zero derivative we know it has.
-
-($e^z \neq 0$, where
-$z \in C$)
+Differential Approach: Assume $e^\pi i = e^{2\pi} i = 1$, hence, implying the derivative along this path is zero, which contradicts the non-zero derivative we know it has.($e^z \neq 0$, where $z \in C$)
 
 Holomorphicity and Analytic Continuation: Because $e^z$ is a holomorphic function, holomorphicity is a concept from complex analysis, a branch of mathematics that deals with functions of a complex variable. A function is said to be holomorphic at a point if it is complex differentiable at that point, and it's said to be holomorphic on an open set if it is complex differentiable at every point in that set. while $e^{iθ}$ is holomorphic for all real $θ$, the periodic behaviour of the complex exponential function gives us $e^{2π i}=1$. Holomorphic functions have many wonderful properties, so the $e^\pi$ could not be 1.
 

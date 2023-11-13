@@ -1,21 +1,18 @@
 /**
  * Generator & Static Server.
  */
-import { fileURLToPath } from "node:url";
-import { createServer } from "node:http";
-import { Worker } from "node:worker_threads";
-import fs from "node:fs";
-import path from "node:path";
-import { Marked, Renderer } from 'marked';
-import { markedHighlight } from "marked-highlight";
-import hljs from 'highlight.js';
+const http = require('http');
+const Worker = require("worker_threads");
+const fs = require("fs");
+const path = require("path");
 
-import katex from 'katex';
-import "katex/contrib/mhchem";
-import htmlclean from "htmlclean";
-import terser from "terser";
+const { Marked } = require('marked');
+const { markedHighlight } = require("marked-highlight");
+const hljs = require('highlight.js');
+const katex = require('katex');
+require("katex/contrib/mhchem");
 
-const modulePath = fileURLToPath(import.meta.url);
+const modulePath = path.resolve(__filename);
 
 if (process.argv.includes("develop")) {
   const childs = [];
@@ -29,7 +26,10 @@ if (process.argv.includes("develop")) {
   };
   spawn();
   process.stdin.on("data", spawn);
-  await new Promise(() => { }); // Prevent script from continuing to run
+  (async () => {
+    await new Promise(() => { });
+    // Code to continue after the promise is resolved
+  })();
 } else if (process.argv.includes("serve")) {
   const port = 4000;
   const mime = {
@@ -38,7 +38,7 @@ if (process.argv.includes("develop")) {
     svg: "image/svg+xml",
   };
   const r2a = path.join.bind(null, path.dirname(modulePath), "docs");
-  createServer(({ url }, res) => {
+  http.createServer(({ url }, res) => {
     const pair = [
       [200, r2a(url)],
       [200, r2a(url, "index.html")],
@@ -60,20 +60,9 @@ console.time("generate time");
 
 const isDev = process.argv.includes("--dev");
 
-// Convert relative path to absolute
-const p = ([r], ...s) => path.join(path.dirname(modulePath), r, ...s);
-
-// mapstr`<p>Hi ${[22,33]}${i=>i}</p>` === "<p>Hi 2233</p>"
-const mapstr = (parts, ...inserts) => {
-  let str = "";
-  parts.forEach((part, i) => {
-    if (part) str += (inserts[i] ?? []).keys ? part : part + inserts[i];
-    else {
-      inserts[i - 1].forEach((v, k) => (str += inserts[i](v, k)));
-    }
-  });
-  return str;
-};
+const htmlclean = require("htmlclean");
+const terser = require("terser");
+const { url } = require('inspector');
 
 const minify = (() => {
   const htmlStrip /* Strip useless chars, keep "/>" in <svg> */ = (s) =>
@@ -88,6 +77,21 @@ const minify = (() => {
     js: (s) => terser.minify(s, { toplevel: true }).code,
   };
 })();
+
+// Convert relative path to absolute
+const p = ([r], ...s) => path.join(path.dirname(modulePath), r, ...s);
+
+// mapstr`<p>Hi ${[22,33]}${i=>i}</p>` === "<p>Hi 2233</p>"
+const mapstr = (parts, ...inserts) => {
+  let str = "";
+  parts.forEach((part, i) => {
+    if (part) str += (inserts[i] ?? []).keys ? part : part + inserts[i];
+    else {
+      inserts[i - 1].forEach((v, k) => (str += inserts[i](v, k)));
+    }
+  });
+  return str;
+};
 
 const makePage = (() => {
   //const templateRaw = fs.readFileSync(p`./units/template.html`).toString();
@@ -104,90 +108,70 @@ const makePage = (() => {
   );
 
   // katex
-  {
-    const inlineRule = /^(\${1,2})(?!\$)((?:\\.|[^\\\n])*?(?:\\.|[^\\\n\$]))\1(?=[\s?!\.,:？！。，：]|$)/;
-    const blockRule = /^(\${1,2})\n((?:\\[^]|[^\\])+?)\n\1(?:\n|$)/;
 
-    function markedKatex(options = {}) {
-      return {
-        extensions: [
-          inlineKatex(options, createRenderer(options, false)),
-          blockKatex(options, createRenderer(options, true))
-        ]
-      };
-    }
+  const inlineRule = /^\$+([^$\n]+?)\$+/;
+  const blockRule = /^(\${1,2})\n((?:\\[^]|[^\\])+?)\n\1(?:\n|$)/;
 
-    function createRenderer(options, newlineAfter) {
-      return (token) => katex.renderToString(token.text, { ...options, displayMode: token.displayMode }) + (newlineAfter ? '\n' : '');
-    }
-
-    function inlineKatex(options, renderer) {
-      return {
-        name: 'inlineKatex',
-        level: 'inline',
-        start(src) {
-          let index;
-          let indexSrc = src;
-
-          while (indexSrc) {
-            index = indexSrc.indexOf('$');
-            if (index === -1) {
-              return;
-            }
-
-            if (index === 0 || indexSrc.charAt(index - 1) === ' ') {
-              const possibleKatex = indexSrc.substring(index);
-
-              if (possibleKatex.match(inlineRule)) {
-                return index;
-              }
-            }
-
-            indexSrc = indexSrc.substring(index + 1).replace(/^\$+/, '');
-          }
-        },
-        tokenizer(src, tokens) {
-          const match = src.match(inlineRule);
-          if (match) {
-            return {
-              type: 'inlineKatex',
-              raw: match[0],
-              text: match[2].trim(),
-              displayMode: match[1].length === 2
-            };
-          }
-        },
-        renderer
-      };
-    }
-    function blockKatex(options, renderer) {
-      return {
-        name: 'blockKatex',
-        level: 'block',
-        tokenizer(src, tokens) {
-          const match = src.match(blockRule);
-          if (match) {
-            return {
-              type: 'blockKatex',
-              raw: match[0],
-              text: match[2].trim(),
-              displayMode: match[1].length === 2
-            };
-          }
-        },
-        renderer
-      };
-    }
-    const options = {
-      throwOnError: false,
-      output: "mathml"
+  function markedKatex(options = {}) {
+    return {
+      extensions: [
+        inlineKatex(options, createRenderer(options, false)),
+        blockKatex(options, createRenderer(options, true))
+      ]
     };
-    marked.use(markedKatex(options));
   }
+
+  function createRenderer(options, newlineAfter) {
+    return (token) => katex.renderToString(token.text, { ...options, displayMode: token.displayMode }) + (newlineAfter ? '\n' : '');
+  }
+
+  function inlineKatex(options, renderer) {
+    return inlineKatex = {
+      name: 'inlineKatex',
+      level: 'inline',
+      start(src) { return src.indexOf('$'); },        // Hint to Marked.js to stop and check for a match
+      tokenizer(src, tokens) {
+        const match = src.match(inlineRule); // only matches start of src
+
+        if (match) {
+          const trimText = match[1].trim();
+
+          return {
+            type: 'inlineKatex',
+            raw: match[0],
+            text: trimText
+          };
+        }
+      },
+      renderer
+    };
+  }
+  function blockKatex(options, renderer) {
+    return {
+      name: 'blockKatex',
+      level: 'block',
+      tokenizer(src, tokens) {
+        const match = src.match(blockRule);
+        if (match) {
+          return {
+            type: 'blockKatex',
+            raw: match[0],
+            text: match[2].trim(),
+            displayMode: match[1].length === 2
+          };
+        }
+      },
+      renderer
+    };
+  }
+  const options = {
+    throwOnError: false,
+    output: "mathml"
+  };
+  marked.use(markedKatex(options));
 
   return ({ isMarkdown, path: rpath, title, description = "", content }) => {
     if (isMarkdown) {
-      //content = content.replace(/\\/g, "\\\\");
       content = `<article><h1>${title}</h1>${marked.parse(content)}</article>`;
     }
     const result = template
@@ -224,16 +208,32 @@ const loadMD = (filePath) => {
   const docsPath = path.resolve('./docs');
   const docsOldPath = path.resolve('./docs_old');
 
+  const promises = fs.promises;
+
   try {
-    if (fs.existsSync(docsPath)) {
-      if (fs.existsSync(docsOldPath)) {
-        await fs.promises.rm(docsOldPath, { recursive: true });
+    let docsPathExists = false;
+    let docsOldPathExists = false;
+    try {
+      fs.accessSync(docsPath);
+      docsPathExists = true;
+    } catch (err) {
+      // Handle the error or simply set docsPathExists to false
+    }
+    try {
+      fs.accessSync(docsOldPath);
+      docsOldPathExists = true;
+    } catch (err) {
+      // Handle the error or simply set docsOldPathExists to false
+    }
+    if (docsPathExists) {
+      if (docsOldPathExists) {
+        fs.rmSync(docsOldPath, { recursive: true });
         console.log('Delete OldPath operation successful');
       }
-      await fs.promises.rename(docsPath, docsOldPath);
+      fs.renameSync(docsPath, docsOldPath);
       console.log('Rename operation successful');
     }
-    await fs.promises.mkdir(docsPath);
+    fs.mkdirSync(docsPath);
     console.log('New directory created successfully');
   } catch (err) {
     console.error('Error occurred:', err);

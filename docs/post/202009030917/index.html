@@ -10,7 +10,7 @@
 <p>There are many metrics for summarizing model quality, but we&#39;ll start with one called Mean Absolute Error (also called MAE). Let&#39;s break down this metric starting with the last word, error.</p>
 <p>The prediction error for each house is:</p>
 <pre><code class="hljs language-bash">error=actual−predicted
-</code></pre><p>So, if a house cost $150,000 and you predicted it would cost $100,000 the error is $50,000.</p>
+</code></pre><p>So, if a house cost <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>150</mn><mo separator="true">,</mo><mn>000</mn><mi>a</mi><mi>n</mi><mi>d</mi><mi>y</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>t</mi><mi>w</mi><mi>o</mi><mi>u</mi><mi>l</mi><mi>d</mi><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">150,000 and you predicted it would cost</annotation></semantics></math></span>100,000 the error is $50,000.</p>
 <p>With the MAE metric, we take the absolute value of each error. This converts each error to a positive number. We then take the average of those absolute errors. This is our measure of model quality. In plain English, it can be said as</p>
 <pre><code class="hljs language-bash">On average, our predictions are off by about X.
 </code></pre><p>To calculate MAE, we first need a model. That is built in a hidden cell below, which you can review by clicking the code button.</p>

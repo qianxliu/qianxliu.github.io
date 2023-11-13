@@ -14,33 +14,33 @@
 <p>稳定的排序，通常特点是对元素的移动操作尽可能地不剧烈，（因为不剧烈的稳定部分排序）而<b>不改变相对次序</b>。这也导致性能受到限制。
 而稳定的排序，最适合处理基本有序的数据（整理图书之类的）。</p>
 <h2>分治排序</h2>
-<p>平均时间复杂度达到$O(log_2n)$的排序，都是分治的。堆排序的分治思想基于优先队列($L(i)与L(2i)，L(i)与L(2i+1)$维持两个相同的偏序关系)。</p>
+<p>平均时间复杂度达到<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log_2n)</annotation></semantics></math></span>的排序，都是分治的。堆排序的分治思想基于优先队列(<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mtext>与</mtext><mi>L</mi><mo stretchy="false">(</mo><mn>2</mn><mi>i</mi><mo stretchy="false">)</mo><mtext>，</mtext><mi>L</mi><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mtext>与</mtext><mi>L</mi><mo stretchy="false">(</mo><mn>2</mn><mi>i</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L(i)与L(2i)，L(i)与L(2i+1)</annotation></semantics></math></span>维持两个相同的偏序关系)。</p>
 <h2>排序思想</h2>
 <h3>核心是确定某个元素最终位置的排序（排序的最终目的）</h3>
 <p>交换排序（冒泡，快速），简单选择排序</p>
 <h3>核心是使子序列有序的排序（通过子序列慢慢达到排序的目的，通常会比较稳定）</h3>
 <p>插入排序，堆排序，归并排序，（基数排序）</p>
 <h3>最简单地确定某个元素最终位置的排序</h3>
-<p>简单选择排序，$n(n-1)/2$次选择，时间复杂度$O(n^2)$</p>
+<p>简单选择排序，<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">n(n-1)/2</annotation></semantics></math></span>次选择，时间复杂度<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span></p>
 <h2>排序方法的细分</h2>
 <h3>通常能用最短的时间复杂度确定某个元素最终位置的排序（排序的最终目的）</h3>
 <p>快速排序，达到排序的最终目的，且可以快速交换</p>
 <h3>适合基本有序的排序表，数据量不要太大，《算法导论》上只随便提了一嘴的排序</h3>
-<p>希尔排序 这个排序很具有限定性，n在特定范围是，时间复杂度可以达到$O(n^2)$，比较复杂的排序</p>
+<p>希尔排序 这个排序很具有限定性，n在特定范围是，时间复杂度可以达到<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span>，比较复杂的排序</p>
 <h3>最好地体现了分而治之的排序</h3>
 <p>归并排序</p>
 <h3>基于优先队列的排序</h3>
 <p>堆排序 堆排序是所有排序中，在应用方面最特别的排序。虽然不像快速排序一样快，不像希尔排序一样难，不像归并排序那样分治，不像插入排序那样稳定
 这个排序需要专门的篇幅，在此就简单地提一下。</p>
 <h2>堆排序</h2>
-<p>堆排序在一般情况下比快速排序慢，但是比其他排序都要快。比快速排序好在，它的最坏情况也是$O(log_2n)$而不是$O(n^2)$
+<p>堆排序在一般情况下比快速排序慢，但是比其他排序都要快。比快速排序好在，它的最坏情况也是<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log_2n)</annotation></semantics></math></span>而不是<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span>
 In computer science, heapsort is a comparison-based sorting algorithm. Heapsort can be thought of as an improved selection sort: like selection sort, heapsort divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element from it and inserting it into the sorted region. Unlike selection sort, heapsort does not waste time with a linear-time scan of the unsorted region; rather, heap sort maintains the unsorted region in a heap data structure to find the largest element in each step more quickly.</p>
 <p>堆数据结构通常可以用来做高效的优先队列。
 （二叉）堆数据结构可以看作完全二叉树，但是树的每个结点对应数组中的一个元素。因此，<b>堆和BST完全不同</b>。<b>BST是通过中序遍历可以得到有序数组，而堆排序是一种通过将输入（数组）看成堆，从而使输入（数组）数据有序的方法。而堆又可以看作完全二叉树。</b>
 Heapsort&#39;s primary advantages are its simple, non-recursive code, minimal auxiliary storage requirement, and reliably good performance: its best and worst cases are within a small constant factor of each other, and of the theoretical lower bound on comparison sorts. While it cannot do better than O(n log n) for pre-sorted inputs, it does not suffer from quicksort&#39;s O(n2) worst case, either. (The latter can be avoided with careful implementation, but that makes quicksort far more complex, and one of the most popular solutions, introsort, uses heapsort for the purpose.)</p>
 <p>Its primary disadvantages are its poor locality of reference and its inherently serial nature; the accesses to the implicit tree are widely scattered and mostly random, and there is no straightforward way to convert it to a parallel algorithm.</p>
 <p>This makes it popular in embedded systems, real-time computing, and systems concerned with maliciously chosen inputs, such as the Linux kernel. It is also a good choice for any application which does not expect to be bottlenecked on sorting.</p>
-<p>堆排序的最坏情况$O(log_2n)$，使得大多数操作系统不会因为异常输入而发生故障。</p>
+<p>堆排序的最坏情况<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log_2n)</annotation></semantics></math></span>，使得大多数操作系统不会因为异常输入而发生故障。</p>
 <p><img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211221180612614-1186018138.gif" alt=""></p>
 <p>代码可以看这块：
 <a href="https://www.cnblogs.com/qianxinn/p/15669334.html">https://www.cnblogs.com/qianxinn/p/15669334.html</a></p>

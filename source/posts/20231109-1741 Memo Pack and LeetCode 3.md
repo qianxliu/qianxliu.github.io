@@ -1,5 +1,5 @@
 ```
-tags: LeetCode,Applied Computer
+tags: LeetCode,AppliedComputer
 ```
 
 # Memo Pack

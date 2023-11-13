@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<!-- If <head> does not exist, some search engines will reject this page -->
-
-<head>
-  <title>α-β剪枝 - 兴趣使然的无名小站</title>
-  <meta name="description" content="" />
-  <!-- Firefox >= 62 | Chrome >= 69 | Safari >= 12 -->
-  <script src="/bundle.js" onload="[].flat||(location='/update.html')"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css">
-</head>
-<main><article><h1>α-β剪枝</h1><h1>α-β剪枝</h1>
+<!DOCTYPE html><head><title>α-β剪枝 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>α-β剪枝</h1><h1>α-β剪枝</h1>
 <h2>假言推理上下文（前提/前项）</h2>
 <h3>对抗搜索（adversarial search）</h3>
 <p>剪枝允许我们在搜索树中忽略那些不影响最后决定的部分，启发式的评估函数允许我们在不进行完全搜索的情况下估计某状态的真实效用值。</p>
@@ -48,7 +38,7 @@ Min-Max即在(Max采取action后)Min的所有可能中挑选Max值。</p>
 </code></pre><p>因为对手(Min)一定会尽力按最小化utility的方式采取action，
 在Max进行move选择时，第二个move分支的min(2,x,y)中由于Min可以采取使Max处于2 utility值的存在，Min一定会选择这个action。
 因此，直接剪掉这个分支即可。
-在采取action前，Max先初始化一个utility区间$(-∞,∞)$，然后检测采取特定move后Min的move会导致的区间变化。
-可知由于Min一定采取能最小化utility的方式进行action，所以只要是全检测后的Min结点，一定会是$[min, min]$的区间。
+在采取action前，Max先初始化一个utility区间<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mi mathvariant="normal">∞</mi><mo separator="true">,</mo><mi mathvariant="normal">∞</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(-∞,∞)</annotation></semantics></math></span>，然后检测采取特定move后Min的move会导致的区间变化。
+可知由于Min一定采取能最小化utility的方式进行action，所以只要是全检测后的Min结点，一定会是<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[min, min]</annotation></semantics></math></span>的区间。
 <img src="https://img2020.cnblogs.com/blog/2051127/202110/2051127-20211018174621576-1370519085.png" alt=""></p>
 </article></main>

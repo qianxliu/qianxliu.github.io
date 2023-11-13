@@ -10,4 +10,4 @@ A nameless little website driven by interests
 
 # LICENSE
 
-[CC BY 1.0 Deed](https://creativecommons.org/licenses/by/1.0/deed.en)
+[CC BY 4.0 Deed](https://creativecommons.org/licenses/by/4.0/deed.en)

@@ -7,38 +7,38 @@
 首先，修改问题为：平面x边形组成封闭y面体，所需的最小x边形数量</p>
 <h2>Objective</h2>
 <ul>
-<li>$y$面体</li>
-<li>$x$边形</li>
+<li><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span>面体</li>
+<li><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span>边形</li>
 </ul>
 <h2>Notation</h2>
 <ul>
-<li>$x$表示多边形边数，</li>
-<li>$y$表示$y$面体，</li>
-<li>$z$表示$y$面体顶点个数。</li>
-<li>$a$表示每点平均共享边条数。</li>
+<li><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span>表示多边形边数，</li>
+<li><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span>表示<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span>面体，</li>
+<li><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span>表示<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span>面体顶点个数。</li>
+<li><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span>表示每点平均共享边条数。</li>
 </ul>
 <h2>Equation</h2>
 <ul>
-<li>自然约束：$x$边形组成$y$面体有$\frac{xy}{2}$条边，$z$个点，$x \ge 3,y \ge 4,z \ge 4$</li>
-<li><span class="katex-error" title="ParseError: KaTeX parse error: Can&#x27;t use function &#x27;/*{content}*/#x27; in math mode at position 2: y$̲面体每点平均被$a$条边共享，…" style="color:#cc0000">y$面体每点平均被$a$条边共享，即$z=\frac{xy}{a}</span>,<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">a \ge 3</annotation></semantics></math></span></li>
-<li>欧拉公式：$z+y-\frac{xy}{2}=2$</li>
+<li>自然约束：<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span>边形组成<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span>面体有<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>x</mi><mi>y</mi></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{xy}{2}</annotation></semantics></math></span>条边，<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span>个点，<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>3</mn><mo separator="true">,</mo><mi>y</mi><mo>≥</mo><mn>4</mn><mo separator="true">,</mo><mi>z</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">x \ge 3,y \ge 4,z \ge 4</annotation></semantics></math></span></li>
+<li><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span>面体每点平均被<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span>条边共享，即<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mfrac><mrow><mi>x</mi><mi>y</mi></mrow><mi>a</mi></mfrac></mrow><annotation encoding="application/x-tex">z=\frac{xy}{a}</annotation></semantics></math></span>,<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">a \ge 3</annotation></semantics></math></span></li>
+<li>欧拉公式：<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>+</mo><mi>y</mi><mo>−</mo><mfrac><mrow><mi>x</mi><mi>y</mi></mrow><mn>2</mn></mfrac><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">z+y-\frac{xy}{2}=2</annotation></semantics></math></span></li>
 </ul>
 <h2>目标：确定x的取值范围</h2>
-<p>通过欧拉公式加自然约束和$y$面体每点平均被$a$条边共享，可得$y(1-\frac{a-2}{2a}x)=2$。
-可见，当$\frac{a-2}{2a}x \ge \frac{3(a-2)}{2a} \ge 1$时，欧拉方程不成立，即$a \ge 6时方程不成立。$</p>
+<p>通过欧拉公式加自然约束和<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span>面体每点平均被<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span>条边共享，可得<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mfrac><mrow><mi>a</mi><mo>−</mo><mn>2</mn></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">y(1-\frac{a-2}{2a}x)=2</annotation></semantics></math></span>。
+可见，当<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>a</mi><mo>−</mo><mn>2</mn></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mi>x</mi><mo>≥</mo><mfrac><mrow><mn>3</mn><mo stretchy="false">(</mo><mi>a</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\frac{a-2}{2a}x \ge \frac{3(a-2)}{2a} \ge 1</annotation></semantics></math></span>时，欧拉方程不成立，即<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>6</mn><mtext>时方程不成立。</mtext></mrow><annotation encoding="application/x-tex">a \ge 6时方程不成立。</annotation></semantics></math></span></p>
 <h2>若问题为平面6边形可以组成y面体，可用反证法</h2>
-<p>若存在只由6边形组成立体图形，由欧拉公式有$2x+x-3x=2$，不成立</p>
+<p>若存在只由6边形组成立体图形，由欧拉公式有<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mi>x</mi><mo>−</mo><mn>3</mn><mi>x</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2x+x-3x=2</annotation></semantics></math></span>，不成立</p>
 <h2>结论</h2>
-<p>平面$x$边形组成$y$面体，所需的最小$x$边形数量为$3，4，5$。</p>
+<p>平面<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span>边形组成<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span>面体，所需的最小<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span>边形数量为<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mtext>，</mtext><mn>4</mn><mtext>，</mtext><mn>5</mn></mrow><annotation encoding="application/x-tex">3，4，5</annotation></semantics></math></span>。</p>
 <h2>注意</h2>
-<p>立体图形有洞的话，$V+F-E=2-2g$，即亏格为$1$，且每个面都是六边形的立体图形是被允许的。
+<p>立体图形有洞的话，<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>+</mo><mi>F</mi><mo>−</mo><mi>E</mi><mo>=</mo><mn>2</mn><mo>−</mo><mn>2</mn><mi>g</mi></mrow><annotation encoding="application/x-tex">V+F-E=2-2g</annotation></semantics></math></span>，即亏格为<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span>，且每个面都是六边形的立体图形是被允许的。
 如这个<a href="https://www.wikiwand.com/en/Szilassi_polyhedron%E3%80%82%E6%9C%89%E6%B4%9E%E7%9A%84%E6%B5%81%E5%BD%A2%E4%B8%80%E7%9B%B4%E6%98%AF%E7%89%B9%E6%AE%8A%E7%9A%84%E3%80%82">https://www.wikiwand.com/en/Szilassi_polyhedron。有洞的流形一直是特殊的。</a>
 这个公式也解释了为什么三角学是初等数学很重要的一个部分。</p>
-<h2>Euler&#39;s polyhedron formula($V-E+F = \chi$)</h2>
+<h2>Euler&#39;s polyhedron formula(<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>−</mo><mi>E</mi><mo>+</mo><mi>F</mi><mo>=</mo><mi>χ</mi></mrow><annotation encoding="application/x-tex">V-E+F = \chi</annotation></semantics></math></span>)</h2>
 <p>Euler&#39;s formula states that if a finite, connected, planar graph is drawn in the plane without any edge intersections, and v is the number of vertices, e is the number of edges and f is the number of faces (regions bounded by edges, including the outer, infinitely large region), then</p>
-<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>−</mo><mi>E</mi><mo>+</mo><mi>F</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">V-E+F=2</annotation></semantics></math></span></p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>−</mo><mi>E</mi><mo>+</mo><mi>F</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">V-E+F=2</annotation></semantics></math></span></p>
 <p><img src="https://img2022.cnblogs.com/blog/2051127/202201/2051127-20220118214506512-189329161.gif" alt="An animation showing that the Petersen graph contains a minor isomorphic to the K3,3 graph, and is therefore non-planar">
 An animation showing that the Petersen graph contains a minor isomorphic to the K3,3 graph, and is therefore non-planar</p>
 <h2>ChangeLog</h2>
-<p>2022/1/18 21:26 公元1758年，Euler给出了Euler&#39;s polyhedron formula，并提出了一系列相关的Euler characteristic <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>χ</mi></mrow><annotation encoding="application/x-tex">\chi</annotation></semantics></math></span> ，$\chi = V-E+F$。</p>
+<p>2022/1/18 21:26 公元1758年，Euler给出了Euler&#39;s polyhedron formula，并提出了一系列相关的Euler characteristic <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>χ</mi></mrow><annotation encoding="application/x-tex">\chi</annotation></semantics></math></span> ，<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>χ</mi><mo>=</mo><mi>V</mi><mo>−</mo><mi>E</mi><mo>+</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">\chi = V-E+F</annotation></semantics></math></span>。</p>
 </article></main>

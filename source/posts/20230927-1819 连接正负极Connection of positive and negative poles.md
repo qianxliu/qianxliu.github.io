@@ -1,8 +1,8 @@
-> 不要把物理公式看作数学公式，请也尊重自然的经验法则。
-> Don't see the physical formulas as mathematical formulas, please also respect the experience rules of nature.
-
 # 连接正负极 Connection of positive and negative poles
 
+> 不要把物理公式看作数学公式，请也尊重自然的经验法则。
+> Don't see the physical formulas as mathematical formulas, please also respect the experience rules of nature.
+>  
 ## 电流定义 Electric Current Definition
 
 $I= \frac{Q}{t}$
@@ -16,24 +16,14 @@ $t$ represent time in seconds $(s).$
 $I=\frac{V}{R}$
 
 物理: V电压 R电阻 I电流 Intensité(由法国物理数学家安德烈-马里·安培命名)
+
 Physics: Voltage Resistance Intensité(intensity, electric current)(the current, named by André-Marie Ampère)
 
-当
+当$R\approx 0$(短路)($\approx$大概是一个主要用于物理的数学符号)
 
-$R≈0$
-(短路)(
-    $≈$
-    大概是一个主要用于物理的数学符号)
-When
+When $R\approx 0$ (short-circuit)($\approx$ must be a mathematical sign which is most used in physics)
 
-$R≈0$
-(short-circuit)(
-    $≈$
-    must be a mathematical sign which is most used in physics)
-
-$I \to \infty$
-
-($\infty$ in Physics)
+$I \to \infty$ ($\infty$ in Physics)
 
 ## 功耗 Power Dissipation
 
@@ -64,8 +54,6 @@ $P=\frac{\Delta{T}}{R_{th}}$
 
 $Q=I^2Rt$
 
-heat Q(/J(oule)), current I(/A), Resistance R(/
-$\Omega$
-),time t(/s)
+heat Q(/J(oule)), current I(/A), Resistance R(/$\Omega$),time t(/s)
 
 So it will take some time to be damaged.
