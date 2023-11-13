@@ -10,9 +10,9 @@
   "dependencies": {
     "highlight.js": "latest",
     "htmlclean": "latest",
+    "katex": "latest",
     "marked": "latest",
     "marked-highlight": "latest",
-    "marked-katex-extension": "latest",
     "terser": "latest"
   },
   "acknowledgement": {

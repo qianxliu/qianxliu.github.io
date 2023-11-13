@@ -6,14 +6,14 @@ import { createServer } from "node:http";
 import { Worker } from "node:worker_threads";
 import fs from "node:fs";
 import path from "node:path";
-import { Marked } from 'marked';
+import { Marked, Renderer } from 'marked';
 import { markedHighlight } from "marked-highlight";
 import hljs from 'highlight.js';
 
-import markedKatex from "marked-katex-extension";
+import katex from 'katex';
+import "katex/contrib/mhchem";
 import htmlclean from "htmlclean";
 import terser from "terser";
-import { Console } from "node:console";
 
 const modulePath = fileURLToPath(import.meta.url);
 
@@ -90,6 +90,7 @@ const minify = (() => {
 })();
 
 const makePage = (() => {
+  //const templateRaw = fs.readFileSync(p`./units/template.html`).toString();
   const templateRaw = fs.readFileSync(p`./units/template.html`).toString();
   const template = minify.htmlEnhanced(templateRaw);
   const marked = new Marked(
@@ -101,14 +102,94 @@ const makePage = (() => {
       }
     })
   );
-  const options = {
-    throwOnError: false
-  };
-  marked.use(markedKatex(options));
+
+  // katex
+  {
+    const inlineRule = /^(\${1,2})(?!\$)((?:\\.|[^\\\n])*?(?:\\.|[^\\\n\$]))\1(?=[\s?!\.,:？！。，：]|$)/;
+    const blockRule = /^(\${1,2})\n((?:\\[^]|[^\\])+?)\n\1(?:\n|$)/;
+
+    function markedKatex(options = {}) {
+      return {
+        extensions: [
+          inlineKatex(options, createRenderer(options, false)),
+          blockKatex(options, createRenderer(options, true))
+        ]
+      };
+    }
+
+    function createRenderer(options, newlineAfter) {
+      return (token) => katex.renderToString(token.text, { ...options, displayMode: token.displayMode }) + (newlineAfter ? '\n' : '');
+    }
+
+    function inlineKatex(options, renderer) {
+      return {
+        name: 'inlineKatex',
+        level: 'inline',
+        start(src) {
+          let index;
+          let indexSrc = src;
+
+          while (indexSrc) {
+            index = indexSrc.indexOf('$');
+            if (index === -1) {
+              return;
+            }
+
+            if (index === 0 || indexSrc.charAt(index - 1) === ' ') {
+              const possibleKatex = indexSrc.substring(index);
+
+              if (possibleKatex.match(inlineRule)) {
+                return index;
+              }
+            }
+
+            indexSrc = indexSrc.substring(index + 1).replace(/^\$+/, '');
+          }
+        },
+        tokenizer(src, tokens) {
+          const match = src.match(inlineRule);
+          if (match) {
+            return {
+              type: 'inlineKatex',
+              raw: match[0],
+              text: match[2].trim(),
+              displayMode: match[1].length === 2
+            };
+          }
+        },
+        renderer
+      };
+    }
+    function blockKatex(options, renderer) {
+      return {
+        name: 'blockKatex',
+        level: 'block',
+        tokenizer(src, tokens) {
+          const match = src.match(blockRule);
+          if (match) {
+            return {
+              type: 'blockKatex',
+              raw: match[0],
+              text: match[2].trim(),
+              displayMode: match[1].length === 2
+            };
+          }
+        },
+        renderer
+      };
+    }
+    const options = {
+      throwOnError: false,
+      output: "mathml"
+    };
+    marked.use(markedKatex(options));
+  }
 
   return ({ isMarkdown, path: rpath, title, description = "", content }) => {
-    if (isMarkdown)
+    if (isMarkdown) {
+      //content = content.replace(/\\/g, "\\\\");
       content = `<article><h1>${title}</h1>${marked.parse(content)}</article>`;
+    }
     const result = template
       .replace("/*{title}*/", title)
       .replace("/*{description}*/", description)

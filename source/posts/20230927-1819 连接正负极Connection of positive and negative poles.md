@@ -3,31 +3,43 @@
 
 # 连接正负极 Connection of positive and negative poles
 
-## 电流定义 Electric Current Definition:
+## 电流定义 Electric Current Definition
 
 $I= \frac{Q}{t}$
 
-$I$ represent electric current in amperes $(A).$ 
+$I$ represent electric current in amperes $(A).$
 $Q$ represent electric charge in coulombs $(C).$
 $t$ represent time in seconds $(s).$
 
-## 欧姆定律 Ohm's Law 
+## 欧姆定律 Ohm's Law
 
 $I=\frac{V}{R}$
 
 物理: V电压 R电阻 I电流 Intensité(由法国物理数学家安德烈-马里·安培命名)
 Physics: Voltage Resistance Intensité(intensity, electric current)(the current, named by André-Marie Ampère)
 
-当$R\approx 0$(短路)($\approx$大概是一个主要用于物理的数学符号)
-When $R\approx 0$(short-circuit)($\approx$ must be a mathematical sign which is most used in physics)
+当
 
-$I \to \infty$(物理中的$\infty$)
-$I \to \infty$($\infty$ in Physics)
+$R≈0$
+(短路)(
+    $≈$
+    大概是一个主要用于物理的数学符号)
+When
+
+$R≈0$
+(short-circuit)(
+    $≈$
+    must be a mathematical sign which is most used in physics)
+
+$I \to \infty$
+
+($\infty$ in Physics)
 
 ## 功耗 Power Dissipation
 
 电路中耗散的功率（P）由下式给出：
 The power (P) dissipated in a circuit is given by:
+
 $P=V\cdot I$
 
 所以 $P \to \infty$，会发热
@@ -40,16 +52,20 @@ Reformate the problem: Why after 1-2 seconds then correctly connected, will semi
 
 $P=I^2\cdot R$
 
-因为阈值电流 Because of Threshold Current($I_{th}$) 
+因为阈值电流 Because of Threshold Current($I_{th}$)
 
-## 热力学：Thermodynamics：
+## 热力学：Thermodynamics
 
-温升:Temperature Rise: $\Delta{T}$ 
+温升:Temperature Rise: $\Delta{T}$
 热阻:Thermal resistance: $R_{th}$
 $P=\frac{\Delta{T}}{R_{th}}$
 
 焦耳定律: Joule's Law
+
 $Q=I^2Rt$
-heat Q(/J(oule)), current I(/A), Resistance R(/$\Omega$),time t(/s)
+
+heat Q(/J(oule)), current I(/A), Resistance R(/
+$\Omega$
+),time t(/s)
 
 So it will take some time to be damaged.

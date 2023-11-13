@@ -1,4 +1,14 @@
-<!DOCTYPE html><head><title>TLB未命中——为何你的leetcode程序时快时慢 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>TLB未命中——为何你的leetcode程序时快时慢</h1><h1>TLB未命中——为何你的leetcode程序时快时慢</h1>
+<!DOCTYPE html>
+<!-- If <head> does not exist, some search engines will reject this page -->
+
+<head>
+  <title>TLB未命中——为何你的leetcode程序时快时慢 - 兴趣使然的无名小站</title>
+  <meta name="description" content="" />
+  <!-- Firefox >= 62 | Chrome >= 69 | Safari >= 12 -->
+  <script src="/bundle.js" onload="[].flat||(location='/update.html')"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css">
+</head>
+<main><article><h1>TLB未命中——为何你的leetcode程序时快时慢</h1><h1>TLB未命中——为何你的leetcode程序时快时慢</h1>
 <h2>Paging: Introduction</h2>
 <p>It is sometimes said that the operating system takes one of two approaches when solving most any space-management problem. The first approach is to chop things up into variable-sized pieces, as we saw with segmentation in virtual memory. Unfortunately, this solution has inherent difficulties. In particular, when dividing a space into different-size chunks, the space itself can become fragmented, and thus allocation becomes more challenging over time.</p>
 <p>Thus, it may be worth considering the second approach: to chop up space into fixed-sized pieces. In virtual memory, we call this idea paging, and it goes back to an early and important system, the Atlas [KE+62, L78]. Instead of splitting up a process’s address space into some number of variable-sized logical segments (e.g., code, heap, stack), we divide it into fixed-sized units, each of which we call a page. Correspondingly, we view physical memory as an array of fixed-sized slots called page frames; each of these frames can contain a single virtual-memory page. Our challenge:</p>

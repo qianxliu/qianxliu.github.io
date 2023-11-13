@@ -1,4 +1,14 @@
-<!DOCTYPE html><head><title>Knowledge Graphs - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>Knowledge Graphs</h1><p>本文总结了知识图谱的核心论文之一《Knowledge Graphs》</p>
+<!DOCTYPE html>
+<!-- If <head> does not exist, some search engines will reject this page -->
+
+<head>
+  <title>Knowledge Graphs - 兴趣使然的无名小站</title>
+  <meta name="description" content="" />
+  <!-- Firefox >= 62 | Chrome >= 69 | Safari >= 12 -->
+  <script src="/bundle.js" onload="[].flat||(location='/update.html')"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css">
+</head>
+<main><article><h1>Knowledge Graphs</h1><p>本文总结了知识图谱的核心论文之一《Knowledge Graphs》</p>
 <h1>定义</h1>
 <p>知识图谱的定义是有争议的，在本文中使用包容的定义，即我们将知识图谱看作一个关注累积和转化现实世界知识的数据图谱，它的节点展现了兴趣实体，而边展现了实体关系。</p>
 <p>至于知识，我们定义为已知的事物。这种知识可以从外部源累积，或者从知识图谱中解析。知识可以由简单陈述组成，如“圣地亚哥是智利首都”，或者量化陈述，如“所有首都都是城市”。简单陈述在数据图中可以作为边被累积。如果知识图谱想要累积量化陈述，需要一个更具表现力的方式来展现数据——如本体(a branch of philosophy that deals with the nature of existence)和规则。可以使用演绎方法来继承和积累更多的知识（例如，“圣地亚哥是一座城市”）。 附加知识——基于简单或量化语句，可以用归纳方法从知识图中提取和积累。</p>
