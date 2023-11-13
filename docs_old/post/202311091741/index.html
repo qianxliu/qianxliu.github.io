@@ -1,45 +1,59 @@
-<!DOCTYPE html><head><title> Memo Pack and LeetCode 3 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1> Memo Pack and LeetCode 3</h1><h1 id="memo-pack">Memo Pack</h1><p>Source code: git.suckless.org/sbase I don&#39;t know if it&#39;s the standard implementation for Linux bash command, but it&#39;s a good material. An example:</p><pre><code class="language-bash">diff $(strace -c find) $(strace -c grep)
-diff &lt;(strace -c find) &lt;(strace -c grep)</code></pre><p>The &lt;( expression: <a href="https://stackoverflow.com/questions/31703243/what-is-the-name-for-operator-in-bash">https://stackoverflow.com/questions/31703243/what-is-the-name-for-operator-in-bash</a> We can see the &quot;find&quot; is a more complex(stat, ..., and so on) implementation than the &quot;grep&quot;</p><h2 id="rigorous-leetcode-3">Rigorous LeetCode 3</h2><pre><code class="language-cpp">class Solution {
-public:
-    //You need to memo the count of characters
-    int lengthOfLongestSubstring(string s) {
-        unordered_map&lt;char,int&gt; window;
-        int left = 0, right = 0;
-        int maxLen = 0;
-        while(right &lt; s.size())
+<!DOCTYPE html><head><title> Memo Pack and LeetCode 3 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1> Memo Pack and LeetCode 3</h1><h1>Memo Pack</h1>
+<p>Source code: 
+git.suckless.org/sbase
+I don&#39;t know if it&#39;s the standard implementation for Linux bash command, but it&#39;s a good material.
+An example: </p>
+<pre><code class="hljs language-bash">diff $(strace -c find) $(strace -c grep)
+diff &lt;(strace -c find) &lt;(strace -c grep)
+</code></pre><p>The &lt;( expression: <a href="https://stackoverflow.com/questions/31703243/what-is-the-name-for-operator-in-bash">https://stackoverflow.com/questions/31703243/what-is-the-name-for-operator-in-bash</a>
+We can see the &quot;find&quot; is a more complex(stat, ..., and so on) implementation than the &quot;grep&quot;</p>
+<h2>Rigorous LeetCode 3</h2>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">//You need to memo the count of characters</span>
+    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(string s)</span> </span>{
+        unordered_map&lt;<span class="hljs-type">char</span>,<span class="hljs-type">int</span>&gt; window;
+        <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;
+        <span class="hljs-type">int</span> maxLen = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span>(right &lt; s.<span class="hljs-built_in">size</span>())
         {
-            char c = s[right];
+            <span class="hljs-type">char</span> c = s[right];
             ++right;
             ++window[c];
-            while(window[c] &gt; 1)
+            <span class="hljs-keyword">while</span>(window[c] &gt; <span class="hljs-number">1</span>)
             {
                 ++left;
                 --window[c];
             }
-            maxLen = max(maxLen, right - left);
+            maxLen = <span class="hljs-built_in">max</span>(maxLen, right - left);
         }
-        return maxLen;
+        <span class="hljs-keyword">return</span> maxLen;
     }
-};</code></pre><p>Unfortunately, it&#39;s wrong. <strong>Everyone</strong> could be wrong.</p><pre><code class="language-cpp">class Solution {
-public:
-    //You need to memo the count of characters
-    int lengthOfLongestSubstring(string s) {
-        unordered_map&lt;char,int&gt; window;
-        int left = 0, right = 0;
-        int maxLen = 0;
-        while(right &lt; s.size())
+};
+</code></pre><p>Unfortunately, it&#39;s wrong. <strong>Everyone</strong> could be wrong.</p>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">//You need to memo the count of characters</span>
+    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(string s)</span> </span>{
+        unordered_map&lt;<span class="hljs-type">char</span>,<span class="hljs-type">int</span>&gt; window;
+        <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;
+        <span class="hljs-type">int</span> maxLen = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span>(right &lt; s.<span class="hljs-built_in">size</span>())
         {
-            char c = s[right];
+            <span class="hljs-type">char</span> c = s[right];
             ++window[c];
             ++right;
-            while(window[c] &gt; 1)
+            <span class="hljs-keyword">while</span>(window[c] &gt; <span class="hljs-number">1</span>)
             {
-                char d = s[left];
+                <span class="hljs-type">char</span> d = s[left];
                 --window[d];
                 ++left;
             }
-            maxLen = max(maxLen, right - left);
+            maxLen = <span class="hljs-built_in">max</span>(maxLen, right - left);
         }
-        return maxLen;
+        <span class="hljs-keyword">return</span> maxLen;
     }
-};</code></pre><p>&quot;pww&quot;, and &quot;w&quot; will not be first. And if &quot;wabbw&quot;, the &quot;abbw&quot; still has the same pattern. The left window has no relation with the right.</p></article></main>
+};
+</code></pre><p>&quot;pww&quot;, and &quot;w&quot; will not be first. And if &quot;wabbw&quot;, the &quot;abbw&quot; still has the same pattern.
+The left window has no relation with the right.</p>
+</article></main>

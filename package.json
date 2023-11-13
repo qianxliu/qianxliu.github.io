@@ -8,8 +8,11 @@
     "url": "https://github.com/qianxliu/qianxliu.github.io"
   },
   "dependencies": {
+    "highlight.js": "latest",
     "htmlclean": "latest",
-    "marked": "^0.7.0",
+    "marked": "latest",
+    "marked-highlight": "latest",
+    "marked-katex-extension": "latest",
     "terser": "latest"
   },
   "acknowledgement": {

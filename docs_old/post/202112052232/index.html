@@ -1,66 +1,92 @@
-<!DOCTYPE html><head><title>算法珠玑——滑动窗口(1) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>算法珠玑——滑动窗口(1)</h1><h1 id="算法珠玑滑动窗口1">算法珠玑——滑动窗口(1)</h1><p><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters">https://leetcode-cn.com/problems/longest-substring-without-repeating-characters</a></p><p><img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211205223008015-87791135.png" alt=""></p><p>这题以下代码两个平均都没下过90% 多试几百次，也许能双100%</p><pre><code class="language-cpp">    int lengthOfLongestSubstring(string s) {
-        unsigned int longest = 0;
-        unsigned char arr[95];
-        fill(arr, arr + 95, 0);
+<!DOCTYPE html><head><title>算法珠玑——滑动窗口(1) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>算法珠玑——滑动窗口(1)</h1><h1>算法珠玑——滑动窗口(1)</h1>
+<p><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters">https://leetcode-cn.com/problems/longest-substring-without-repeating-characters</a></p>
+<p><img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211205223008015-87791135.png" alt=""></p>
+<p>这题以下代码两个平均都没下过90%
+多试几百次，也许能双100%</p>
+<pre><code class="hljs language-cpp">    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(string s)</span> </span>{
+        <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> longest = <span class="hljs-number">0</span>;
+        <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> arr[<span class="hljs-number">95</span>];
+        <span class="hljs-built_in">fill</span>(arr, arr + <span class="hljs-number">95</span>, <span class="hljs-number">0</span>);
 
-        for (unsigned int left = 0, right = 0, len = s.size(); right &lt; len;++right)
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>, len = s.<span class="hljs-built_in">size</span>(); right &lt; len;++right)
         {
-            ++arr[s[right] - &#39; &#39;];
-            while (arr[s[right] - &#39; &#39;] == 2)
+            ++arr[s[right] - <span class="hljs-string">&#x27; &#x27;</span>];
+            <span class="hljs-keyword">while</span> (arr[s[right] - <span class="hljs-string">&#x27; &#x27;</span>] == <span class="hljs-number">2</span>)
             {
-                --arr[s[left] - &#39; &#39;];
+                --arr[s[left] - <span class="hljs-string">&#x27; &#x27;</span>];
                 ++left;
             }
-            longest = longest &lt; right - left + 1 ? right - left + 1 : longest;
+            longest = longest &lt; right - left + <span class="hljs-number">1</span> ? right - left + <span class="hljs-number">1</span> : longest;
         }
-        return longest;
-    }</code></pre><p>lon = max(lon, right-left+1);处可以优化吗?答案是很难。 不使用s.size()会比较快。 具体的细节明天有时间再讲。(12月5日 10:31留)</p><h2 id="when-to-use-the-sliding-window-approach">When to Use the Sliding Window Approach?</h2><p>The following are some of the most important indications that a sliding window approach might be appropriate:</p><ul><li>Your problem involves data structures such as arrays and strings. An image is basically a multidimensional array. (use index)</li><li>You want to find a subrange involving the longest, shortest, or goal values in that array or string.</li><li>Conceptually, it revolves around ideas like the longest or shortest sequence of something that meets a specific requirement.</li></ul><h2 id="steps">Steps</h2><ul><li>Determine the required window size.</li><li>Begin with the data structure’s first window.(left==right==0)</li><li>In a loop, slide the window by 1 and continue calculating the result window by window.</li></ul><h2 id="更新">更新!</h2><p>8月11日更新</p><pre><code class="language-cpp">    int lengthOfLongestSubstring(string s) {
-        unsigned int longest = 0;
-        // 根据目标的类型限制，构造一个高性能的map
-        unsigned char exists[95];
-        // 高性能初始化
-        fill(exists, exists + 95, 0);
-
-        // base case: inital window [0,0], len
-
-        // induction step: ++right, ++exists in slibing window 
-        for (unsigned int left = 0, right = 0, len = s.size(); right &lt; len;++right)
-        {
-            ++exists[s[right] - &#39; &#39;];
-            // sub base case: exists[s[right] - &#39; &#39;] == 1(will set on right == left)
-            while (exists[s[right] - &#39; &#39;] == 2)
-            {
-                // sub induction step: ++left, and --exists in slibing window
-                --exists[s[left] - &#39; &#39;];
-                ++left;
-            }
-            // induction step: get max (longest)
-            longest = longest &lt; right - left + 1 ? right - left + 1 : longest;
-        }
-        // end step: jump out when right index out
-        return longest;
-    }</code></pre><pre><code class="language-cpp">class Solution {
-public:
-    int lengthOfLongestSubstring(string s) {
-        int longest = 0;
-        char exists[95];
-        fill(exists, exists + 95, 0);
-
-        // base: left==right==0
-        // induction(right &lt; s.size()): ++exists[s[right] - &#39; &#39;], ++right
-        for (int left = 0, right = 0; right &lt; s.size(); ++right)
-        {
-            ++exists[s[right] - &#39; &#39;];
-            // sub base: exists[s[right] - &#39; &#39;] == 1
-            // sub induction(exists[s[right] - &#39; &#39;] == 2): --exists[s[left] - &#39; &#39;], ++left
-            while(exists[s[right] - &#39; &#39;] == 2)
-            {
-                --exists[s[left] - &#39; &#39;];
-                ++left;
-            }
-            // end: max longest
-            longest = max(longest, right - left + 1);
-        }
-        return longest;
+        <span class="hljs-keyword">return</span> longest;
     }
-};</code></pre></article></main>
+</code></pre><p>lon = max(lon, right-left+1);处可以优化吗?答案是很难。
+不使用s.size()会比较快。
+具体的细节明天有时间再讲。(12月5日 10:31留)</p>
+<h2>When to Use the Sliding Window Approach?</h2>
+<p>The following are some of the most important indications that a sliding window approach might be appropriate:</p>
+<ul>
+<li>Your problem involves data structures such as arrays and strings. An image is basically a multidimensional array. (use index)</li>
+<li>You want to find a subrange involving the longest, shortest, or goal values in that array or string.</li>
+<li>Conceptually, it revolves around ideas like the longest or shortest sequence of something that meets a specific requirement.</li>
+</ul>
+<h2>Steps</h2>
+<ul>
+<li>Determine the required window size.</li>
+<li>Begin with the data structure’s first window.(left==right==0)</li>
+<li>In a loop, slide the window by 1 and continue calculating the result window by window.</li>
+</ul>
+<h2>更新!</h2>
+<p>8月11日更新</p>
+<pre><code class="hljs language-cpp">    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(string s)</span> </span>{
+        <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> longest = <span class="hljs-number">0</span>;
+        <span class="hljs-comment">// 根据目标的类型限制，构造一个高性能的map</span>
+        <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> exists[<span class="hljs-number">95</span>];
+        <span class="hljs-comment">// 高性能初始化</span>
+        <span class="hljs-built_in">fill</span>(exists, exists + <span class="hljs-number">95</span>, <span class="hljs-number">0</span>);
+
+        <span class="hljs-comment">// base case: inital window [0,0], len</span>
+        
+        <span class="hljs-comment">// induction step: ++right, ++exists in slibing window </span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>, len = s.<span class="hljs-built_in">size</span>(); right &lt; len;++right)
+        {
+            ++exists[s[right] - <span class="hljs-string">&#x27; &#x27;</span>];
+            <span class="hljs-comment">// sub base case: exists[s[right] - &#x27; &#x27;] == 1(will set on right == left)</span>
+            <span class="hljs-keyword">while</span> (exists[s[right] - <span class="hljs-string">&#x27; &#x27;</span>] == <span class="hljs-number">2</span>)
+            {
+                <span class="hljs-comment">// sub induction step: ++left, and --exists in slibing window</span>
+                --exists[s[left] - <span class="hljs-string">&#x27; &#x27;</span>];
+                ++left;
+            }
+            <span class="hljs-comment">// induction step: get max (longest)</span>
+            longest = longest &lt; right - left + <span class="hljs-number">1</span> ? right - left + <span class="hljs-number">1</span> : longest;
+        }
+        <span class="hljs-comment">// end step: jump out when right index out</span>
+        <span class="hljs-keyword">return</span> longest;
+    }
+</code></pre><pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(string s)</span> </span>{
+        <span class="hljs-type">int</span> longest = <span class="hljs-number">0</span>;
+        <span class="hljs-type">char</span> exists[<span class="hljs-number">95</span>];
+        <span class="hljs-built_in">fill</span>(exists, exists + <span class="hljs-number">95</span>, <span class="hljs-number">0</span>);
+
+        <span class="hljs-comment">// base: left==right==0</span>
+        <span class="hljs-comment">// induction(right &lt; s.size()): ++exists[s[right] - &#x27; &#x27;], ++right</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>; right &lt; s.<span class="hljs-built_in">size</span>(); ++right)
+        {
+            ++exists[s[right] - <span class="hljs-string">&#x27; &#x27;</span>];
+            <span class="hljs-comment">// sub base: exists[s[right] - &#x27; &#x27;] == 1</span>
+            <span class="hljs-comment">// sub induction(exists[s[right] - &#x27; &#x27;] == 2): --exists[s[left] - &#x27; &#x27;], ++left</span>
+            <span class="hljs-keyword">while</span>(exists[s[right] - <span class="hljs-string">&#x27; &#x27;</span>] == <span class="hljs-number">2</span>)
+            {
+                --exists[s[left] - <span class="hljs-string">&#x27; &#x27;</span>];
+                ++left;
+            }
+            <span class="hljs-comment">// end: max longest</span>
+            longest = <span class="hljs-built_in">max</span>(longest, right - left + <span class="hljs-number">1</span>);
+        }
+        <span class="hljs-keyword">return</span> longest;
+    }
+};
+</code></pre></article></main>

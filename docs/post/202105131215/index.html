@@ -1,10 +1,137 @@
-<!DOCTYPE html><head><title>IDL语言简明教程 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>IDL语言简明教程</h1><blockquote><p>有段时间没有看SICP了……那本书真的给了我很多启发。 考试过后一定要再读SICP。 依然按SICP对语言的分析方式来。这次，加上自己的理解。</p></blockquote><p>在数学中，函数是两个集合之间的二元关系，它与第一个集合的每个元素正好关联第二个集合的一个元素。典型的例子是从整数到整数，或从实数到实数的函数。</p><p>In mathematics, a function[note 1] is a binary relation between two sets that associates to each element of the first set exactly one element of the second set. Typical examples are functions from integers to integers, or from the real numbers to real numbers.</p><p>由于计算机直接从数学中得到启示，因此，3种事物是最重要的：</p><ul><li><p>primitive expressions, which represent the simplest entities the language is concerned with, 在函数关系中的primitive本质上是数。</p></li><li><p>means of combination, by which compound elements are built from simpler ones, and, 如何表示函数。</p></li><li><p>means of abstraction, by which compound elements can be named and manipulated as units，函数如何抽象。</p></li></ul><h1 id="idl-如何表示函数">IDL 如何表示函数</h1><h2 id="命名">命名</h2><p>第一字符英文字母或下划线或$，必须由英文字母、数字、下划线和美元符号“$”组成（可知不包括空格符号），长度不超过128。不得是保留字。 !开头系统变量。</p><h2 id="语法">语法</h2><p>不需声明类型。并且<em>数据类型可以随时改动</em>。‘，’分割语句。</p><h3 id="优先级">优先级</h3><p>双目最高（以及^）,*/Mod次之，+-&lt;&gt;最后</p><ul><li>()[]</li><li>*(指针)^++--</li><li>*（标量乘）/MOD#(矩阵列乘)##矩阵行乘</li><li>+-&lt;&gt;NOT~</li><li>EQ NE LT GT LE GE</li><li>AND OR</li></ul><h3 id="最小最大值">最小最大值</h3><p>a&lt;b&lt;c&lt;d 输出最小 a&gt;b&gt;c&gt;d 输出最大</p><h3 id="字符串">字符串</h3><p>+</p><h3 id="关系运算符">关系运算符</h3><p>关系运算符:gt lt le ge eq ne（mask某些值），返回0/1表示 arr[arr gt 0]，大于0</p><h3 id="逻辑">逻辑</h3><p>&amp;&amp;(逻辑与) ||（逻辑或） ~（逻辑非）</p><h3 id="三元条件表达式">三元条件表达式</h3><p>expr1?expr2:expr3</p><h3 id="位运算">位运算</h3><p>and(按位与)，or（位或），xor（位异或），not(位非)</p><h2 id="数组运算核心">数组运算(核心)</h2><p>IDL是一种数据语言，而矩阵即高维数据，数组实际代表了一个矩阵，因此，数组是它的核心内容。</p><h3 id="">*/</h3><p>IDL 数组的乘除和基本数据结构类似，但是在乘除时，只使用最短的数组。短数组的矩阵线性空间包含在长数组中，因此有这种合理操作。</p><h3 id="-1">#</h3><p>列乘。一般矩阵的计算都是列乘的。但这里的列乘和矩阵计算不同，要注意。</p><pre><code class="language-idl">a = [1,1,1]
+<!DOCTYPE html><head><title>IDL语言简明教程 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>IDL语言简明教程</h1><blockquote>
+<p>有段时间没有看SICP了……那本书真的给了我很多启发。
+考试过后一定要再读SICP。
+依然按SICP对语言的分析方式来。这次，加上自己的理解。</p>
+</blockquote>
+<p>在数学中，函数是两个集合之间的二元关系，它与第一个集合的每个元素正好关联第二个集合的一个元素。典型的例子是从整数到整数，或从实数到实数的函数。</p>
+<p>In mathematics, a function[note 1] is a binary relation between two sets that associates to each element of the first set exactly one element of the second set. Typical examples are functions from integers to integers, or from the real numbers to real numbers.</p>
+<p>由于计算机直接从数学中得到启示，因此，3种事物是最重要的：</p>
+<ul>
+<li><p>primitive expressions, which represent the simplest entities the
+language is concerned with, 在函数关系中的primitive本质上是数。</p>
+</li>
+<li><p>means of combination, by which compound elements are built
+from simpler ones, and, 如何表示函数。</p>
+</li>
+<li><p>means of abstraction, by which compound elements can be named
+and manipulated as units，函数如何抽象。</p>
+</li>
+</ul>
+<h1>IDL 如何表示函数</h1>
+<h2>命名</h2>
+<p>第一字符英文字母或下划线或$，必须由英文字母、数字、下划线和美元符号“$”组成（可知不包括空格符号），长度不超过128。不得是保留字。
+!开头系统变量。</p>
+<h2>语法</h2>
+<p>不需声明类型。并且<em>数据类型可以随时改动</em>。‘，’分割语句。</p>
+<h3>优先级</h3>
+<p>双目最高（以及^）,*/Mod次之，+-&lt;&gt;最后</p>
+<ul>
+<li>()[]</li>
+<li>*(指针)^++--</li>
+<li>*（标量乘）/MOD#(矩阵列乘)##矩阵行乘</li>
+<li>+-&lt;&gt;NOT~</li>
+<li>EQ NE LT GT LE GE</li>
+<li>AND OR</li>
+</ul>
+<h3>最小最大值</h3>
+<p>a&lt;b&lt;c&lt;d 输出最小 a&gt;b&gt;c&gt;d 输出最大</p>
+<h3>字符串</h3>
+<p>+</p>
+<h3>关系运算符</h3>
+<p>关系运算符:gt lt le ge eq ne（mask某些值），返回0/1表示
+arr[arr gt 0]，大于0</p>
+<h3>逻辑</h3>
+<p>&amp;&amp;(逻辑与) ||（逻辑或） ~（逻辑非）</p>
+<h3>三元条件表达式</h3>
+<p>expr1?expr2:expr3</p>
+<h3>位运算</h3>
+<p>and(按位与)，or（位或），xor（位异或），not(位非)</p>
+<h2>数组运算(核心)</h2>
+<p>IDL是一种数据语言，而矩阵即高维数据，数组实际代表了一个矩阵，因此，数组是它的核心内容。</p>
+<h3>*/</h3>
+<p>IDL 数组的乘除和基本数据结构类似，但是在乘除时，只使用最短的数组。短数组的矩阵线性空间包含在长数组中，因此有这种合理操作。</p>
+<h3>#</h3>
+<p>列乘。一般矩阵的计算都是列乘的。但这里的列乘和矩阵计算不同，要注意。</p>
+<pre><code class="hljs language-idl">a = [1,1,1]
 b = [2,2,2]
 
 # 按矩阵来说，应该变为一个数。在idl中，形成矩阵样子的二维数组。
 # 按矩阵的意义，应是在向量情况，是对角矩阵，size不同时添全为0行
 a # b
-</code></pre><h3 id="-2">##</h3><p>行乘。</p><h3 id="取整">取整</h3><p>数据正则化（防止过拟合）。 round() (四舍五入)</p><p>ceil()（进一取整） floor() (去尾取整)</p><p>fix()（变整数）默认向下取整 fix() = floor() + int()</p><h1 id="idl-的数据结构">IDL 的数据结构</h1><h2 id="数字数据类型">数字数据类型</h2><p>11种。 字节（基石）</p><ul><li>byte、 整数与u，64位，6个</li><li>int、uint、</li><li>（long） long、ulong、</li><li>（64位long）long64、ulong64、 单双浮点与复数</li><li>（单双浮点）float、double、</li><li>(复数)complex、dcomplex</li></ul><h2 id="非数字数据结构（复合数据结构）">非数字数据结构（复合数据结构）</h2><p>// 如何抽象（结构，对象） struct、 object、 // 已抽象（字符串，指针，列表，哈希） string、 pointer、 list、 hash</p><h2 id="数组（向量）">数组（向量）</h2><h3 id="创建">创建</h3><h4 id="直接创建">直接创建</h4><p>a = [0, 0, 0]</p><h4 id="函数创建">函数创建</h4><h5 id="零数组">零数组</h5><p>零数组：bytarr(),intarr(),uintarr(),lonarr(),ulonarr(),lon64arr(),fltarr(),dblarr(),complexarr(),dcomplexarr(),strarr()</p><p>a = intarr(3)</p><h5 id="索引数组">索引数组</h5><p>bindgen(),indgen(),lindgen(),l64IndGen(),uindgen(),ul64indgen(),findgen(),dindgen(),cindgen(),dcindgen(),sindgen()</p><p>a = indgen(3)</p><h5 id="make_array">make_array()</h5><p>数组：make_array([d1[,...,d8]] [,dimension=vector] [,value=value] [,/index] [,size=vector])</p><p>a = make_array(3,1, /int)</p><h5 id="replicate">replicate()</h5><p>重复：replicate(value, d1[,...,d8])</p><p>a = replicate(0, 3)</p><h3 id="数组操作">数组操作</h3><h4 id="元素个数">元素个数</h4><p>n_elements(expression)</p><h4 id="几维，维度个数，类型2为int，元素个数">几维，维度个数，类型(2为int)，元素个数</h4><p>size(expression [,/n_dimensions|,/dimensions|,/type|,/tname|,/n_elements])</p><h4 id="max-min-与-mean">max, min 与 mean</h4><p>max(array[,max_subscript][,dimension=value]) min(array[,max_subscript][,dimension=value]) mean(array[,dimension=value])</p><h4 id="复合运算方法（均为浮点数精度）">复合运算方法（均为浮点数精度）</h4><h5 id="方差">方差</h5><p>variance(array[,dimension=value])</p><h5 id="标准差">标准差</h5><p>stddev(array,[,dimension=value])</p><h5 id="求和">求和</h5><p>total(array[,dimension=value][,/cumulative])</p><p>a = [1,2,3]</p><h1 id="为6000000">为6.000000</h1><p>total(a)</p><h1 id="为1003000060000">为1.00,3.0000,6.0000</h1><p>total(a, /cumulative)</p><h4 id="查找元素（唯一返回下标）">查找元素（唯一返回下标）</h4><p>complement返回不满足条件 where(array_expression [, count] [, complement=variable] [,ncomplement=variable])</p><pre><code class="language-idl">IDL&gt; where(a, count)
+</code></pre><h3>##</h3>
+<p>行乘。</p>
+<h3>取整</h3>
+<p>数据正则化（防止过拟合）。
+round() (四舍五入) </p>
+<p>ceil()（进一取整）
+floor() (去尾取整) </p>
+<p>fix()（变整数）默认向下取整
+fix() = floor() + int() </p>
+<h1>IDL 的数据结构</h1>
+<h2>数字数据类型</h2>
+<p>11种。
+字节（基石）</p>
+<ul>
+<li>byte、
+整数与u，64位，6个</li>
+<li>int、uint、
+-（long） long、ulong、
+-（64位long）long64、ulong64、
+单双浮点与复数
+-（单双浮点）float、double、</li>
+<li>(复数)complex、dcomplex</li>
+</ul>
+<h2>非数字数据结构（复合数据结构）</h2>
+<p>// 如何抽象（结构，对象）
+struct、
+object、
+// 已抽象（字符串，指针，列表，哈希）
+string、
+pointer、
+list、
+hash</p>
+<h2>数组（向量）</h2>
+<h3>创建</h3>
+<h4>直接创建</h4>
+<p>a = [0, 0, 0]</p>
+<h4>函数创建</h4>
+<h5>零数组</h5>
+<p>零数组：bytarr(),intarr(),uintarr(),lonarr(),ulonarr(),lon64arr(),fltarr(),dblarr(),complexarr(),dcomplexarr(),strarr()</p>
+<p>a = intarr(3)</p>
+<h5>索引数组</h5>
+<p>bindgen(),indgen(),lindgen(),l64IndGen(),uindgen(),ul64indgen(),findgen(),dindgen(),cindgen(),dcindgen(),sindgen()</p>
+<p>a = indgen(3)</p>
+<h5>make_array()</h5>
+<p>数组：make_array([d1[,...,d8]] [,dimension=vector] [,value=value] [,/index] [,size=vector])</p>
+<p>a = make_array(3,1, /int)</p>
+<h5>replicate()</h5>
+<p>重复：replicate(value, d1[,...,d8])</p>
+<p>a = replicate(0, 3)</p>
+<h3>数组操作</h3>
+<h4>元素个数</h4>
+<p>n_elements(expression)</p>
+<h4>几维，维度个数，类型(2为int)，元素个数</h4>
+<p>size(expression [,/n_dimensions|,/dimensions|,/type|,/tname|,/n_elements])</p>
+<h4>max, min 与 mean</h4>
+<p>max(array[,max_subscript][,dimension=value])
+min(array[,max_subscript][,dimension=value])
+mean(array[,dimension=value])</p>
+<h4>复合运算方法（均为浮点数精度）</h4>
+<h5>方差</h5>
+<p>variance(array[,dimension=value])</p>
+<h5>标准差</h5>
+<p>stddev(array,[,dimension=value])</p>
+<h5>求和</h5>
+<p>total(array[,dimension=value][,/cumulative])</p>
+<p>a = [1,2,3]</p>
+<h1>为6.000000</h1>
+<p>total(a)</p>
+<h1>为1.00,3.0000,6.0000</h1>
+<p>total(a, /cumulative)</p>
+<h4>查找元素（唯一返回下标）</h4>
+<p>complement返回不满足条件
+where(array_expression [, count] [, complement=variable] [,ncomplement=variable])</p>
+<pre><code class="hljs language-idl">IDL&gt; where(a, count)
            0           1           2
 IDL&gt; count
            3
@@ -21,26 +148,71 @@ IDL&gt; where(a gt 2, complement=count)
 IDL&gt; count
            0           1
 IDL&gt; a
-       1       2       3</code></pre><h4 id="其他操作">其他操作</h4><h5 id="重排列">重排列</h5><p>reform(array,d1[,...,d8])</p><pre><code class="language-idl">IDL&gt; a
+       1       2       3
+</code></pre><h4>其他操作</h4>
+<h5>重排列</h5>
+<p>reform(array,d1[,...,d8])</p>
+<pre><code class="hljs language-idl">IDL&gt; a
        1       2       3
 IDL&gt; reform(a, 1, 3)
        1
        2
-       3</code></pre><h5 id="转置">转置</h5><p>transpose(array)</p><pre><code class="language-idl">IDL&gt; transpose(a)
+       3
+</code></pre><h5>转置</h5>
+<p>transpose(array)</p>
+<pre><code class="hljs language-idl">IDL&gt; transpose(a)
        1
        2
-       3</code></pre><h5 id="排序（唯二返回下标）">排序（唯二返回下标）</h5><p>sort(array)</p><pre><code class="language-idl">IDL&gt; a = [1,9,3,5,6,0]
+       3
+</code></pre><h5>排序（唯二返回下标）</h5>
+<p>sort(array)</p>
+<pre><code class="hljs language-idl">IDL&gt; a = [1,9,3,5,6,0]
 IDL&gt; sort(a)
            5           0           2           3           4           1
 IDL&gt; sort(a)
            5           0           2           3           4           1
 IDL&gt; a[sort(a)]
-       0       1       3       5       6       9</code></pre><h5 id="倒置（返回数组）">倒置（返回数组）</h5><p>reverse(array)</p><pre><code class="language-idl">a = [1,9,3,5,6,0]
+       0       1       3       5       6       9
+</code></pre><h5>倒置（返回数组）</h5>
+<p>reverse(array)</p>
+<pre><code class="hljs language-idl">a = [1,9,3,5,6,0]
 IDL&gt; reverse(a)
-       0       6       5       3       9       1</code></pre><h5 id="向前平移（正值）">向前平移（正值）</h5><p>shift(array,s1,...,sn)</p><pre><code class="language-idl">IDL&gt; a
+       0       6       5       3       9       1
+</code></pre><h5>向前平移（正值）</h5>
+<p>shift(array,s1,...,sn)</p>
+<pre><code class="hljs language-idl">IDL&gt; a
        1       9       3       5       6       0
 IDL&gt; shift(a,3)
-       5       6       0       1       9       3</code></pre><h5 id="返回不同元素值下标">返回不同元素值下标</h5><p>uniq(array,[,index])<em>仅在相邻状况下起作用</em> sort除查找外返回下标的函数。这是第三个返回下表的函数，因为都基于查找。</p><pre><code class="language-idl">array = [1,2, 1,1,3,4,4,9]
+       5       6       0       1       9       3
+</code></pre><h5>返回不同元素值下标</h5>
+<p>uniq(array,[,index])<em>仅在相邻状况下起作用</em>
+sort除查找外返回下标的函数。这是第三个返回下表的函数，因为都基于查找。</p>
+<pre><code class="hljs language-idl">array = [1,2, 1,1,3,4,4,9]
 uniq(array, sort(array))
 # 排序，uniq，然后返回下表做array下标
-arrray[uniq(array, sort(array))]</code></pre><h2 id="字符串（显示）">字符串（显示）</h2><p>字符串</p><p>格式化：string(days, format=&#39;(i3.3)&#39;)（整形三位）</p><p>delimiter为连接字符 strjoin(string [,delimiter])</p><p>strlen(expression) strlowcase(string) strupcase(string)</p><p>移除空格 strcompress(string[,/remove_all])(默认连续空格压缩一空格，加remove移除) strtrim(string[,flag])(0,右端；1,左端；2左右两端)</p><p>比较 strcmp(string1,string2[,n][,fold_case])前n比较|不区分大小写</p><p>查找子串位置 strpos(expression,search_string[,/reverse_search]) 取出子串 strmid(string,pos[,length])</p><p>strsplit(string[,pattern][,count=variable][,/fold_case][,/extract][,length=variable]) pattern分隔符fold_case关键字extract返回数组并非索引</p><p>转换 fix(string) 也用于取整 long(string) float(string) byte(string)</p></article></main>
+arrray[uniq(array, sort(array))]
+</code></pre><h2>字符串（显示）</h2>
+<p>字符串</p>
+<p>格式化：string(days, format=&#39;(i3.3)&#39;)（整形三位）</p>
+<p>delimiter为连接字符
+strjoin(string [,delimiter])</p>
+<p>strlen(expression)
+strlowcase(string)
+strupcase(string)</p>
+<p>移除空格
+strcompress(string[,/remove_all])(默认连续空格压缩一空格，加remove移除)
+strtrim(string[,flag])(0,右端；1,左端；2左右两端)</p>
+<p>比较
+strcmp(string1,string2[,n][,fold_case])前n比较|不区分大小写</p>
+<p>查找子串位置
+strpos(expression,search_string[,/reverse_search])
+取出子串
+strmid(string,pos[,length])</p>
+<p>strsplit(string[,pattern][,count=variable][,/fold_case][,/extract][,length=variable])
+pattern分隔符fold_case关键字extract返回数组并非索引</p>
+<p>转换
+fix(string) 也用于取整
+long(string)
+float(string)
+byte(string)</p>
+</article></main>

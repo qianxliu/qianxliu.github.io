@@ -1,49 +1,81 @@
-<!DOCTYPE html><head><title>图与树（CS） - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>图与树（CS）</h1><blockquote><p>好长时间没更新博客了……最近确实发生了不少事情，导致更新不了 It&#39;s been a long time to not update my blog……Recently actually many things happen, so that I couldn&#39;t have time to draw something.</p></blockquote><h1 id="graph-and-treecs">Graph and Tree(CS)</h1><h1 id="图与树（cs）">图与树（CS）</h1><h2 id="graph-theorymath">Graph theory(Math)</h2><h2 id="图论数学">图论(数学)</h2><p>The paper written by <strong>Leonhard Euler</strong> on the Seven Bridges of Königsberg and published in 1736 is regarded as the first paper in the history of graph theory. 莱昂哈德·欧拉于1736年发表的关于柯尼斯堡七桥的论文被认为是图论史上的第一篇论文。 A graph (sometimes called an undirected graph to distinguish it from a directed graph, or a simple graph to distinguish it from a multigraph) is a pair $G = (V, E)$, where $V$ is a <strong>set</strong> whose elements are called vertices (singular: vertex), and E is a set of paired vertices, whose elements are called edges (sometimes links or lines). 一个图（有时称为无向图以将其与有向图区分开来，或称为简单图以将它与多重图区分开来）是一对$G=（V，E）$，其中$V$是一个<strong>集合</strong>，其元素称为顶点（单数：顶点），E是一组成对的顶点，其元素也称为边（有时为链接或线）。 $V$, a set of vertices (also called nodes or points); $E\subseteq {{x,y}\mid x,y\in V;{\textrm {and}};x\neq y}$, a set of edges (also called links or lines), which are unordered pairs of vertices (that is, an edge is associated with two distinct vertices).</p><h2 id="breadth-first-search-bfs">Breadth-First Search BFS</h2><h2 id="广度优先搜索">广度优先搜索</h2><pre><code class="language-cpp">queue&lt;int&gt; q;
-bool visited[N];
-int dist[N];
+<!DOCTYPE html><head><title>图与树（CS） - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>图与树（CS）</h1><blockquote>
+<p>好长时间没更新博客了……最近确实发生了不少事情，导致更新不了
+It&#39;s been a long time to not update my blog……Recently actually many things happen, so that I couldn&#39;t have time to draw something.</p>
+</blockquote>
+<h1>Graph and Tree(CS)</h1>
+<h1>图与树（CS）</h1>
+<h2>Graph theory(Math)</h2>
+<h2>图论(数学)</h2>
+<p>The paper written by <strong>Leonhard Euler</strong> on the Seven Bridges of Königsberg and published in 1736 is regarded as the first paper in the history of graph theory.
+莱昂哈德·欧拉于1736年发表的关于柯尼斯堡七桥的论文被认为是图论史上的第一篇论文。
+A graph (sometimes called an undirected graph to distinguish it from a directed graph, or a simple graph to distinguish it from a multigraph) is a pair <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">G = (V, E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span> is a <strong>set</strong> whose elements are called vertices (singular: vertex), and E is a set of paired vertices, whose elements are called edges (sometimes links or lines). 
+一个图（有时称为无向图以将其与有向图区分开来，或称为简单图以将它与多重图区分开来）是一对$G=（V，E）$，其中$V$是一个<strong>集合</strong>，其元素称为顶点（单数：顶点），E是一组成对的顶点，其元素也称为边（有时为链接或线）。
+$V$, a set of vertices (also called nodes or points);
+$E\subseteq {{x,y}\mid x,y\in V;{\textrm {and}};x\neq y}$, a set of edges (also called links or lines), which are unordered pairs of vertices (that is, an edge is associated with two distinct vertices).</p>
+<h2>Breadth-First Search BFS</h2>
+<h2>广度优先搜索</h2>
+<pre><code class="hljs language-cpp">queue&lt;<span class="hljs-type">int</span>&gt; q;
+<span class="hljs-type">bool</span> visited[N];
+<span class="hljs-type">int</span> dist[N];
 
-void bfs(int x)
-{
-    visited[x] = true;
-    q.push(x);
-    dist[x] = 0;
-    while (!q.empty())
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">bfs</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span>
+</span>{
+    visited[x] = <span class="hljs-literal">true</span>;
+    q.<span class="hljs-built_in">push</span>(x);
+    dist[x] = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>())
     {
-        int s = q.front();
-        q.pop();
-        for (auto &amp;i : adj[s])
+        <span class="hljs-type">int</span> s = q.<span class="hljs-built_in">front</span>();
+        q.<span class="hljs-built_in">pop</span>();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;i : adj[s])
         {
-            if (visited[i]) continue;
-            visited[i] = true;
-            // i, s
-            dist[i] = dist[s] + 1;
-            q.push(i);
+            <span class="hljs-keyword">if</span> (visited[i]) <span class="hljs-keyword">continue</span>;
+            visited[i] = <span class="hljs-literal">true</span>;
+            <span class="hljs-comment">// i, s</span>
+            dist[i] = dist[s] + <span class="hljs-number">1</span>;
+            q.<span class="hljs-built_in">push</span>(i);
         }
     }
-}</code></pre><h2 id="binary-treerecursion-cs-in-math">Binary Tree(Recursion, CS in Math)</h2><h2 id="二叉树recursion-cs-in-math">二叉树(Recursion, CS in Math)</h2><p>在数学中是一种无向无环图(不是DAG)。必须递归定义。 A type of undirected acyclic graph in Math(not DAG). Must be defined by recursion. （非空）二叉树是元组$(L,S,R)$，其中$L$和$R$是二叉树或空集，$S$是包含根的单例集。 A (nonempty) binary tree is a tuple $(L, S, R) $, where $L $and $R $are binary trees or empty sets, and $S $is a singleton containing roots.</p><p>Defining the binary tree as triplet $(V, E1, E2)$, where $(V, E1 ∪ E2)$ is a rooted tree. $E_1\subseteq {{x,y}\mid x,y\in V;{\textrm {and}};x\neq y}$ $E_2\subseteq {{x,y}\mid x,y\in V;{\textrm {and}};x\neq y}$ $E_1 ∩ E_2 = \emptyset$ and also requiring that for all $j ∈ { 1, 2 }$ every node has at most one $E_j$ child. This definition is not very strict.</p><h2 id="sequence-traversal-of-binary-trees">Sequence traversal of binary trees</h2><h2 id="二叉树的层序遍历">二叉树的层序遍历</h2><pre><code class="language-cpp">    vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode *root)
+}
+</code></pre><h2>Binary Tree(Recursion, CS in Math)</h2>
+<h2>二叉树(Recursion, CS in Math)</h2>
+<p>在数学中是一种无向无环图(不是DAG)。必须递归定义。
+A type of undirected acyclic graph in Math(not DAG). Must be defined by recursion.
+（非空）二叉树是元组$(L,S,R)$，其中$L$和$R$是二叉树或空集，$S$是包含根的单例集。
+A (nonempty) binary tree is a tuple <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>L</mi><mo separator="true">,</mo><mi>S</mi><mo separator="true">,</mo><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(L, S, R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span>, where $L $and $R $are binary trees or empty sets, and $S $is a singleton containing roots.</p>
+<p>Defining the binary tree as triplet <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mn>1</mn><mo separator="true">,</mo><mi>E</mi><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(V, E1, E2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">2</span><span class="mclose">)</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mn>1</mn><mo>∪</mo><mi>E</mi><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(V, E1 ∪ E2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∪</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">2</span><span class="mclose">)</span></span></span></span> is a rooted tree.
+$E_1\subseteq {{x,y}\mid x,y\in V;{\textrm {and}};x\neq y}$
+$E_2\subseteq {{x,y}\mid x,y\in V;{\textrm {and}};x\neq y}$
+$E_1 ∩ E_2 = \emptyset$
+and also requiring that for all <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∈</mo><mrow><mn>1</mn><mo separator="true">,</mo><mn>2</mn></mrow></mrow><annotation encoding="application/x-tex">j ∈ { 1, 2 }</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.854em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span></span></span></span></span> every node has at most one <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">E_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> child.
+This definition is not very strict.</p>
+<h2>Sequence traversal of binary trees</h2>
+<h2>二叉树的层序遍历</h2>
+<pre><code class="hljs language-cpp">    vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">levelOrder</span>(TreeNode *root)
     {
-        vector&lt;vector&lt;int&gt;&gt; res;
-        if (!root)
-            return res;
+        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; res;
+        <span class="hljs-keyword">if</span> (!root)
+            <span class="hljs-keyword">return</span> res;
 
         queue&lt;TreeNode *&gt; q;
-        q.push(root);
+        q.<span class="hljs-built_in">push</span>(root);
 
-        while (!q.empty())
+        <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>())
         {
-            int sz = q.size();
-            vector&lt;int&gt; level;
-            for (int i = 0; i &lt; sz; ++i)
+            <span class="hljs-type">int</span> sz = q.<span class="hljs-built_in">size</span>();
+            vector&lt;<span class="hljs-type">int</span>&gt; level;
+            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; sz; ++i)
             {
-                TreeNode *cur = q.front();
-                q.pop();
-                level.push_back(cur-&gt;val);
-                if (cur-&gt;left)
-                    q.push(cur-&gt;left);
-                if (cur-&gt;right)
-                    q.push(cur-&gt;right);
+                TreeNode *cur = q.<span class="hljs-built_in">front</span>();
+                q.<span class="hljs-built_in">pop</span>();
+                level.<span class="hljs-built_in">push_back</span>(cur-&gt;val);
+                <span class="hljs-keyword">if</span> (cur-&gt;left)
+                    q.<span class="hljs-built_in">push</span>(cur-&gt;left);
+                <span class="hljs-keyword">if</span> (cur-&gt;right)
+                    q.<span class="hljs-built_in">push</span>(cur-&gt;right);
             }
-            res.push_back(level);
+            res.<span class="hljs-built_in">push_back</span>(level);
         }
-        return res;
-  }</code></pre></article></main>
+        <span class="hljs-keyword">return</span> res;
+  }
+</code></pre></article></main>

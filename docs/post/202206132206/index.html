@@ -1,69 +1,96 @@
-<!DOCTYPE html><head><title>x86 ISA Program - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>x86 ISA Program</h1><blockquote><p>So, you want to talk about performance.</p></blockquote><h1 id="x86-isa-program">x86 ISA Program</h1><ul><li><p>MASM, the Microsoft Assembler. It outputs OMF files (but Microsoft’s linker can convert them to win32 format). It supports a massive and clunky assembly language. Memory addressing is not intuitive. The directives required to set up a program make programming unpleasant.</p></li><li><p>GAS, the GNU assember. This uses the rather ugly AT&amp;T-style syntax so many people do not like it; however, you can configure it to use and understand the Intel-style. It was designed to be part of the back end of the GNU compiler collection (gcc).</p></li><li><p>NASM, the &quot;Netwide Assembler.&quot; It is free, small, and best of all it can output zillions of different types of object files. The language is much more sensible than MASM in many respects.</p></li></ul><h2 id="command">Command</h2><pre><code class="language-bash">gcc hello.s -nostdlib -no-pie</code></pre><p>Position Independent Executables (PIE) are an output of the hardened package build process. A PIE binary and all of its dependencies are loaded into random locations within virtual memory each time the application is executed. This makes Return Oriented Programming (ROP) attacks much more difficult to execute reliably. These blog posts are designed to showcase the results of a study I did recently which looked at the effect of building applications using PIE. In the study I investigated the overhead incurred in the loader during program startup with the aim to help distributions make better security decisions based on a technical analysis. The focus on program startup was chiefly to examine the place where PIE has the largest performance impact. The performance post process execution is largely comparable to standard Dynamic Shared Objects (DSOs) on x86_64 machines depending on how well the program and shared libraries have been designed.</p><h2 id="hello-world">Hello World</h2><h3 id="gcc-helloc-to-hellos">GCC hello.c to hello.s</h3><pre><code class="language-x86asm">        .file   &quot;hello.c&quot;
-        .text
-        .section        .rodata
-.LC0:
-        .string &quot;Hello, world\n&quot;
-        .text
-        .globl  main
-        .type   main, @function
-main:
-.LFB0:
-        .cfi_startproc
+<!DOCTYPE html><head><title>x86 ISA Program - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>x86 ISA Program</h1><blockquote>
+<p>So, you want to talk about performance.</p>
+</blockquote>
+<h1>x86 ISA Program</h1>
+<ul>
+<li><p>MASM, the Microsoft Assembler. It outputs OMF files (but Microsoft’s linker can convert them to win32 format). It supports a massive and clunky assembly language. Memory addressing is not intuitive. The directives required to set up a program make programming unpleasant.</p>
+</li>
+<li><p>GAS, the GNU assember. This uses the rather ugly AT&amp;T-style syntax so many people do not like it; however, you can configure it to use and understand the Intel-style. It was designed to be part of the back end of the GNU compiler collection (gcc).</p>
+</li>
+<li><p>NASM, the &quot;Netwide Assembler.&quot; It is free, small, and best of all it can output zillions of different types of object files. The language is much more sensible than MASM in many respects.</p>
+</li>
+</ul>
+<h2>Command</h2>
+<pre><code class="hljs language-bash">gcc hello.s -nostdlib -no-pie
+</code></pre><p>Position Independent Executables (PIE) are an output of the hardened package build process. A PIE binary and all of its dependencies are loaded into random locations within virtual memory each time the application is executed. This makes Return Oriented Programming (ROP) attacks much more difficult to execute reliably. These blog posts are designed to showcase the results of a study I did recently which looked at the effect of building applications using PIE. In the study I investigated the overhead incurred in the loader during program startup with the aim to help distributions make better security decisions based on a technical analysis. The focus on program startup was chiefly to examine the place where PIE has the largest performance impact. The performance post process execution is largely comparable to standard Dynamic Shared Objects (DSOs) on x86_64 machines depending on how well the program and shared libraries have been designed. </p>
+<h2>Hello World</h2>
+<h3>GCC hello.c to hello.s</h3>
+<pre><code class="hljs language-x86asm"><span class="hljs-meta">        .file</span>   <span class="hljs-string">&quot;hello.c&quot;</span>
+<span class="hljs-meta">        .text</span>
+<span class="hljs-meta">        .section</span>        .rodata
+<span class="hljs-symbol">.LC0:</span>
+<span class="hljs-meta">        .string</span> <span class="hljs-string">&quot;Hello, world\n&quot;</span>
+<span class="hljs-meta">        .text</span>
+<span class="hljs-meta">        .globl</span>  main
+<span class="hljs-meta">        .type</span>   main, @function
+<span class="hljs-symbol">main:</span>
+<span class="hljs-symbol">.LFB0:</span>
+<span class="hljs-meta">        .cfi_startproc</span>
         endbr64
         pushq   %rbp
-        .cfi_def_cfa_offset 16
-        .cfi_offset 6, -16
-        movq    %rsp, %rbp
-        .cfi_def_cfa_register 6
+<span class="hljs-meta">        .cfi_def_cfa_offset</span> <span class="hljs-number">16</span>
+<span class="hljs-meta">        .cfi_offset</span> <span class="hljs-number">6</span>, -<span class="hljs-number">16</span>
+        <span class="hljs-keyword">movq</span>    %rsp, %rbp
+<span class="hljs-meta">        .cfi_def_cfa_register</span> <span class="hljs-number">6</span>
         leaq    .LC0(%rip), %rdi
-        movl    $0, %eax
-        call    printf@PLT
-        movl    $0, %eax
+        movl    <span class="hljs-number">$0</span>, %eax
+        <span class="hljs-keyword">call</span>    printf@PLT
+        movl    <span class="hljs-number">$0</span>, %eax
         popq    %rbp
-        .cfi_def_cfa 7, 8
-        ret
-        .cfi_endproc
-.LFE0:
-        .size   main, .-main
-        .ident  &quot;GCC: (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0&quot;
-        .section        .note.GNU-stack,&quot;&quot;,@progbits
-        .section        .note.gnu.property,&quot;a&quot;
-        .align 8
-        .long    1f - 0f
-        .long    4f - 1f
-        .long    5
-0:
-        .string  &quot;GNU&quot;
-1:
-        .align 8
-        .long    0xc0000002
-        .long    3f - 2f
-2:
-        .long    0x3
-3:
-        .align 8
-4:</code></pre><h3 id="x86-hellos">x86 hello.s</h3><pre><code class="language-x86asm">        .global _start
+<span class="hljs-meta">        .cfi_def_cfa</span> <span class="hljs-number">7</span>, <span class="hljs-number">8</span>
+        <span class="hljs-keyword">ret</span>
+<span class="hljs-meta">        .cfi_endproc</span>
+<span class="hljs-symbol">.LFE0:</span>
+<span class="hljs-meta">        .size</span>   main, .-main
+<span class="hljs-meta">        .ident</span>  <span class="hljs-string">&quot;GCC: (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0&quot;</span>
+<span class="hljs-meta">        .section</span>        .note<span class="hljs-number">.</span>GNU-stack,<span class="hljs-string">&quot;&quot;</span>,@progbits
+<span class="hljs-meta">        .section</span>        .note<span class="hljs-number">.</span>gnu<span class="hljs-number">.</span>property,<span class="hljs-string">&quot;a&quot;</span>
+<span class="hljs-meta">        .align</span> <span class="hljs-number">8</span>
+<span class="hljs-meta">        .long</span>    1f - 0f
+<span class="hljs-meta">        .long</span>    4f - 1f
+<span class="hljs-meta">        .long</span>    <span class="hljs-number">5</span>
+<span class="hljs-number">0</span>:
+<span class="hljs-meta">        .string</span>  <span class="hljs-string">&quot;GNU&quot;</span>
+<span class="hljs-number">1</span>:
+<span class="hljs-meta">        .align</span> <span class="hljs-number">8</span>
+<span class="hljs-meta">        .long</span>    <span class="hljs-number">0xc0000002</span>
+<span class="hljs-meta">        .long</span>    3f - 2f
+<span class="hljs-number">2</span>:
+<span class="hljs-meta">        .long</span>    <span class="hljs-number">0x3</span>
+<span class="hljs-number">3</span>:
+<span class="hljs-meta">        .align</span> <span class="hljs-number">8</span>
+<span class="hljs-number">4</span>:
+</code></pre><h3>x86 hello.s</h3>
+<pre><code class="hljs language-x86asm"><span class="hljs-meta">        .global</span> _start
+<span class="hljs-meta">
+        .text</span>
+<span class="hljs-symbol">_start:</span>
+        # write(<span class="hljs-number">1</span>, message, <span class="hljs-number">13</span>)
+        <span class="hljs-keyword">mov</span>     <span class="hljs-number">$1</span>, %rax                # system <span class="hljs-keyword">call</span> <span class="hljs-number">1</span> is write
+        <span class="hljs-keyword">mov</span>     <span class="hljs-number">$1</span>, %rdi                # file handle <span class="hljs-number">1</span> is stdout
+        <span class="hljs-keyword">mov</span>     $message, %rsi          # address of string to output
+        <span class="hljs-keyword">mov</span>     <span class="hljs-number">$13</span>, %rdx               # number of bytes
+        <span class="hljs-keyword">syscall</span>                         # invoke operating system to <span class="hljs-built_in">do</span> the write
 
-        .text
-_start:
-        # write(1, message, 13)
-        mov     $1, %rax                # system call 1 is write
-        mov     $1, %rdi                # file handle 1 is stdout
-        mov     $message, %rsi          # address of string to output
-        mov     $13, %rdx               # number of bytes
-        syscall                         # invoke operating system to do the write
-
-        # exit(0)
-        mov     $60, %rax               # system call 60 is exit
-        xor     %rdi, %rdi              # we want return code 0
-        syscall                         # invoke operating system to exit
-message:
-        .ascii  &quot;Hello, world\n&quot;</code></pre><h3 id="benchmark">Benchmark</h3><p>GCC</p><pre><code class="language-bash">Hello, world
+        # exit(<span class="hljs-number">0</span>)
+        <span class="hljs-keyword">mov</span>     <span class="hljs-number">$60</span>, %rax               # system <span class="hljs-keyword">call</span> <span class="hljs-number">60</span> is exit
+        <span class="hljs-keyword">xor</span>     %rdi, %rdi              # we want return code <span class="hljs-number">0</span>
+        <span class="hljs-keyword">syscall</span>                         # invoke operating system to exit
+<span class="hljs-symbol">message:</span>
+<span class="hljs-meta">        .ascii</span>  <span class="hljs-string">&quot;Hello, world\n&quot;</span>
+</code></pre><h3>Benchmark</h3>
+<p>GCC</p>
+<pre><code class="hljs language-bash">Hello, world
 
 real    0m0.001s
 user    0m0.001s
-sys     0m0.000s</code></pre><p>x86</p><pre><code class="language-bash">Hello, world
+sys     0m0.000s
+</code></pre><p>x86</p>
+<pre><code class="hljs language-bash">Hello, world
 
 real    0m0.000s
 user    0m0.000s
-sys     0m0.000s</code></pre><h3 id="reference">Reference</h3><p><a href="https://cs.lmu.edu/~ray/notes/x86assembly/">https://cs.lmu.edu/~ray/notes/x86assembly/</a></p></article></main>
+sys     0m0.000s
+</code></pre><h3>Reference</h3>
+<p><a href="https://cs.lmu.edu/~ray/notes/x86assembly/">https://cs.lmu.edu/~ray/notes/x86assembly/</a></p>
+</article></main>

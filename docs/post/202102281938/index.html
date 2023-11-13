@@ -1,33 +1,36 @@
-<!DOCTYPE html><head><title>Valid Parentheses - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>Valid Parentheses</h1><h1 id="valid-parentheses">Valid Parentheses</h1><pre><code class="language-c++">class Solution {
-public:
-    bool isValid(string s) {
-        int n = s.size();
-        if (n % 2 == 1) {
-            return false;
+<!DOCTYPE html><head><title>Valid Parentheses - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>Valid Parentheses</h1><h1>Valid Parentheses</h1>
+<pre><code class="hljs language-c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isValid</span><span class="hljs-params">(string s)</span> </span>{
+        <span class="hljs-type">int</span> n = s.<span class="hljs-built_in">size</span>();
+        <span class="hljs-keyword">if</span> (n % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
         }
 
-        //Hash Table
-        unordered_map&lt;char, char&gt; pairs = {
-            {&#39;)&#39;, &#39;(&#39;},
-            {&#39;]&#39;, &#39;[&#39;},
-            {&#39;}&#39;, &#39;{&#39;}
+        <span class="hljs-comment">//Hash Table</span>
+        unordered_map&lt;<span class="hljs-type">char</span>, <span class="hljs-type">char</span>&gt; pairs = {
+            {<span class="hljs-string">&#x27;)&#x27;</span>, <span class="hljs-string">&#x27;(&#x27;</span>},
+            {<span class="hljs-string">&#x27;]&#x27;</span>, <span class="hljs-string">&#x27;[&#x27;</span>},
+            {<span class="hljs-string">&#x27;}&#x27;</span>, <span class="hljs-string">&#x27;{&#x27;</span>}
         };
-        stack&lt;char&gt; stk;
-        for (char ch: s) {
-            if (pairs.count(ch)) {
-                if (stk.empty() || stk.top() != pairs[ch]) {
-                    return false;
+        stack&lt;<span class="hljs-type">char</span>&gt; stk;
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">char</span> ch: s) {
+            <span class="hljs-keyword">if</span> (pairs.<span class="hljs-built_in">count</span>(ch)) {
+                <span class="hljs-keyword">if</span> (stk.<span class="hljs-built_in">empty</span>() || stk.<span class="hljs-built_in">top</span>() != pairs[ch]) {
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
                 }
-                stk.pop();
+                stk.<span class="hljs-built_in">pop</span>();
             }
-            else {
-                stk.push(ch);
+            <span class="hljs-keyword">else</span> {
+                stk.<span class="hljs-built_in">push</span>(ch);
             }
         }
-        return stk.empty();
+        <span class="hljs-keyword">return</span> stk.<span class="hljs-built_in">empty</span>();
     }
 };
 
 作者：LeetCode-Solution
-链接：https://leetcode-cn.com/problems/valid-parentheses/solution/you-xiao-de-gua-hao-by-leetcode-solution/
-来源：力扣（LeetCode）</code></pre><p>这是一道很简单很基础的算法题。但是也有捋一捋的价值。</p></article></main>
+链接：https:<span class="hljs-comment">//leetcode-cn.com/problems/valid-parentheses/solution/you-xiao-de-gua-hao-by-leetcode-solution/</span>
+来源：力扣（LeetCode）
+</code></pre><p>这是一道很简单很基础的算法题。但是也有捋一捋的价值。</p>
+</article></main>

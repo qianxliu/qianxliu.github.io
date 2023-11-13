@@ -1,45 +1,48 @@
-<!DOCTYPE html><head><title>算法珠玑——最长回文子串(5) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>算法珠玑——最长回文子串(5)</h1><h1 id="算法珠玑最长回文子串5">算法珠玑——最长回文子串(5)</h1><p>三指针?</p><pre><code class="language-cpp">/*
+<!DOCTYPE html><head><title>算法珠玑——最长回文子串(5) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>算法珠玑——最长回文子串(5)</h1><h1>算法珠玑——最长回文子串(5)</h1>
+<p>三指针?</p>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">/*
  * @lc app=leetcode.cn id=5 lang=cpp
  *
  * [5] 最长回文子串
- */
+ */</span>
 
-// @lc code=start
-class Solution {
-public:
-    string longestPalindrome(string s) {
-        int n = s.length();
+<span class="hljs-comment">// @lc code=start</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">string <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(string s)</span> </span>{
+        <span class="hljs-type">int</span> n = s.<span class="hljs-built_in">length</span>();
+        
+        <span class="hljs-comment">// (object) base for end case: start and mxlen</span>
+        <span class="hljs-type">int</span> mxlen = <span class="hljs-number">0</span>, start = <span class="hljs-number">0</span>;
 
-        // (object) base for end case: start and mxlen
-        int mxlen = 0, start = 0;
-
-        int left, right;
-        // (base/end)induction step: itertive
-        for (int i = 0; i &lt; n; ++i)
+        <span class="hljs-type">int</span> left, right;
+        <span class="hljs-comment">// (base/end)induction step: itertive</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i)
         {
             left = i;
             right = i;
-
-            // sub induction step: shift right
-            while (right+1 &lt; n &amp;&amp; s[right] == s[right+1]) 
+            
+            <span class="hljs-comment">// sub induction step: shift right</span>
+            <span class="hljs-keyword">while</span> (right+<span class="hljs-number">1</span> &lt; n &amp;&amp; s[right] == s[right+<span class="hljs-number">1</span>]) 
                 ++right;
 
-            // sub induction step: adjust left and right
-            while (left-1 &gt;= 0 &amp;&amp; right+1 &lt; n &amp;&amp; s[left-1] == s[right+1]) 
+            <span class="hljs-comment">// sub induction step: adjust left and right</span>
+            <span class="hljs-keyword">while</span> (left<span class="hljs-number">-1</span> &gt;= <span class="hljs-number">0</span> &amp;&amp; right+<span class="hljs-number">1</span> &lt; n &amp;&amp; s[left<span class="hljs-number">-1</span>] == s[right+<span class="hljs-number">1</span>]) 
             {
                 --left; 
                 ++right;
             }
 
-            // sub induction step: set start and maxlen
-            if (mxlen &lt; right-left+1) 
+            <span class="hljs-comment">// sub induction step: set start and maxlen</span>
+            <span class="hljs-keyword">if</span> (mxlen &lt; right-left+<span class="hljs-number">1</span>) 
             {
-                mxlen = right-left+1;
+                mxlen = right-left+<span class="hljs-number">1</span>;
                 start = left;
             }
         }
-        // end case
-        return s.substr(start, mxlen);
+        <span class="hljs-comment">// end case</span>
+        <span class="hljs-keyword">return</span> s.<span class="hljs-built_in">substr</span>(start, mxlen);
     }
 };
-// @lc code=end</code></pre></article></main>
+<span class="hljs-comment">// @lc code=end</span>
+</code></pre></article></main>

@@ -6,7 +6,11 @@ import { createServer } from "node:http";
 import { Worker } from "node:worker_threads";
 import fs from "node:fs";
 import path from "node:path";
-import marked from 'marked';
+import { Marked } from 'marked';
+import { markedHighlight } from "marked-highlight";
+import hljs from 'highlight.js';
+
+import markedKatex from "marked-katex-extension";
 import htmlclean from "htmlclean";
 import terser from "terser";
 import { Console } from "node:console";
@@ -88,10 +92,23 @@ const minify = (() => {
 const makePage = (() => {
   const templateRaw = fs.readFileSync(p`./units/template.html`).toString();
   const template = minify.htmlEnhanced(templateRaw);
+  const marked = new Marked(
+    markedHighlight({
+      langPrefix: 'hljs language-',
+      highlight(code, lang) {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+        return hljs.highlight(code, { language }).value;
+      }
+    })
+  );
+  const options = {
+    throwOnError: false
+  };
+  marked.use(markedKatex(options));
+
   return ({ isMarkdown, path: rpath, title, description = "", content }) => {
     if (isMarkdown)
-      content = `<article><h1>${title}</h1>${marked(content)}</article>`;
-    content = minify.html(content);
+      content = `<article><h1>${title}</h1>${marked.parse(content)}</article>`;
     const result = template
       .replace("/*{title}*/", title)
       .replace("/*{description}*/", description)

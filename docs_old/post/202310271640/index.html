@@ -1,60 +1,67 @@
-<!DOCTYPE html><head><title> LeetCode 2 Add Two Numbers - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1> LeetCode 2 Add Two Numbers</h1><blockquote><p><a href="https://leetcode.cn/problems/add-two-numbers/description/">https://leetcode.cn/problems/add-two-numbers/description/</a></p></blockquote><h1 id="add-two-numbers">Add Two Numbers</h1><pre><code class="language-cpp">#include&lt;iostream&gt;
+<!DOCTYPE html><head><title> LeetCode 2 Add Two Numbers - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1> LeetCode 2 Add Two Numbers</h1><blockquote>
+<p><a href="https://leetcode.cn/problems/add-two-numbers/description/">https://leetcode.cn/problems/add-two-numbers/description/</a></p>
+</blockquote>
+<h1>Add Two Numbers</h1>
+<pre><code class="hljs language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span>
 
-using namespace std;
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
 
-struct ListNode
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">ListNode</span>
 {
-    int val;
+    <span class="hljs-type">int</span> val;
     ListNode* next;
-    ListNode() : val(0), next(nullptr){};
-    ListNode(int x) : val(x), next(nullptr){};
-    ListNode(int x, ListNode *next) : val(x), next(next){};
+    <span class="hljs-built_in">ListNode</span>() : <span class="hljs-built_in">val</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">next</span>(<span class="hljs-literal">nullptr</span>){};
+    <span class="hljs-built_in">ListNode</span>(<span class="hljs-type">int</span> x) : <span class="hljs-built_in">val</span>(x), <span class="hljs-built_in">next</span>(<span class="hljs-literal">nullptr</span>){};
+    <span class="hljs-built_in">ListNode</span>(<span class="hljs-type">int</span> x, ListNode *next) : <span class="hljs-built_in">val</span>(x), <span class="hljs-built_in">next</span>(next){};
 };
 
-ListNode* list(vector&lt;int&gt; v)
-{
-    ListNode* dummy = new ListNode(), *p = dummy;
-    for (auto i : v)
+<span class="hljs-function">ListNode* <span class="hljs-title">list</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt; v)</span>
+</span>{
+    ListNode* dummy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(), *p = dummy;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> i : v)
     {
-        p-&gt;next = new ListNode(i);
+        p-&gt;next = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(i);
         p = p-&gt;next;
     }
-    return dummy-&gt;next;
+    <span class="hljs-keyword">return</span> dummy-&gt;next;
 }
 
-ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
-{
-    ListNode* dummy = new ListNode(), *p = dummy;
-    int carry = 0;
-    while(l1 || l2 || carry)
+<span class="hljs-function">ListNode* <span class="hljs-title">addTwoNumbers</span><span class="hljs-params">(ListNode* l1, ListNode* l2)</span>
+</span>{
+    ListNode* dummy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(), *p = dummy;
+    <span class="hljs-type">int</span> carry = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span>(l1 || l2 || carry)
     {
-        if (l1)
+        <span class="hljs-keyword">if</span> (l1)
         {
             carry += l1-&gt;val;
             l1 = l1-&gt;next;
         }
-        if (l2)
+        <span class="hljs-keyword">if</span> (l2)
         {
             carry += l2-&gt;val;
             l2 = l2-&gt;next;
         }
-        p-&gt;next = new ListNode(carry%10);
-        carry /= 10;
+        p-&gt;next = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(carry%<span class="hljs-number">10</span>);
+        carry /= <span class="hljs-number">10</span>;
         p = p-&gt;next;
 
     }
-    return dummy-&gt;next;
+    <span class="hljs-keyword">return</span> dummy-&gt;next;
 }
 
-int main()
-{
-    ListNode* l1 = list({9,9,9,9,9,9,9});
-    ListNode* l2 = list({9,9,9,9});
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>{
+    ListNode* l1 = <span class="hljs-built_in">list</span>({<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>});
+    ListNode* l2 = <span class="hljs-built_in">list</span>({<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>});
 
-    ListNode* res = addTwoNumbers(l1, l2);
-    while(res)
+    ListNode* res = <span class="hljs-built_in">addTwoNumbers</span>(l1, l2);
+    <span class="hljs-keyword">while</span>(res)
     {
-        cout &lt;&lt; res-&gt;val &lt;&lt; &#39;\n&#39;;
+        cout &lt;&lt; res-&gt;val &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;
         res = res-&gt;next;
     }
-}</code></pre><pre><code class="language-bash">g++ leetcode2.cpp -std=c++11</code></pre><p>-std=c++11 for list initialization {}.</p></article></main>
+}
+</code></pre><pre><code class="hljs language-bash">g++ leetcode2.cpp -std=c++11
+</code></pre><p>-std=c++11 for list initialization {}.</p>
+</article></main>

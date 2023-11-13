@@ -1,26 +1,28 @@
-<!DOCTYPE html><head><title>数据结构珠玑——unordered_map - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>数据结构珠玑——unordered_map</h1><p>以下代码未优化且速度不快，主要为了数据结构</p><pre><code class="language-cpp">/*
+<!DOCTYPE html><head><title>数据结构珠玑——unordered_map - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>数据结构珠玑——unordered_map</h1><p>以下代码未优化且速度不快，主要为了数据结构</p>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">/*
  * @lc app=leetcode.cn id=347 lang=cpp
  *
  * [347] 前 K 个高频元素
- */
+ */</span>
 
-// @lc code=start
-class Solution {
-public:
-    vector&lt;int&gt; topKFrequent(vector&lt;int&gt;&amp; nums, int k) {
-        unordered_map&lt;int,int&gt; map;
-        for (int&amp; num : nums)
+<span class="hljs-comment">// @lc code=start</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">topKFrequent</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> k)</span> </span>{
+        unordered_map&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt; map;
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span>&amp; num : nums)
             ++map[num];
-
-        vector&lt;pair&lt;int, int&gt;&gt; A;
-        for (auto&amp; it : map) {
-            A.emplace_back(it);
+        
+        vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt; A;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; it : map) {
+            A.<span class="hljs-built_in">emplace_back</span>(it);
         }
-        sort(A.begin(), A.end(), [](pair&lt;int, int&gt; a, pair&lt;int, int&gt; b)
-             { return a.second &gt; b.second; });
-        vector&lt;int&gt; kth;
-        for (int i = 0; i &lt; k; ++i)
-            kth.emplace_back(A[i].first);
-        return kth;
+        <span class="hljs-built_in">sort</span>(A.<span class="hljs-built_in">begin</span>(), A.<span class="hljs-built_in">end</span>(), [](pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; a, pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; b)
+             { <span class="hljs-keyword">return</span> a.second &gt; b.second; });
+        vector&lt;<span class="hljs-type">int</span>&gt; kth;
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; k; ++i)
+            kth.<span class="hljs-built_in">emplace_back</span>(A[i].first);
+        <span class="hljs-keyword">return</span> kth;
     }
-};</code></pre></article></main>
+};
+</code></pre></article></main>

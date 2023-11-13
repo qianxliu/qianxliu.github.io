@@ -1,4 +1,9 @@
-<!DOCTYPE html><head><title>数据结构珠玑——二叉树(1) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>数据结构珠玑——二叉树(1)</h1><h1 id="数据结构珠玑二叉树1">数据结构珠玑——二叉树(1)</h1><p><a href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal">https://leetcode-cn.com/problems/binary-tree-preorder-traversal</a> <img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211209200546971-917863101.png" alt=""> <img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211209200647334-1296455794.png" alt=""></p><p>本代码全网最快，100%几乎完全不是运气。</p><pre><code class="language-cpp">/**
+<!DOCTYPE html><head><title>数据结构珠玑——二叉树(1) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>数据结构珠玑——二叉树(1)</h1><h1>数据结构珠玑——二叉树(1)</h1>
+<p><a href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal">https://leetcode-cn.com/problems/binary-tree-preorder-traversal</a>
+<img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211209200546971-917863101.png" alt="">
+<img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211209200647334-1296455794.png" alt=""></p>
+<p>本代码全网最快，100%几乎完全不是运气。</p>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">/**
  * Definition for a binary tree node.
  * struct TreeNode {
  *     int val;
@@ -8,25 +13,30 @@
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
- */
-class Solution {
-public:
-    void preorder(TreeNode* root, vector&lt;int&gt;&amp; traversal)
-    {
-        if(root)
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">preorder</span><span class="hljs-params">(TreeNode* root, vector&lt;<span class="hljs-type">int</span>&gt;&amp; traversal)</span>
+    </span>{
+        <span class="hljs-keyword">if</span>(root)
         {
-            traversal.emplace_back(root-&gt;val);
-            preorder(root-&gt;left, traversal);
-            preorder(root-&gt;right, traversal);
+            traversal.<span class="hljs-built_in">emplace_back</span>(root-&gt;val);
+            <span class="hljs-built_in">preorder</span>(root-&gt;left, traversal);
+            <span class="hljs-built_in">preorder</span>(root-&gt;right, traversal);
         }
-        else return;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span>;
     }
-    vector&lt;int&gt; preorderTraversal(TreeNode* root) {
-        vector&lt;int&gt; traversal;
-        preorder(root, traversal);
-        return traversal;
+    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">preorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+        vector&lt;<span class="hljs-type">int</span>&gt; traversal;
+        <span class="hljs-built_in">preorder</span>(root, traversal);
+        <span class="hljs-keyword">return</span> traversal;
     }
-};</code></pre><p>这个代码我觉得没必要讲了，但是中间确实有几部分和传统做法不同，从而比大多做法大幅提高了性能。</p><p><a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal">https://leetcode-cn.com/problems/binary-tree-inorder-traversal</a> <img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211209212129365-613648686.png" alt=""></p><p>中序遍历</p><pre><code class="language-cpp">/**
+};
+</code></pre><p>这个代码我觉得没必要讲了，但是中间确实有几部分和传统做法不同，从而比大多做法大幅提高了性能。</p>
+<p><a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal">https://leetcode-cn.com/problems/binary-tree-inorder-traversal</a>
+<img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211209212129365-613648686.png" alt=""></p>
+<p>中序遍历</p>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">/**
  * Definition for a binary tree node.
  * struct TreeNode {
  *     int val;
@@ -36,24 +46,28 @@ public:
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
- */
-class Solution {
-public:
-    void inorder(TreeNode* root, vector&lt;int&gt;&amp; traversal)
-    {
-        if (root)
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">inorder</span><span class="hljs-params">(TreeNode* root, vector&lt;<span class="hljs-type">int</span>&gt;&amp; traversal)</span>
+    </span>{
+        <span class="hljs-keyword">if</span> (root)
         {
-            inorder(root-&gt;left, traversal);
-            traversal.emplace_back(root-&gt;val);
-            inorder(root-&gt;right, traversal);
-        } else return;
+            <span class="hljs-built_in">inorder</span>(root-&gt;left, traversal);
+            traversal.<span class="hljs-built_in">emplace_back</span>(root-&gt;val);
+            <span class="hljs-built_in">inorder</span>(root-&gt;right, traversal);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span>;
     }
-    vector&lt;int&gt; inorderTraversal(TreeNode* root) {
-        vector&lt;int&gt; traversal;
-        inorder(root, traversal);
-        return traversal;
+    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+        vector&lt;<span class="hljs-type">int</span>&gt; traversal;
+        <span class="hljs-built_in">inorder</span>(root, traversal);
+        <span class="hljs-keyword">return</span> traversal;
     }
-};</code></pre><p><a href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal">https://leetcode-cn.com/problems/binary-tree-postorder-traversal</a> <img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211209212506392-1975522678.png" alt=""></p><p>后序遍历</p><pre><code class="language-cpp">/**
+};
+</code></pre><p><a href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal">https://leetcode-cn.com/problems/binary-tree-postorder-traversal</a>
+<img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211209212506392-1975522678.png" alt=""></p>
+<p>后序遍历</p>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">/**
  * Definition for a binary tree node.
  * struct TreeNode {
  *     int val;
@@ -63,21 +77,22 @@ public:
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
- */
-class Solution {
-public:
-    void postorder(TreeNode* root, vector&lt;int&gt;&amp; traversal)
-    {
-        if (root)
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">postorder</span><span class="hljs-params">(TreeNode* root, vector&lt;<span class="hljs-type">int</span>&gt;&amp; traversal)</span>
+    </span>{
+        <span class="hljs-keyword">if</span> (root)
         {
-            postorder(root-&gt;left, traversal);
-            postorder(root-&gt;right, traversal);
-            traversal.emplace_back(root-&gt;val);
-        } else return;
+            <span class="hljs-built_in">postorder</span>(root-&gt;left, traversal);
+            <span class="hljs-built_in">postorder</span>(root-&gt;right, traversal);
+            traversal.<span class="hljs-built_in">emplace_back</span>(root-&gt;val);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span>;
     }
-    vector&lt;int&gt; postorderTraversal(TreeNode* root) {
-        vector&lt;int&gt; traversal;
-        postorder(root, traversal);
-        return traversal;
+    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">postorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+        vector&lt;<span class="hljs-type">int</span>&gt; traversal;
+        <span class="hljs-built_in">postorder</span>(root, traversal);
+        <span class="hljs-keyword">return</span> traversal;
     }
-};</code></pre></article></main>
+};
+</code></pre></article></main>

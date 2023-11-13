@@ -1,23 +1,33 @@
-<!DOCTYPE html><head><title>Leetcode Algorithm 502. IPO - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>Leetcode Algorithm 502. IPO</h1><h1 id="leetcode-algorithm-ipo-502">Leetcode Algorithm IPO (502)</h1><blockquote><p>Suppose LeetCode will start its IPO soon. In order to sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the IPO. Since it has limited resources, it can only finish at most k distinct projects before the IPO. Help LeetCode design the best way to maximize its total capital after finishing at most k distinct projects. You are given n projects where the ith project has a pure profit profits[i] and a minimum capital of capital[i] is needed to start it. Initially, you have w capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital. Pick a list of at most k distinct projects from given projects to maximize your final capital, and return the final maximized capital. The answer is guaranteed to fit in a 32-bit signed integer.</p></blockquote><pre><code class="language-cpp">class Solution {
-public:
-    int findMaximizedCapital(int k, int w, vector&lt;int&gt;&amp; profits, vector&lt;int&gt;&amp; capital) {
-        int n = profits.size();
-        vector&lt;pair&lt;int,int&gt;&gt; v;
-        for(int i = 0; i &lt; n; ++i)
-            v.push_back({capital[i], profits[i]});
-        sort(v.begin(), v.end());
+<!DOCTYPE html><head><title>Leetcode Algorithm 502. IPO - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>Leetcode Algorithm 502. IPO</h1><h1>Leetcode Algorithm IPO (502)</h1>
+<blockquote>
+<p>Suppose LeetCode will start its IPO soon. In order to sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the IPO. Since it has limited resources, it can only finish at most k distinct projects before the IPO. Help LeetCode design the best way to maximize its total capital after finishing at most k distinct projects.
+You are given n projects where the ith project has a pure profit profits[i] and a minimum capital of capital[i] is needed to start it.
+Initially, you have w capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital.
+Pick a list of at most k distinct projects from given projects to maximize your final capital, and return the final maximized capital.
+The answer is guaranteed to fit in a 32-bit signed integer.</p>
+</blockquote>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findMaximizedCapital</span><span class="hljs-params">(<span class="hljs-type">int</span> k, <span class="hljs-type">int</span> w, vector&lt;<span class="hljs-type">int</span>&gt;&amp; profits, vector&lt;<span class="hljs-type">int</span>&gt;&amp; capital)</span> </span>{
+        <span class="hljs-type">int</span> n = profits.<span class="hljs-built_in">size</span>();
+        vector&lt;pair&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt;&gt; v;
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i)
+            v.<span class="hljs-built_in">push_back</span>({capital[i], profits[i]});
+        <span class="hljs-built_in">sort</span>(v.<span class="hljs-built_in">begin</span>(), v.<span class="hljs-built_in">end</span>());
 
-        priority_queue&lt;int&gt; pq;
-        int i = 0;
+        priority_queue&lt;<span class="hljs-type">int</span>&gt; pq;
+        <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;
 
-        while(k--)
+        <span class="hljs-keyword">while</span>(k--)
         {
-            while(i &lt; n &amp;&amp; v[i].first &lt;= w)
-                pq.push(v[i++].second);
-            if(pq.empty()) break;
-            w += pq.top();
-            pq.pop();
+            <span class="hljs-keyword">while</span>(i &lt; n &amp;&amp; v[i].first &lt;= w)
+                pq.<span class="hljs-built_in">push</span>(v[i++].second);
+            <span class="hljs-keyword">if</span>(pq.<span class="hljs-built_in">empty</span>()) <span class="hljs-keyword">break</span>;
+            w += pq.<span class="hljs-built_in">top</span>();
+            pq.<span class="hljs-built_in">pop</span>();
         }
-        return w;
+        <span class="hljs-keyword">return</span> w;
     }
-};</code></pre><p>贪心+优先队列</p></article></main>
+};
+</code></pre><p>贪心+优先队列</p>
+</article></main>

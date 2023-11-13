@@ -1,1 +1,65 @@
-<!DOCTYPE html><head><title>HTTP与TCPIP - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>HTTP与TCPIP</h1><h1 id="tcpip">TCP/IP</h1><h2 id="osi-modelopen-systems-interconnection-model">OSI model(Open Systems Interconnection model)</h2><p>Internet protocol suite（Internet协议套件）分为4层：Application（应用层）、Transport（传输层）、Internet（网络层，互连层）、Link（链路层）</p><p>在OSI model（开放系统互连模型）中，应用层包含Application、Presentation、Session。传输层包含Transport、网络层包含Network（网络层）、而链路层是Data Link。而OSI model 也添加了一个新的层为Physical。</p><p>Internet协议套件是Internet和类似计算机网络中使用的通信协议的概念模型和集合。它通常被称为TCP/IP，因为该套件中的基本协议是传输控制协议（TCP）和Internet协议（IP）。其中，传输控制协议（TCP）在Transport层；Internet协议（IP）在Transport层下方的Internet层。例如ping，ICMP（Internet Control Message Protocol 因特网报文控制协议）Echo 请求报文中的ICMP就是Internet层的协议。因此，ICMP是无连接协议，因为数据实际上并没有传输（没有经过Transport层）。</p><p><img src="https://img2020.cnblogs.com/blog/2051127/202105/2051127-20210518180150380-126476670.png" alt=""></p><h2 id="tcp协议的连接方式">TCP协议的连接方式</h2><ul><li>SYNchronize（同步） sequence numbers</li><li>ACKnowledgment(确认) number</li><li>SYNchronize-ACKnowledgment</li></ul><h3 id="建立连接（3次挥手）">建立连接（3次挥手）</h3><p>SYN（同步）: The active open is performed by the client sending a SYN to the server. The client sets the segment&#39;s sequence number to a random value A.</p><p>SYN-ACK（同步-确认，对同步号+1，发送确认）: In response, the server replies with a SYN-ACK. The acknowledgment number is set to one more than the received sequence number i.e. A+1, and the sequence number that the server chooses for the packet is another random number, B.</p><p>ACK（确认+1）: Finally, the client sends an ACK back to the server. The sequence number is set to the received acknowledgement value i.e. A+1, and the acknowledgement number is set to one more than the received sequence number i.e. B+1.</p><p>最后SYN的A+1和ACK的B+1。</p><h3 id="断开连接（4次挥手）">断开连接（4次挥手）</h3><p><img src="https://img2020.cnblogs.com/blog/2051127/202105/2051127-20210518181528127-666214551.png" alt=""></p><p>It is also possible to terminate the connection by a 3-way handshake, when host A sends a FIN and host B replies with a FIN &amp; ACK (merely combines 2 steps into one) and host A replies with an ACK.这其实也可以为3次。</p><p>(Client)FIN：结束，Client状态FIN_WAIT_1阶段，active_close (Server)ACK：确认，Server状态CLOSE_WAIT阶段，passive_close，Client进入FIN_WAIT_2阶段 (Server)FIN：结束，Server状态LAST_ACK(最后的确认)阶段，Client进入TIME_WAIT阶段 (Client)ACK：确认，Client进入CLOSED阶段，Server进入CLOSED阶段</p><h1 id="http">HTTP</h1><p>HTTP是应用层的超文本传输协议，在Transport传输层之上，因此研究HTTP不免要通过Transport层。</p><h2 id="http-会话（session）">HTTP 会话（Session）</h2><p>HTTP会话是一系列网络请求-响应事务。HTTP客户机通过建立到服务器上特定端口（通常是端口80，偶尔是端口8080，请参阅TCP和UDP端口号列表）的传输控制协议（TCP）连接来发起请求。侦听该端口的HTTP服务器等待客户端的请求消息。在接收到请求后，服务器会发回一个状态行，比如“HTTP/1.1200 OK”，以及它自己的消息。此消息的正文通常是请求的资源，但也可能返回错误消息或其他信息。要通过TCP方式发起请求，正因为TCP是一种在Transport端的协议，HTTP只是应用层的一种实现。</p><h3 id="http连接重用">HTTP连接重用</h3><p>HTTP持久连接，也称为HTTP keep alive，或HTTP连接重用，是使用单个TCP连接来发送和接收多个HTTP请求/响应，而不是为每个请求/响应对打开一个新连接。较新的HTTP/2协议使用了相同的思想，并进一步允许在单个连接上多路复用多个并发请求/响应。</p><ul><li>Reduced latency in subsequent requests (no handshaking).</li><li>Reduced CPU usage and round-trips because of fewer new connections and TLS handshakes.</li><li>Enables HTTP pipelining of requests and responses.</li><li>Reduced network congestion (fewer TCP connections).</li><li>Errors can be reported without the penalty of closing the TCP connection.</li></ul><p>该协议的1.1版还对HTTP/1.0进行了带宽优化改进。例如，HTTP/1.1引入了分块传输编码，允许持久连接上的内容流化而不是缓冲。HTTP管道进一步减少了延迟时间，允许客户端在等待每个响应之前发送多个请求。该协议的另一个补充是字节服务，其中服务器只传输客户端显式请求的资源部分。</p><h3 id="http会话状态">HTTP会话状态</h3><p>HTTP是一种无状态协议。无状态协议不要求HTTP服务器在多个请求期间保留每个用户的信息或状态。但是，一些web应用程序使用HTTP cookies或web表单中的隐藏变量来实现状态或服务器端会话。</p><blockquote><p>1、cookie数据存放在客户的浏览器上，session数据放在服务器上。 2、cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗,考虑到安全应当使用session。 3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能,考虑到减轻服务器性能方面，应当使用cookie。 4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。 5、所以个人建议： 将登陆信息等重要信息存放为session 其他信息如果需要保留，可以放在cookie中 能通过Web Server或者客户端浏览器来获取到Cookie。多数浏览器能够配置允许用户访问Cookies，但是注意不同的站点之间的Cookie是不能共享的。 Cookie有一个属性expires，设置其值为一个时间，那么当到达此时间后，此cookie失效 过Okhttp的拦截器去进行持久化cookie</p></blockquote><h3 id="消息格式">消息格式</h3><p>The client sends requests to the server and the server sends responses.</p><h4 id="request-message">Request message</h4><p>The request message consists of the following:</p><ul><li>a request line (e.g., GET /images/logo.png HTTP/1.1, which requests a resource called /images/logo.png from the server)</li><li>request header fields (e.g., Accept-Language: en)</li><li>an empty line</li><li>an optional message body The request line and other header fields must each end with<CR><LF> (that is, a carriage return character followed by a line feed character). The empty line must consist of only<CR><LF> and no other whitespace.[21] In the HTTP/1.1 protocol, all header fields except Host are optional.</li></ul><p>A request line containing only the path name is accepted by servers to maintain compatibility with HTTP clients before the HTTP/1.0 specification in RFC 1945.[22]</p></article></main>
+<!DOCTYPE html><head><title>HTTP与TCPIP - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>HTTP与TCPIP</h1><h1>TCP/IP</h1>
+<h2>OSI model(Open Systems Interconnection model)</h2>
+<p>Internet protocol suite（Internet协议套件）分为4层：Application（应用层）、Transport（传输层）、Internet（网络层，互连层）、Link（链路层）</p>
+<p>在OSI model（开放系统互连模型）中，应用层包含Application、Presentation、Session。传输层包含Transport、网络层包含Network（网络层）、而链路层是Data Link。而OSI model 也添加了一个新的层为Physical。</p>
+<p>Internet协议套件是Internet和类似计算机网络中使用的通信协议的概念模型和集合。它通常被称为TCP/IP，因为该套件中的基本协议是传输控制协议（TCP）和Internet协议（IP）。其中，传输控制协议（TCP）在Transport层；Internet协议（IP）在Transport层下方的Internet层。例如ping，ICMP（Internet Control Message Protocol 因特网报文控制协议）Echo 请求报文中的ICMP就是Internet层的协议。因此，ICMP是无连接协议，因为数据实际上并没有传输（没有经过Transport层）。</p>
+<p><img src="https://img2020.cnblogs.com/blog/2051127/202105/2051127-20210518180150380-126476670.png" alt=""></p>
+<h2>TCP协议的连接方式</h2>
+<ul>
+<li>SYNchronize（同步） sequence numbers</li>
+<li>ACKnowledgment(确认) number</li>
+<li>SYNchronize-ACKnowledgment</li>
+</ul>
+<h3>建立连接（3次挥手）</h3>
+<p>SYN（同步）: The active open is performed by the client sending a SYN to the server. The client sets the segment&#39;s sequence number to a random value A.</p>
+<p>SYN-ACK（同步-确认，对同步号+1，发送确认）: In response, the server replies with a SYN-ACK. The acknowledgment number is set to one more than the received sequence number i.e. A+1, and the sequence number that the server chooses for the packet is another random number, B.</p>
+<p>ACK（确认+1）: Finally, the client sends an ACK back to the server. The sequence number is set to the received acknowledgement value i.e. A+1, and the acknowledgement number is set to one more than the received sequence number i.e. B+1.</p>
+<p>最后SYN的A+1和ACK的B+1。</p>
+<h3>断开连接（4次挥手）</h3>
+<p><img src="https://img2020.cnblogs.com/blog/2051127/202105/2051127-20210518181528127-666214551.png" alt=""></p>
+<p>It is also possible to terminate the connection by a 3-way handshake, when host A sends a FIN and host B replies with a FIN &amp; ACK (merely combines 2 steps into one) and host A replies with an ACK.这其实也可以为3次。</p>
+<p>(Client)FIN：结束，Client状态FIN_WAIT_1阶段，active_close
+(Server)ACK：确认，Server状态CLOSE_WAIT阶段，passive_close，Client进入FIN_WAIT_2阶段
+(Server)FIN：结束，Server状态LAST_ACK(最后的确认)阶段，Client进入TIME_WAIT阶段
+(Client)ACK：确认，Client进入CLOSED阶段，Server进入CLOSED阶段</p>
+<h1>HTTP</h1>
+<p>HTTP是应用层的超文本传输协议，在Transport传输层之上，因此研究HTTP不免要通过Transport层。</p>
+<h2>HTTP 会话（Session）</h2>
+<p>HTTP会话是一系列网络请求-响应事务。HTTP客户机通过建立到服务器上特定端口（通常是端口80，偶尔是端口8080，请参阅TCP和UDP端口号列表）的传输控制协议（TCP）连接来发起请求。侦听该端口的HTTP服务器等待客户端的请求消息。在接收到请求后，服务器会发回一个状态行，比如“HTTP/1.1200 OK”，以及它自己的消息。此消息的正文通常是请求的资源，但也可能返回错误消息或其他信息。要通过TCP方式发起请求，正因为TCP是一种在Transport端的协议，HTTP只是应用层的一种实现。</p>
+<h3>HTTP连接重用</h3>
+<p>HTTP持久连接，也称为HTTP keep alive，或HTTP连接重用，是使用单个TCP连接来发送和接收多个HTTP请求/响应，而不是为每个请求/响应对打开一个新连接。较新的HTTP/2协议使用了相同的思想，并进一步允许在单个连接上多路复用多个并发请求/响应。</p>
+<ul>
+<li>Reduced latency in subsequent requests (no handshaking).</li>
+<li>Reduced CPU usage and round-trips because of fewer new connections and TLS handshakes.</li>
+<li>Enables HTTP pipelining of requests and responses.</li>
+<li>Reduced network congestion (fewer TCP connections).</li>
+<li>Errors can be reported without the penalty of closing the TCP connection.</li>
+</ul>
+<p>该协议的1.1版还对HTTP/1.0进行了带宽优化改进。例如，HTTP/1.1引入了分块传输编码，允许持久连接上的内容流化而不是缓冲。HTTP管道进一步减少了延迟时间，允许客户端在等待每个响应之前发送多个请求。该协议的另一个补充是字节服务，其中服务器只传输客户端显式请求的资源部分。</p>
+<h3>HTTP会话状态</h3>
+<p>HTTP是一种无状态协议。无状态协议不要求HTTP服务器在多个请求期间保留每个用户的信息或状态。但是，一些web应用程序使用HTTP cookies或web表单中的隐藏变量来实现状态或服务器端会话。</p>
+<blockquote>
+<p>1、cookie数据存放在客户的浏览器上，session数据放在服务器上。
+2、cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗,考虑到安全应当使用session。
+3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能,考虑到减轻服务器性能方面，应当使用cookie。
+4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
+5、所以个人建议：
+将登陆信息等重要信息存放为session
+其他信息如果需要保留，可以放在cookie中
+能通过Web Server或者客户端浏览器来获取到Cookie。多数浏览器能够配置允许用户访问Cookies，但是注意不同的站点之间的Cookie是不能共享的。
+Cookie有一个属性expires，设置其值为一个时间，那么当到达此时间后，此cookie失效
+过Okhttp的拦截器去进行持久化cookie</p>
+</blockquote>
+<h3>消息格式</h3>
+<p>The client sends requests to the server and the server sends responses.</p>
+<h4>Request message</h4>
+<p>The request message consists of the following:</p>
+<ul>
+<li>a request line (e.g., GET /images/logo.png HTTP/1.1, which requests a resource called /images/logo.png from the server)</li>
+<li>request header fields (e.g., Accept-Language: en)</li>
+<li>an empty line</li>
+<li>an optional message body
+The request line and other header fields must each end with <CR><LF> (that is, a carriage return character followed by a line feed character). The empty line must consist of only <CR><LF> and no other whitespace.[21] In the HTTP/1.1 protocol, all header fields except Host are optional.</li>
+</ul>
+<p>A request line containing only the path name is accepted by servers to maintain compatibility with HTTP clients before the HTTP/1.0 specification in RFC 1945.[22]</p>
+</article></main>

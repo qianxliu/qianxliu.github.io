@@ -1,1 +1,52 @@
-<!DOCTYPE html><head><title>JavaScript 简明教程 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>JavaScript 简明教程</h1><h1 id="引子">引子</h1><p>在数学中，函数是两个集合之间的二元关系，它与第一个集合的每个元素正好关联第二个集合的一个元素。典型的例子是从整数到整数，或从实数到实数的函数。</p><p>In mathematics, a function[note 1] is a binary relation between two sets that associates to each element of the first set exactly one element of the second set. Typical examples are functions from integers to integers, or from the real numbers to real numbers.</p><p>由于计算机直接从数学中得到启示，因此，3种事物是最重要的：</p><ul><li><p>primitive expressions, which represent the simplest entities the language is concerned with, 在函数关系中的primitive本质上是数。</p></li><li><p>means of combination, by which compound elements are built from simpler ones, and, 如何表示函数。</p></li><li><p>means of abstraction, by which compound elements can be named and manipulated as units，函数如何抽象。</p></li></ul><h1 id="数据结构">数据结构</h1><p>JavaScript中共有8种数据类型。编程语言都有内置的数据结构，但不同语言的数据结构往往不同。本文试图列出JavaScript中可用的内置数据结构及其属性。这些可用于构建其他数据结构。尽可能与其他语言进行比较。</p><h2 id="动态类型">动态类型</h2><p>JavaScript是一个 松散类型和 动态 语言。JavaScript中的变量与任何特定的值类型没有直接关联，任何变量都可以被分配（和重新分配）所有类型的值。</p><h2 id="数据类型和结构类型">数据类型和结构类型</h2><p>The latest ECMAScript standard defines nine types:</p><h3 id="元语类型（6种）">元语类型（6种）</h3><p>Six Data Types that are primitives, checked by typeof operator:</p><ul><li><p>undefined（未定义） : typeof instance === &quot;undefined&quot;</p></li><li><p>Boolean : typeof instance === &quot;boolean&quot;</p></li><li><p>Number : typeof instance === &quot;number&quot;</p></li><li><p>String（展示） : typeof instance === &quot;string&quot;</p></li><li><p>BigInt（任意精度整数） : typeof instance === &quot;bigint&quot;</p></li><li><p>Symbol（唯一匿名值） : typeof instance === &quot;symbol&quot;</p></li></ul><h3 id="结构类型（两种）">结构类型（两种）</h3><ul><li><p>Object : typeof instance === &quot;object&quot;. Special non-data but Structural type for any constructed object instance also used as data structures: new Object, new Array, new Map, new Set, new WeakMap, new WeakSet, new Date and almost everything made with new keyword; 在国内通常称为引用类型。</p></li><li><p>Function : a non-data structure, though it also answers for typeof operator: typeof instance === &quot;function&quot;. This is merely a special shorthand for Functions, though every Function constructor is derived from Object constructor.</p></li></ul><h3 id="结构根元语（一种）structural-root-primitive">结构根元语（一种）Structural Root Primitive</h3><ul><li>null : typeof instance === &quot;object&quot;. Special primitive type having additional usage for its value: if object is not inherited, then null is shown;</li></ul><p>记住typeof操作符唯一有价值的目的和用法是检查数据类型。如果我们想检查从Object派生的任何结构类型，那么使用typeof是毫无意义的，因为 将始终接收“对象”。检查我们使用的对象类型的正确方法是 的实例 关键字。但即便如此，也可能存在误解。 我们可以看到，除了undefined和null几乎相同之外，每个基元类型的含义都是显而易见的。这是因为时间的概念与算法的目的紧密相连。我们可以宣称一些还不存在的东西 或者不存在 不再：未定义。但是，当我们希望能够表示存在的东西是空的，我们必须发明另一个关键字。这就是null所代表的：结构意义的开始。</p><p>尽管JavaScript声明时不需要类型声明（let, var, const声明），JavaScript是一个 松散类型和 动态 语言。通过typeof可知类型。</p></article></main>
+<!DOCTYPE html><head><title>JavaScript 简明教程 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>JavaScript 简明教程</h1><h1>引子</h1>
+<p>在数学中，函数是两个集合之间的二元关系，它与第一个集合的每个元素正好关联第二个集合的一个元素。典型的例子是从整数到整数，或从实数到实数的函数。</p>
+<p>In mathematics, a function[note 1] is a binary relation between two sets that associates to each element of the first set exactly one element of the second set. Typical examples are functions from integers to integers, or from the real numbers to real numbers.</p>
+<p>由于计算机直接从数学中得到启示，因此，3种事物是最重要的：</p>
+<ul>
+<li><p>primitive expressions, which represent the simplest entities the
+language is concerned with, 在函数关系中的primitive本质上是数。</p>
+</li>
+<li><p>means of combination, by which compound elements are built
+from simpler ones, and, 如何表示函数。</p>
+</li>
+<li><p>means of abstraction, by which compound elements can be named
+and manipulated as units，函数如何抽象。</p>
+</li>
+</ul>
+<h1>数据结构</h1>
+<p>JavaScript中共有8种数据类型。编程语言都有内置的数据结构，但不同语言的数据结构往往不同。本文试图列出JavaScript中可用的内置数据结构及其属性。这些可用于构建其他数据结构。尽可能与其他语言进行比较。</p>
+<h2>动态类型</h2>
+<p>JavaScript是一个 松散类型和 动态 语言。JavaScript中的变量与任何特定的值类型没有直接关联，任何变量都可以被分配（和重新分配）所有类型的值。</p>
+<h2>数据类型和结构类型</h2>
+<p>The latest ECMAScript standard defines nine types:</p>
+<h3>元语类型（6种）</h3>
+<p>Six Data Types that are primitives, checked by typeof operator:</p>
+<ul>
+<li><p>undefined（未定义） : typeof instance === &quot;undefined&quot;</p>
+</li>
+<li><p>Boolean : typeof instance === &quot;boolean&quot;</p>
+</li>
+<li><p>Number : typeof instance === &quot;number&quot;</p>
+</li>
+<li><p>String（展示） : typeof instance === &quot;string&quot;</p>
+</li>
+<li><p>BigInt（任意精度整数） : typeof instance === &quot;bigint&quot;</p>
+</li>
+<li><p>Symbol（唯一匿名值） : typeof instance === &quot;symbol&quot;</p>
+</li>
+</ul>
+<h3>结构类型（两种）</h3>
+<ul>
+<li><p>Object : typeof instance === &quot;object&quot;. Special non-data but Structural type for any constructed object instance also used as data structures: new Object, new Array, new Map, new Set, new WeakMap, new WeakSet, new Date and almost everything made with new keyword; 在国内通常称为引用类型。</p>
+</li>
+<li><p>Function : a non-data structure, though it also answers for typeof operator: typeof instance === &quot;function&quot;. This is merely a special shorthand for Functions, though every Function constructor is derived from Object constructor.</p>
+</li>
+</ul>
+<h3>结构根元语（一种）Structural Root Primitive</h3>
+<ul>
+<li>null : typeof instance === &quot;object&quot;. Special primitive type having additional usage for its value: if object is not inherited, then null is shown;</li>
+</ul>
+<p>记住typeof操作符唯一有价值的目的和用法是检查数据类型。如果我们想检查从Object派生的任何结构类型，那么使用typeof是毫无意义的，因为 将始终接收“对象”。检查我们使用的对象类型的正确方法是 的实例 关键字。但即便如此，也可能存在误解。
+我们可以看到，除了undefined和null几乎相同之外，每个基元类型的含义都是显而易见的。这是因为时间的概念与算法的目的紧密相连。我们可以宣称一些还不存在的东西 或者不存在 不再：未定义。但是，当我们希望能够表示存在的东西是空的，我们必须发明另一个关键字。这就是null所代表的：结构意义的开始。</p>
+<p>尽管JavaScript声明时不需要类型声明（let, var, const声明），JavaScript是一个 松散类型和 动态 语言。通过typeof可知类型。</p>
+</article></main>

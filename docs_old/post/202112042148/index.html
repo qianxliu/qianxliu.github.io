@@ -1,70 +1,86 @@
-<!DOCTYPE html><head><title>算法珠玑——双指针(4) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>算法珠玑——双指针(4)</h1><h1 id="双指针4">双指针(4)</h1><p><a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list">https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list</a></p><p>栈(递归)，双指针都涉及，是道好题。</p><p>我的原做法，性能还可以，也达到过100% 主要是用了双倍的指针进度。</p><p><img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211204212701180-398143727.png" alt=""> 这是原做法的性能，在两方面都可圈可点。</p><pre><code class="language-cpp">class Solution {
-public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {        
+<!DOCTYPE html><head><title>算法珠玑——双指针(4) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>算法珠玑——双指针(4)</h1><h1>双指针(4)</h1>
+<p><a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list">https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list</a></p>
+<p>栈(递归)，双指针都涉及，是道好题。</p>
+<p>我的原做法，性能还可以，也达到过100%
+主要是用了双倍的指针进度。</p>
+<p><img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211204212701180-398143727.png" alt="">
+这是原做法的性能，在两方面都可圈可点。</p>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">ListNode* <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> n)</span> </span>{        
         ListNode* p = head;
 
-        int len = 1;
-        while(p &amp;&amp; p-&gt;next)
+        <span class="hljs-type">int</span> len = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span>(p &amp;&amp; p-&gt;next)
         {
             p = p-&gt;next-&gt;next;
-            len+=2;
+            len+=<span class="hljs-number">2</span>;
         }
-        if (!p) len--;
+        <span class="hljs-keyword">if</span> (!p) len--;
 
         p = head;
-        // 目标结点n, bound为n-1
-        int bound = len - n;
-
-        if (bound == 0)
-            return head-&gt;next;
-
-        for (int i = 1; i &lt; bound; i+=2)
+        <span class="hljs-comment">// 目标结点n, bound为n-1</span>
+        <span class="hljs-type">int</span> bound = len - n;
+        
+        <span class="hljs-keyword">if</span> (bound == <span class="hljs-number">0</span>)
+            <span class="hljs-keyword">return</span> head-&gt;next;
+            
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; bound; i+=<span class="hljs-number">2</span>)
         {
-            if (p &amp;&amp; p-&gt;next &amp;&amp; (i+1) != bound)
+            <span class="hljs-keyword">if</span> (p &amp;&amp; p-&gt;next &amp;&amp; (i+<span class="hljs-number">1</span>) != bound)
                 p = p-&gt;next-&gt;next;
-            else
+            <span class="hljs-keyword">else</span>
                 p = p-&gt;next;
         }
 
-        if (p-&gt;next)
+        <span class="hljs-keyword">if</span> (p-&gt;next)
             p-&gt;next = p-&gt;next-&gt;next;
-        else
-            p-&gt;next = nullptr;
-        return head;
+        <span class="hljs-keyword">else</span>
+            p-&gt;next = <span class="hljs-literal">nullptr</span>;
+        <span class="hljs-keyword">return</span> head;
     }
-};</code></pre><p>另一种做法，我觉得比我做的想法更妙一点(且更简单一点)，使用了相差n的双指针。但是速度和我差不多。</p><pre><code class="language-cpp">class Solution {
-public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {        
-        if(!head -&gt; next) return nullptr;
+};
+</code></pre><p>另一种做法，我觉得比我做的想法更妙一点(且更简单一点)，使用了相差n的双指针。但是速度和我差不多。</p>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">ListNode* <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> n)</span> </span>{        
+        <span class="hljs-keyword">if</span>(!head -&gt; next) <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
         ListNode *fast = head;
         ListNode *slow = head;
 
-        for(int i = 0; i &lt; n; i++){
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++){
             fast = fast-&gt;next;
         }
 
-        if(!fast){
-            return head-&gt;next;    
+        <span class="hljs-keyword">if</span>(!fast){
+            <span class="hljs-keyword">return</span> head-&gt;next;    
         }
-
-        while(fast -&gt; next){
+        
+        <span class="hljs-keyword">while</span>(fast -&gt; next){
             fast = fast -&gt; next;
             slow = slow -&gt; next;
         }
         slow -&gt; next = slow -&gt; next -&gt; next;
-        return head;
+        <span class="hljs-keyword">return</span> head;
     }
-};</code></pre><p>最亮眼的是这个做法。是我打算讲的。 这是递归的做法，我觉得性能可能有一点问题。但是偶尔也能过100%。</p><pre><code class="language-cpp">class Solution {
-public:
-    int cur = 0;
-    ListNode* removeNthFromEnd(ListNode* head, int n) {        
-        if(!head) return nullptr;
-        head-&gt;next = removeNthFromEnd(head-&gt;next,n);
+};
+</code></pre><p>最亮眼的是这个做法。是我打算讲的。
+这是递归的做法，我觉得性能可能有一点问题。但是偶尔也能过100%。</p>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-type">int</span> cur = <span class="hljs-number">0</span>;
+    <span class="hljs-function">ListNode* <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> n)</span> </span>{        
+        <span class="hljs-keyword">if</span>(!head) <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+        head-&gt;next = <span class="hljs-built_in">removeNthFromEnd</span>(head-&gt;next,n);
         cur++;
-        if(n==cur) return head-&gt;next;
-        return head;
+        <span class="hljs-keyword">if</span>(n==cur) <span class="hljs-keyword">return</span> head-&gt;next;
+        <span class="hljs-keyword">return</span> head;
     }
-};</code></pre><p>这道题应该有可以继续优化的空间。 是第一种还是其他性能更好呢？很明显后两种比较通俗，我发现后两种的性能问题主要在于没有使用第一个fast = fast-&gt;next-&gt;next技巧。</p><p>我把第二种改成了这样：</p><pre><code class="language-cpp">/**
+};
+</code></pre><p>这道题应该有可以继续优化的空间。
+是第一种还是其他性能更好呢？很明显后两种比较通俗，我发现后两种的性能问题主要在于没有使用第一个fast = fast-&gt;next-&gt;next技巧。</p>
+<p>我把第二种改成了这样：</p>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">/**
  * Definition for singly-linked list.
  * struct ListNode {
  *     int val;
@@ -73,52 +89,59 @@ public:
  *     ListNode(int x) : val(x), next(nullptr) {}
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
- */
-class Solution {
-public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {        
-        if(!head -&gt; next) return nullptr;
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">ListNode* <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> n)</span> </span>{        
+        <span class="hljs-keyword">if</span>(!head -&gt; next) <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
         ListNode *fast = head;
         ListNode *slow = head;
 
-        for(int i = 0; i &lt; n;){
-            if (fast &amp;&amp; fast-&gt;next &amp;&amp; (i+1) != n)
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n;){
+            <span class="hljs-keyword">if</span> (fast &amp;&amp; fast-&gt;next &amp;&amp; (i+<span class="hljs-number">1</span>) != n)
             {
                 fast = fast-&gt;next-&gt;next;
-                i+=2;
+                i+=<span class="hljs-number">2</span>;
             }
-            else
+            <span class="hljs-keyword">else</span>
             {
                 fast = fast-&gt;next;
                 i++;
             }
         }
 
-        if(!fast){
-            return head-&gt;next;    
+        <span class="hljs-keyword">if</span>(!fast){
+            <span class="hljs-keyword">return</span> head-&gt;next;    
         }
-
-        while(fast-&gt;next){
+        
+        <span class="hljs-keyword">while</span>(fast-&gt;next){
             fast = fast-&gt;next;
             slow = slow-&gt;next;
         }
         slow -&gt; next = slow -&gt; next -&gt; next;
-        return head;
+        <span class="hljs-keyword">return</span> head;
     }
-};</code></pre><p>结果 <img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211204214041590-1701375507.png" alt=""></p><p>性能优化是一辈子的事情。</p><p>最后讲一下这个<b>递归</b>方法。 int变量定义在外是为了减少递归中的变量声明调用内存浪费。</p><pre><code class="language-cpp">class Solution {
-public:
-    int cur = 0;
-    // 整个归纳步骤:
-    // 因为递归是一整个归纳，故基本情况和终止情况也要放在外面
-    ListNode* removeNthFromEnd(ListNode* head, int n) {    
-        // 基本情况下的变化部分(非基本情况): a(1) == nullptr
-        if(!head) return nullptr;
-        // 归纳步骤：核心部分1
-        head-&gt;next = removeNthFromEnd(head-&gt;next,n);
+};
+</code></pre><p>结果
+<img src="https://img2020.cnblogs.com/blog/2051127/202112/2051127-20211204214041590-1701375507.png" alt=""></p>
+<p>性能优化是一辈子的事情。</p>
+<p>最后讲一下这个<b>递归</b>方法。
+int变量定义在外是为了减少递归中的变量声明调用内存浪费。</p>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-type">int</span> cur = <span class="hljs-number">0</span>;
+    <span class="hljs-comment">// 整个归纳步骤:</span>
+    <span class="hljs-comment">// 因为递归是一整个归纳，故基本情况和终止情况也要放在外面</span>
+    <span class="hljs-function">ListNode* <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> n)</span> </span>{    
+        <span class="hljs-comment">// 基本情况下的变化部分(非基本情况): a(1) == nullptr</span>
+        <span class="hljs-keyword">if</span>(!head) <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+        <span class="hljs-comment">// 归纳步骤：核心部分1</span>
+        head-&gt;next = <span class="hljs-built_in">removeNthFromEnd</span>(head-&gt;next,n);
         cur++;
-        // 终止情况下的变化部分(非终止情况): a(x) == head-&gt;next 
-        if(n==cur) return head-&gt;next;
-        // 归纳步骤：核心部分2
-        return head;
+        <span class="hljs-comment">// 终止情况下的变化部分(非终止情况): a(x) == head-&gt;next </span>
+        <span class="hljs-keyword">if</span>(n==cur) <span class="hljs-keyword">return</span> head-&gt;next;
+        <span class="hljs-comment">// 归纳步骤：核心部分2</span>
+        <span class="hljs-keyword">return</span> head;
     }
-};</code></pre></article></main>
+};
+</code></pre></article></main>

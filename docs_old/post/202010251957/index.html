@@ -1,1 +1,22 @@
-<!DOCTYPE html><head><title>config.json 预训练模型调参 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>config.json 预训练模型调参</h1><p>（来自BERT论文）</p><p>config文件定义了模型的超参数。</p><p>但是，由于此模型在64GB内存上训练，所以如果个人使用的话，需要调整超参数。</p><p>内存大小影响因子包括：</p><ul><li>max_seq_length，发布模型长度不超过512，你可以使用更短的。</li><li>train_batch_size(成正比)</li><li>Model type，Base和Large模型</li><li>Optimizer(BERT默认Adam，后来的Roberta，Albert都有更改)(谷歌未测试其他优化器)，指的是SDG,SAG等迭代下降方法</li></ul><p>用默认训练脚本 (run_classifier.py 和 run_squad.py), 获得基准后的maximum batch size 在一个单独的 Titan X GPU (12GB RAM) 和 TensorFlow 1.11.0:</p><p><img src="https://img2020.cnblogs.com/blog/2051127/202010/2051127-20201025194916669-1091644352.png" alt=""></p><p>注意BERT训练时的seq_length为512，后面fine-tuning时不能超过512。</p><p>BERT-large 的 max batch size相当小，以至于确实损害模型精度。我们正在努力增大batch size值。我们通过以下方法增加batch size值。</p><p>(后面与普通人无关)</p><ul><li><p>Gradient accumulation: The samples in a minibatch are typically independent with respect to gradient computation (excluding batch normalization, which is not used here). This means that the gradients of multiple smaller minibatches can be accumulated before performing the weight update, and this will be exactly equivalent to a single larger update.</p></li><li><p>Gradient checkpointing: The major use of GPU/TPU memory during DNN training is caching the intermediate activations in the forward pass that are necessary for efficient computation in the backward pass. &quot;Gradient checkpointing&quot; trades memory for compute time by re-computing the activations in an intelligent way.</p></li></ul></article></main>
+<!DOCTYPE html><head><title>config.json 预训练模型调参 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>config.json 预训练模型调参</h1><p>（来自BERT论文）</p>
+<p>config文件定义了模型的超参数。</p>
+<p>但是，由于此模型在64GB内存上训练，所以如果个人使用的话，需要调整超参数。</p>
+<p>内存大小影响因子包括：</p>
+<ul>
+<li>max_seq_length，发布模型长度不超过512，你可以使用更短的。</li>
+<li>train_batch_size(成正比)</li>
+<li>Model type，Base和Large模型</li>
+<li>Optimizer(BERT默认Adam，后来的Roberta，Albert都有更改)(谷歌未测试其他优化器)，指的是SDG,SAG等迭代下降方法</li>
+</ul>
+<p>用默认训练脚本 (run_classifier.py 和 run_squad.py), 获得基准后的maximum batch size 在一个单独的 Titan X GPU (12GB RAM) 和 TensorFlow 1.11.0:</p>
+<p><img src="https://img2020.cnblogs.com/blog/2051127/202010/2051127-20201025194916669-1091644352.png" alt=""></p>
+<p>注意BERT训练时的seq_length为512，后面fine-tuning时不能超过512。</p>
+<p>BERT-large 的 max batch size相当小，以至于确实损害模型精度。我们正在努力增大batch size值。我们通过以下方法增加batch size值。</p>
+<p>(后面与普通人无关)</p>
+<ul>
+<li><p>Gradient accumulation: The samples in a minibatch are typically independent with respect to gradient computation (excluding batch normalization, which is not used here). This means that the gradients of multiple smaller minibatches can be accumulated before performing the weight update, and this will be exactly equivalent to a single larger update.</p>
+</li>
+<li><p>Gradient checkpointing: The major use of GPU/TPU memory during DNN training is caching the intermediate activations in the forward pass that are necessary for efficient computation in the backward pass. &quot;Gradient checkpointing&quot; trades memory for compute time by re-computing the activations in an intelligent way.</p>
+</li>
+</ul>
+</article></main>

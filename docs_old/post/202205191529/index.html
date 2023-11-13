@@ -1,56 +1,58 @@
-<!DOCTYPE html><head><title>并发：线程和锁 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>并发：线程和锁</h1><h1 id="并发：线程和锁">并发：线程和锁</h1><pre><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;pthread.h&gt;
+<!DOCTYPE html><head><title>并发：线程和锁 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>并发：线程和锁</h1><h1>并发：线程和锁</h1>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;pthread.h&gt;</span></span>
 
-pthread_mutex_t lock;
+<span class="hljs-type">pthread_mutex_t</span> lock;
 
-//pthread_mutex_lock(&amp;lock);
-static volatile int counter = 0;
-//pthread_mutex_unlock(&amp;lock);
+<span class="hljs-comment">//pthread_mutex_lock(&amp;lock);</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">volatile</span> <span class="hljs-type">int</span> counter = <span class="hljs-number">0</span>;
+<span class="hljs-comment">//pthread_mutex_unlock(&amp;lock);</span>
 
-void* myLockThread(void* arg)
+<span class="hljs-type">void</span>* <span class="hljs-title function_">myLockThread</span><span class="hljs-params">(<span class="hljs-type">void</span>* arg)</span>
 {
-        printf(&quot;%s: begin\n&quot;, (char*) arg);
-        int i;
-        //for (i=0; i&lt;1e7;++i) ++counter;
-        for (i = 0; i &lt; 1e8; ++i)
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: begin\n&quot;</span>, (<span class="hljs-type">char</span>*) arg);
+        <span class="hljs-type">int</span> i;
+        <span class="hljs-comment">//for (i=0; i&lt;1e7;++i) ++counter;</span>
+        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1e8</span>; ++i)
         {
                 pthread_mutex_lock(&amp;lock);
                 ++counter;
                 pthread_mutex_unlock(&amp;lock);
         }
-        printf(&quot;%s: done\n&quot;, (char*) arg);
-        return NULL;
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: done\n&quot;</span>, (<span class="hljs-type">char</span>*) arg);
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
 }
 
-void* myThread(void* arg)
+<span class="hljs-type">void</span>* <span class="hljs-title function_">myThread</span><span class="hljs-params">(<span class="hljs-type">void</span>* arg)</span>
 {
-        printf(&quot;%s: begin\n&quot;, (char*) arg);
-        int i;
-        for (i=0; i&lt;1e8; ++i) ++counter;
-        printf(&quot;%s:done\n&quot;, (char*) arg);
-        return NULL;
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: begin\n&quot;</span>, (<span class="hljs-type">char</span>*) arg);
+        <span class="hljs-type">int</span> i;
+        <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">1e8</span>; ++i) ++counter;
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s:done\n&quot;</span>, (<span class="hljs-type">char</span>*) arg);
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
 }
 
-int main(int argc, char* argv[])
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span>
 {
-        pthread_t p1, p2;
-        printf(&quot;main: begin (counter = %d)\n&quot;, counter);
-        pthread_create(&amp;p1, NULL, myLockThread, &quot;A&quot;);
-        pthread_create(&amp;p2, NULL, myLockThread, &quot;B&quot;);
+        <span class="hljs-type">pthread_t</span> p1, p2;
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;main: begin (counter = %d)\n&quot;</span>, counter);
+        pthread_create(&amp;p1, <span class="hljs-literal">NULL</span>, myLockThread, <span class="hljs-string">&quot;A&quot;</span>);
+        pthread_create(&amp;p2, <span class="hljs-literal">NULL</span>, myLockThread, <span class="hljs-string">&quot;B&quot;</span>);
 
-        // join waits for the threads to finish
-        pthread_join(p1, NULL);
-        pthread_join(p2, NULL);
-        printf(&quot;main: done with both (counter = %d)\n&quot;, counter);
-        return 0;
-}</code></pre><pre><code class="language-bash">time ./lock
+        <span class="hljs-comment">// join waits for the threads to finish</span>
+        pthread_join(p1, <span class="hljs-literal">NULL</span>);
+        pthread_join(p2, <span class="hljs-literal">NULL</span>);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;main: done with both (counter = %d)\n&quot;</span>, counter);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre><pre><code class="hljs language-bash">time ./lock
 main: begin (counter = 0)
 A: begin
 B: begin
-A: done
+A: <span class="hljs-keyword">done</span>
 
-B: done
-main: done with both (counter = 200000000)
+B: <span class="hljs-keyword">done</span>
+main: <span class="hljs-keyword">done</span> with both (counter = 200000000)
 
 real    0m10.328s
 user    0m13.250s
@@ -61,10 +63,12 @@ time ./a.out
 main: begin (counter = 0)
 A: begin
 B: begin
-B:done
-A:done
-main: done with both (counter = 116098548)
+B:<span class="hljs-keyword">done</span>
+A:<span class="hljs-keyword">done</span>
+main: <span class="hljs-keyword">done</span> with both (counter = 116098548)
 
 real    0m0.605s
 user    0m1.172s
-sys     0m0.000s</code></pre><p>可见对让线程在临界区持有锁的做法，由于循环的存在，大幅度降低了性能，从而不如简单的同步实现</p></article></main>
+sys     0m0.000s
+</code></pre><p>可见对让线程在临界区持有锁的做法，由于循环的存在，大幅度降低了性能，从而不如简单的同步实现</p>
+</article></main>

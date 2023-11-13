@@ -1,4 +1,7 @@
-<!DOCTYPE html><head><title>算法珠玑——整数反转 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>算法珠玑——整数反转</h1><p><img src="https://img2022.cnblogs.com/blog/2051127/202208/2051127-20220812124451380-1290401567.png" alt=""></p><p>运行时间从来没下过100%</p><p>很快啊，很快</p><pre><code>/*
+<!DOCTYPE html><head><title>算法珠玑——整数反转 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>算法珠玑——整数反转</h1><p><img src="https://img2022.cnblogs.com/blog/2051127/202208/2051127-20220812124451380-1290401567.png" alt=""></p>
+<p>运行时间从来没下过100%</p>
+<p>很快啊，很快</p>
+<pre><code>/*
  * @lc app=leetcode.cn id=7 lang=cpp
  *
  * [7] 整数反转
@@ -15,8 +18,8 @@ public:
             while (x % 10 == 0)
                 x /= 10;
             string s = to_string(x);
-            if (s[0] != &#39;-&#39;){
-                if (s.size() == 10 &amp;&amp; s[9] &gt; &#39;4&#39;)
+            if (s[0] != &#x27;-&#x27;){
+                if (s.size() == 10 &amp;&amp; s[9] &gt; &#x27;4&#x27;)
                     return 0;
                 for (int i = 0, j = s.size()-1; i &lt; j; ++i, --j)
                 {
@@ -26,7 +29,7 @@ public:
             }
             else 
             {
-                if (s.size() == 11 &amp;&amp; s[10] &gt; &#39;4&#39;)
+                if (s.size() == 11 &amp;&amp; s[10] &gt; &#x27;4&#x27;)
                     return 0;
                 for (int i = 1, j = s.size()-1; i &lt; j; ++i, --j)
                 {
@@ -38,4 +41,7 @@ public:
         else return 0;
     }
 };
-// @lc code=end</code></pre><p>这种解法确实足够op， 可惜ACM常常不会给出测试用例的</p></article></main>
+// @lc code=end
+</code></pre><p>这种解法确实足够op，
+可惜ACM常常不会给出测试用例的</p>
+</article></main>

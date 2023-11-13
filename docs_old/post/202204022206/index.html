@@ -1,6 +1,9 @@
-<!DOCTYPE html><head><title>算法珠玑——基本数据类型(1, 2) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>算法珠玑——基本数据类型(1, 2)</h1><p><img src="https://img2022.cnblogs.com/blog/2051127/202204/2051127-20220402220434268-551090598.png" alt=""></p><p><a href="https://leetcode-cn.com/problems/count-odd-numbers-in-an-interval-range/submissions/">https://leetcode-cn.com/problems/count-odd-numbers-in-an-interval-range/submissions/</a></p><pre><code class="language-c++">class Solution {
-public:
-    int countOdds(int low, int high) {
-        return low%2 + high%2 + (low%2 &amp;&amp; high%2 ? (high-low)/2-1 : (high-low)/2); 
+<!DOCTYPE html><head><title>算法珠玑——基本数据类型(1, 2) - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>算法珠玑——基本数据类型(1, 2)</h1><p><img src="https://img2022.cnblogs.com/blog/2051127/202204/2051127-20220402220434268-551090598.png" alt=""></p>
+<p><a href="https://leetcode-cn.com/problems/count-odd-numbers-in-an-interval-range/submissions/">https://leetcode-cn.com/problems/count-odd-numbers-in-an-interval-range/submissions/</a></p>
+<pre><code class="hljs language-c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">countOdds</span><span class="hljs-params">(<span class="hljs-type">int</span> low, <span class="hljs-type">int</span> high)</span> </span>{
+        <span class="hljs-keyword">return</span> low%<span class="hljs-number">2</span> + high%<span class="hljs-number">2</span> + (low%<span class="hljs-number">2</span> &amp;&amp; high%<span class="hljs-number">2</span> ? (high-low)/<span class="hljs-number">2</span><span class="hljs-number">-1</span> : (high-low)/<span class="hljs-number">2</span>); 
     }
-};</code></pre></article></main>
+};
+</code></pre></article></main>

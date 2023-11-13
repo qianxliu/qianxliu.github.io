@@ -1,10 +1,10 @@
-<!DOCTYPE html><head><title>RidgeClassifier 中的 SAG - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>RidgeClassifier 中的 SAG</h1><pre><code class="language-python">
-class _BaseRidge(LinearModel, metaclass=ABCMeta):
-    @abstractmethod
-    @_deprecate_positional_args
-    def __init__(self, alpha=1.0, *, fit_intercept=True, normalize=False,
-                 copy_X=True, max_iter=None, tol=1e-3, solver=&quot;auto&quot;,
-                 random_state=None):
+<!DOCTYPE html><head><title>RidgeClassifier 中的 SAG - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>RidgeClassifier 中的 SAG</h1><pre><code class="hljs language-python">
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">_BaseRidge</span>(LinearModel, metaclass=ABCMeta):
+<span class="hljs-meta">    @abstractmethod</span>
+<span class="hljs-meta">    @_deprecate_positional_args</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, alpha=<span class="hljs-number">1.0</span>, *, fit_intercept=<span class="hljs-literal">True</span>, normalize=<span class="hljs-literal">False</span>,
+                 copy_X=<span class="hljs-literal">True</span>, max_iter=<span class="hljs-literal">None</span>, tol=<span class="hljs-number">1e-3</span>, solver=<span class="hljs-string">&quot;auto&quot;</span>,
+                 random_state=<span class="hljs-literal">None</span></span>):
         self.alpha = alpha
         self.fit_intercept = fit_intercept
         self.normalize = normalize
@@ -14,71 +14,74 @@ class _BaseRidge(LinearModel, metaclass=ABCMeta):
         self.solver = solver
         self.random_state = random_state
 
-    def fit(self, X, y, sample_weight=None):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self, X, y, sample_weight=<span class="hljs-literal">None</span></span>):
 
-        # all other solvers work at both float precision levels
+        <span class="hljs-comment"># all other solvers work at both float precision levels</span>
         _dtype = [np.float64, np.float32]
         _accept_sparse = _get_valid_accept_sparse(sparse.issparse(X),
                                                   self.solver)
         X, y = self._validate_data(X, y,
                                    accept_sparse=_accept_sparse,
                                    dtype=_dtype,
-                                   multi_output=True, y_numeric=True)
-        if sparse.issparse(X) and self.fit_intercept:
-            if self.solver not in [&#39;auto&#39;, &#39;sparse_cg&#39;, &#39;sag&#39;]:
-                raise ValueError(
-                    &quot;solver=&#39;{}&#39; does not support fitting the intercept &quot;
-                    &quot;on sparse data. Please set the solver to &#39;auto&#39; or &quot;
-                    &quot;&#39;sparse_cg&#39;, &#39;sag&#39;, or set `fit_intercept=False`&quot;
-                    .format(self.solver))
-            if (self.solver == &#39;sag&#39; and self.max_iter is None and
-                    self.tol &gt; 1e-4):
+                                   multi_output=<span class="hljs-literal">True</span>, y_numeric=<span class="hljs-literal">True</span>)
+        <span class="hljs-keyword">if</span> sparse.issparse(X) <span class="hljs-keyword">and</span> self.fit_intercept:
+            <span class="hljs-keyword">if</span> self.solver <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;auto&#x27;</span>, <span class="hljs-string">&#x27;sparse_cg&#x27;</span>, <span class="hljs-string">&#x27;sag&#x27;</span>]:
+                <span class="hljs-keyword">raise</span> ValueError(
+                    <span class="hljs-string">&quot;solver=&#x27;{}&#x27; does not support fitting the intercept &quot;</span>
+                    <span class="hljs-string">&quot;on sparse data. Please set the solver to &#x27;auto&#x27; or &quot;</span>
+                    <span class="hljs-string">&quot;&#x27;sparse_cg&#x27;, &#x27;sag&#x27;, or set `fit_intercept=False`&quot;</span>
+                    .<span class="hljs-built_in">format</span>(self.solver))
+            <span class="hljs-keyword">if</span> (self.solver == <span class="hljs-string">&#x27;sag&#x27;</span> <span class="hljs-keyword">and</span> self.max_iter <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span>
+                    self.tol &gt; <span class="hljs-number">1e-4</span>):
                 warnings.warn(
-                    &#39;&quot;sag&quot; solver requires many iterations to fit &#39;
-                    &#39;an intercept with sparse inputs. Either set the &#39;
-                    &#39;solver to &quot;auto&quot; or &quot;sparse_cg&quot;, or set a low &#39;
-                    &#39;&quot;tol&quot; and a high &quot;max_iter&quot; (especially if inputs are &#39;
-                    &#39;not standardized).&#39;)
-                solver = &#39;sag&#39;
-            else:
-                solver = &#39;sparse_cg&#39;
-        else:
+                    <span class="hljs-string">&#x27;&quot;sag&quot; solver requires many iterations to fit &#x27;</span>
+                    <span class="hljs-string">&#x27;an intercept with sparse inputs. Either set the &#x27;</span>
+                    <span class="hljs-string">&#x27;solver to &quot;auto&quot; or &quot;sparse_cg&quot;, or set a low &#x27;</span>
+                    <span class="hljs-string">&#x27;&quot;tol&quot; and a high &quot;max_iter&quot; (especially if inputs are &#x27;</span>
+                    <span class="hljs-string">&#x27;not standardized).&#x27;</span>)
+                solver = <span class="hljs-string">&#x27;sag&#x27;</span>
+            <span class="hljs-keyword">else</span>:
+                solver = <span class="hljs-string">&#x27;sparse_cg&#x27;</span>
+        <span class="hljs-keyword">else</span>:
             solver = self.solver
 
-        if sample_weight is not None:
+        <span class="hljs-keyword">if</span> sample_weight <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
             sample_weight = _check_sample_weight(sample_weight, X,
                                                  dtype=X.dtype)
 
-        # when X is sparse we only remove offset from y
+        <span class="hljs-comment"># when X is sparse we only remove offset from y</span>
         X, y, X_offset, y_offset, X_scale = self._preprocess_data(
             X, y, self.fit_intercept, self.normalize, self.copy_X,
-            sample_weight=sample_weight, return_mean=True)
+            sample_weight=sample_weight, return_mean=<span class="hljs-literal">True</span>)
 
-        if solver == &#39;sag&#39; and sparse.issparse(X) and self.fit_intercept:
+        <span class="hljs-keyword">if</span> solver == <span class="hljs-string">&#x27;sag&#x27;</span> <span class="hljs-keyword">and</span> sparse.issparse(X) <span class="hljs-keyword">and</span> self.fit_intercept:
             self.coef_, self.n_iter_, self.intercept_ = _ridge_regression(
                 X, y, alpha=self.alpha, sample_weight=sample_weight,
-                max_iter=self.max_iter, tol=self.tol, solver=&#39;sag&#39;,
-                random_state=self.random_state, return_n_iter=True,
-                return_intercept=True, check_input=False)
-            # add the offset which was subtracted by _preprocess_data
+                max_iter=self.max_iter, tol=self.tol, solver=<span class="hljs-string">&#x27;sag&#x27;</span>,
+                random_state=self.random_state, return_n_iter=<span class="hljs-literal">True</span>,
+                return_intercept=<span class="hljs-literal">True</span>, check_input=<span class="hljs-literal">False</span>)
+            <span class="hljs-comment"># add the offset which was subtracted by _preprocess_data</span>
             self.intercept_ += y_offset
 
-        else:
-            if sparse.issparse(X) and self.fit_intercept:
-                # required to fit intercept with sparse_cg solver
-                params = {&#39;X_offset&#39;: X_offset, &#39;X_scale&#39;: X_scale}
-            else:
-                # for dense matrices or when intercept is set to 0
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">if</span> sparse.issparse(X) <span class="hljs-keyword">and</span> self.fit_intercept:
+                <span class="hljs-comment"># required to fit intercept with sparse_cg solver</span>
+                params = {<span class="hljs-string">&#x27;X_offset&#x27;</span>: X_offset, <span class="hljs-string">&#x27;X_scale&#x27;</span>: X_scale}
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-comment"># for dense matrices or when intercept is set to 0</span>
                 params = {}
 
             self.coef_, self.n_iter_ = _ridge_regression(
                 X, y, alpha=self.alpha, sample_weight=sample_weight,
                 max_iter=self.max_iter, tol=self.tol, solver=solver,
-                random_state=self.random_state, return_n_iter=True,
-                return_intercept=False, check_input=False, **params)
+                random_state=self.random_state, return_n_iter=<span class="hljs-literal">True</span>,
+                return_intercept=<span class="hljs-literal">False</span>, check_input=<span class="hljs-literal">False</span>, **params)
             self._set_intercept(X_offset, y_offset, X_scale)
 
-        return self
-</code></pre><p>RidgeClassifier机器学习模型(和logistic(sigmoid)激励函数不同，非logistic类模型)继承于此类 _BaseRidge，在其中fix中使用的solver(即我们常说的优化器算法)为sag，即</p><pre><code class="language-bash">    SAG stands for Stochastic Average Gradient: the gradient of the loss is
+        <span class="hljs-keyword">return</span> self
+</code></pre><p>RidgeClassifier机器学习模型(和logistic(sigmoid)激励函数不同，非logistic类模型)继承于此类 _BaseRidge，在其中fix中使用的solver(即我们常说的优化器算法)为sag，即</p>
+<pre><code class="hljs language-bash">    SAG stands <span class="hljs-keyword">for</span> Stochastic Average Gradient: the gradient of the loss is
     estimated each sample at a time and the model is updated along the way with
-    a constant learning rate.</code></pre><p>后续会更新R语言实现的数学表示。</p></article></main>
+    a constant learning rate.
+</code></pre><p>后续会更新R语言实现的数学表示。</p>
+</article></main>

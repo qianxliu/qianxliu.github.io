@@ -1,27 +1,31 @@
-<!DOCTYPE html><head><title>Leetcode 23 - Two Pointer and C++ priority_queue lambda - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>Leetcode 23 - Two Pointer and C++ priority_queue lambda</h1><h1 id="leetcode-23---two-pointer-and-c-priority_queue-lambda">Leetcode 23 - Two Pointer and C++ priority_queue lambda</h1><pre><code class="language-cpp">class Solution {
-public:
-    ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) {
-        // struct must init correct
-        ListNode* dummy = new ListNode(0);
-        auto cmp = [](ListNode* &amp;a, ListNode* &amp;b)
+<!DOCTYPE html><head><title>Leetcode 23 - Two Pointer and C++ priority_queue lambda - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>Leetcode 23 - Two Pointer and C++ priority_queue lambda</h1><h1>Leetcode 23 - Two Pointer and C++ priority_queue lambda</h1>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">ListNode* <span class="hljs-title">mergeKLists</span><span class="hljs-params">(vector&lt;ListNode*&gt;&amp; lists)</span> </span>{
+        <span class="hljs-comment">// struct must init correct</span>
+        ListNode* dummy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>);
+        <span class="hljs-keyword">auto</span> cmp = [](ListNode* &amp;a, ListNode* &amp;b)
         {
-            return a-&gt;val &gt; b-&gt;val;
+            <span class="hljs-keyword">return</span> a-&gt;val &gt; b-&gt;val;
         };
 
-        priority_queue&lt;ListNode*, vector&lt;ListNode*&gt;, decltype(cmp)&gt; pq(cmp);
-
-        for (ListNode* &amp;list : lists)
+        priority_queue&lt;ListNode*, vector&lt;ListNode*&gt;, <span class="hljs-keyword">decltype</span>(cmp)&gt; <span class="hljs-built_in">pq</span>(cmp);
+        
+        <span class="hljs-keyword">for</span> (ListNode* &amp;list : lists)
         {
-            if (list != nullptr)    pq.push(list);
+            <span class="hljs-keyword">if</span> (list != <span class="hljs-literal">nullptr</span>)    pq.<span class="hljs-built_in">push</span>(list);
         }
         ListNode* node = dummy;
-        while(!pq.empty())
+        <span class="hljs-keyword">while</span>(!pq.<span class="hljs-built_in">empty</span>())
         {
-            node-&gt;next = pq.top();
+            node-&gt;next = pq.<span class="hljs-built_in">top</span>();
             node = node-&gt;next;
-            pq.pop();
-            if (node-&gt;next != nullptr)   pq.push(node-&gt;next);
+            pq.<span class="hljs-built_in">pop</span>();
+            <span class="hljs-keyword">if</span> (node-&gt;next != <span class="hljs-literal">nullptr</span>)   pq.<span class="hljs-built_in">push</span>(node-&gt;next);
         }
-        return dummy-&gt;next;
+        <span class="hljs-keyword">return</span> dummy-&gt;next;
     }
-};</code></pre><p>编写时问题在于ListNode* dummy = new ListNode(0); 本来用ListNode* dummy，但是指针必须指向一个初始化的结构体</p></article></main>
+};
+</code></pre><p>编写时问题在于ListNode* dummy = new ListNode(0);
+本来用ListNode* dummy，但是指针必须指向一个初始化的结构体</p>
+</article></main>

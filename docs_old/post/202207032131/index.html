@@ -1,47 +1,55 @@
-<!DOCTYPE html><head><title>QuickSort - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>QuickSort</h1><blockquote><p>Program not like Math, has few but vast ways. Program Pearls Series aims to find &quot;the way&quot;. 算法珠玑系列，旨在写出SoTA的算法代码，这种实现，实现那唯一的实现</p></blockquote><h1 id="quicksort">QuickSort</h1><pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;vector&gt;
+<!DOCTYPE html><head><title>QuickSort - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>QuickSort</h1><blockquote>
+<p>Program not like Math, has few but vast ways.
+Program Pearls Series aims to find &quot;the way&quot;.
+算法珠玑系列，旨在写出SoTA的算法代码，这种实现，实现那唯一的实现</p>
+</blockquote>
+<h1>QuickSort</h1>
+<pre><code class="hljs language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;vector&gt;</span></span>
 
-using namespace std;
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
 
-typedef int T;
+<span class="hljs-keyword">typedef</span> <span class="hljs-type">int</span> T;
 
-void swap(vector&lt;T&gt;&amp; v, int index1, int index2)
-{
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(vector&lt;T&gt;&amp; v, <span class="hljs-type">int</span> index1, <span class="hljs-type">int</span> index2)</span>
+</span>{
         T temp = v[index1];
         v[index1] = v[index2];
         v[index2] = temp;
 }
 
 
-int partition(vector&lt;T&gt;&amp; v, int left, int right)
-{
-        int smaller = left;
-        for (int i = left; i &lt; right; ++i)
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">partition</span><span class="hljs-params">(vector&lt;T&gt;&amp; v, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span>
+</span>{
+        <span class="hljs-type">int</span> smaller = left;
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = left; i &lt; right; ++i)
         {
-                if (v[i] &lt; v[right])
+                <span class="hljs-keyword">if</span> (v[i] &lt; v[right])
                 {
-                        swap(v, i, smaller);
+                        <span class="hljs-built_in">swap</span>(v, i, smaller);
                         ++smaller;
                 }
         }
-        // already find all smaller number
-        swap(v, smaller, right);
-        return smaller;
+        <span class="hljs-comment">// already find all smaller number</span>
+        <span class="hljs-built_in">swap</span>(v, smaller, right);
+        <span class="hljs-keyword">return</span> smaller;
 }
 
-void quickSort(vector&lt;T&gt;&amp; v, int left, int right)
-{
-        if(left &lt; right)
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(vector&lt;T&gt;&amp; v, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span>
+</span>{
+        <span class="hljs-keyword">if</span>(left &lt; right)
         {
-                int pi = partition(v, left, right);
-                quickSort(v, left, pi-1);
-                quickSort(v, pi+1, right);
+                <span class="hljs-type">int</span> pi = <span class="hljs-built_in">partition</span>(v, left, right);
+                <span class="hljs-built_in">quickSort</span>(v, left, pi<span class="hljs-number">-1</span>);
+                <span class="hljs-built_in">quickSort</span>(v, pi+<span class="hljs-number">1</span>, right);
         }
 }
 
-int main()
-{
-        vector&lt;T&gt; v = {1,2,3,5,0,34,1,39,13909, 888};
-        quickSort(v, 0, v.size()-1);
-        for (T e : v) std::cout &lt;&lt; e &lt;&lt; &quot;\n&quot;;
-}</code></pre><p>以上即是快速排序。</p></article></main>
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>{
+        vector&lt;T&gt; v = {<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>,<span class="hljs-number">0</span>,<span class="hljs-number">34</span>,<span class="hljs-number">1</span>,<span class="hljs-number">39</span>,<span class="hljs-number">13909</span>, <span class="hljs-number">888</span>};
+        <span class="hljs-built_in">quickSort</span>(v, <span class="hljs-number">0</span>, v.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>);
+        <span class="hljs-keyword">for</span> (T e : v) std::cout &lt;&lt; e &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;
+}
+</code></pre><p>以上即是快速排序。</p>
+</article></main>

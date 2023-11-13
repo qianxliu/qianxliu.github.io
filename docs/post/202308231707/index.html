@@ -1,17 +1,24 @@
-<!DOCTYPE html><head><title>Longest Common Prefix - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>Longest Common Prefix</h1><blockquote><p><a href="https://leetcode.cn/problems/longest-common-prefix/description/">https://leetcode.cn/problems/longest-common-prefix/description/</a> What&#39;s the &quot;sort&quot;? A kind of overresearched cheating methods Loosely speaking, it is similar to calculus in mathematics</p></blockquote><pre><code class="language-cpp">class Solution {
+<!DOCTYPE html><head><title>Longest Common Prefix - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>Longest Common Prefix</h1><blockquote>
+<p><a href="https://leetcode.cn/problems/longest-common-prefix/description/">https://leetcode.cn/problems/longest-common-prefix/description/</a>
+What&#39;s the &quot;sort&quot;?
+A kind of overresearched cheating methods
+Loosely speaking, it is similar to calculus in mathematics</p>
+</blockquote>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
 
-public:
-    string longestCommonPrefix(vector&lt;string&gt; &amp;strs) {
-        if (strs.size() == 1)   return strs[0];
-        sort(strs.begin(), strs.end());
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">string <span class="hljs-title">longestCommonPrefix</span><span class="hljs-params">(vector&lt;string&gt; &amp;strs)</span> </span>{
+        <span class="hljs-keyword">if</span> (strs.<span class="hljs-built_in">size</span>() == <span class="hljs-number">1</span>)   <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>];
+        <span class="hljs-built_in">sort</span>(strs.<span class="hljs-built_in">begin</span>(), strs.<span class="hljs-built_in">end</span>());
 
-        string &amp;front = strs.front();
-        string &amp;back = strs.back();
+        string &amp;front = strs.<span class="hljs-built_in">front</span>();
+        string &amp;back = strs.<span class="hljs-built_in">back</span>();
 
-        for (int i = 0; i &lt; front.size(); ++i)
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; front.<span class="hljs-built_in">size</span>(); ++i)
         {
-            if (front[i] != back[i]) return front.substr(0, i);
+            <span class="hljs-keyword">if</span> (front[i] != back[i]) <span class="hljs-keyword">return</span> front.<span class="hljs-built_in">substr</span>(<span class="hljs-number">0</span>, i);
         }
-        return front;
+        <span class="hljs-keyword">return</span> front;
     }
-};</code></pre></article></main>
+};
+</code></pre></article></main>

@@ -1,29 +1,29 @@
-<!DOCTYPE html><head><title>一篇代码，机器学习入门 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>一篇代码，机器学习入门</h1><pre><code class="language-python">import numpy as np
+<!DOCTYPE html><head><title>一篇代码，机器学习入门 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>一篇代码，机器学习入门</h1><pre><code class="hljs language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-#将数据降维的函数，输出值一定在-1~1之间，可以定性（男/女）
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+<span class="hljs-comment">#将数据降维的函数，输出值一定在-1~1之间，可以定性（男/女）</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">sigmoid</span>(<span class="hljs-params">x</span>):
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> / (<span class="hljs-number">1</span> + np.exp(-x))
 
-def deriv_sigmoid(x):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">deriv_sigmoid</span>(<span class="hljs-params">x</span>):
     fx = sigmoid(x)
-    return fx * (1 - fx)
+    <span class="hljs-keyword">return</span> fx * (<span class="hljs-number">1</span> - fx)
 
-def mse_loss(y_true, y_pred):
-    return((y_true - y_pred) ** 2).mean()
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">mse_loss</span>(<span class="hljs-params">y_true, y_pred</span>):
+    <span class="hljs-keyword">return</span>((y_true - y_pred) ** <span class="hljs-number">2</span>).mean()
 
-#基本神经元，bias即-threshold阈值，即bias越低，越难得出结果，越高越容易(单调递增情况，加10)
-class Neuron:
-    def __init__(self, weights, bias):
+<span class="hljs-comment">#基本神经元，bias即-threshold阈值，即bias越低，越难得出结果，越高越容易(单调递增情况，加10)</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Neuron</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, weights, bias</span>):
         self.weights = weights
         self.bias = bias
-    def feedforward(self, inputs):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">feedforward</span>(<span class="hljs-params">self, inputs</span>):
         total = np.dot(self.weights, inputs) + self.bias
-        return sigmoid(total)
+        <span class="hljs-keyword">return</span> sigmoid(total)
 
-class OurNeuralNetwork:
-    def __init__(self):
-    ## random weights and biases because it&#39;s careless
-    ## !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! be mentioned.
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">OurNeuralNetwork</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+    <span class="hljs-comment">## random weights and biases because it&#x27;s careless</span>
+    <span class="hljs-comment">## !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! be mentioned.</span>
         self.w1 = np.random.normal()
         self.w2 = np.random.normal()
         self.w3 = np.random.normal()
@@ -31,31 +31,31 @@ class OurNeuralNetwork:
         self.w5 = np.random.normal()
         self.w6 = np.random.normal()
 
-    ## Biases
+    <span class="hljs-comment">## Biases</span>
         self.b1 = np.random.normal()
         self.b2 = np.random.normal()
         self.b3 = np.random.normal()
 
-    def feedforward(self, x):
-        self.h1 = sigmoid(self.w1 * x[0] + self.w2 * x[1] + self.b1)
-        self.h2 = sigmoid(self.w3 * x[0] + self.w4 * x[1] + self.b2)
-        return sigmoid(self.w5 * self.h1 + self.w6 * self.h2 + self.b3)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">feedforward</span>(<span class="hljs-params">self, x</span>):
+        self.h1 = sigmoid(self.w1 * x[<span class="hljs-number">0</span>] + self.w2 * x[<span class="hljs-number">1</span>] + self.b1)
+        self.h2 = sigmoid(self.w3 * x[<span class="hljs-number">0</span>] + self.w4 * x[<span class="hljs-number">1</span>] + self.b2)
+        <span class="hljs-keyword">return</span> sigmoid(self.w5 * self.h1 + self.w6 * self.h2 + self.b3)
 
-    ## Data is a zip of array value
-    def train(self, data, all_y_trues):
-        learn_rate = 0.1
-        # number of times to loop through the entire dataset
-        epochs = 1000 
+    <span class="hljs-comment">## Data is a zip of array value</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train</span>(<span class="hljs-params">self, data, all_y_trues</span>):
+        learn_rate = <span class="hljs-number">0.1</span>
+        <span class="hljs-comment"># number of times to loop through the entire dataset</span>
+        epochs = <span class="hljs-number">1000</span> 
 
-        for epoch in range(epochs):
-            for x, y_true in zip(data, all_y_trues):
+        <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):
+            <span class="hljs-keyword">for</span> x, y_true <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(data, all_y_trues):
 
                 y_pred = self.feedforward(x)
-                # --- Do a feedforward (we&#39;ll need these values later)
-                sum_h1 = self.w1 * x[0] + self.w2 * x[1] + self.b1
+                <span class="hljs-comment"># --- Do a feedforward (we&#x27;ll need these values later)</span>
+                sum_h1 = self.w1 * x[<span class="hljs-number">0</span>] + self.w2 * x[<span class="hljs-number">1</span>] + self.b1
                 h1 = sigmoid(sum_h1)
 
-                sum_h2 = self.w3 * x[0] + self.w4 * x[1] + self.b2
+                sum_h2 = self.w3 * x[<span class="hljs-number">0</span>] + self.w4 * x[<span class="hljs-number">1</span>] + self.b2
                 h2 = sigmoid(sum_h2)
 
                 sum_o1 = self.w5 * h1 + self.w6 * h2 + self.b3
@@ -63,17 +63,17 @@ class OurNeuralNetwork:
                 y_pred = o1
 
 
-                # --- Calculate partial derivatives.
-                # --- Naming: d_L_d_w1 represents &quot;partial L / partial w1&quot;
-                d_L_d_ypred = -2 * (y_true - y_pred)
+                <span class="hljs-comment"># --- Calculate partial derivatives.</span>
+                <span class="hljs-comment"># --- Naming: d_L_d_w1 represents &quot;partial L / partial w1&quot;</span>
+                d_L_d_ypred = -<span class="hljs-number">2</span> * (y_true - y_pred)
 
-                # Neuron o1
+                <span class="hljs-comment"># Neuron o1</span>
                 d_ypred_d_w5 = self.h1 * deriv_sigmoid(sum_o1)
                 d_ypred_d_w6 = self.h2 * deriv_sigmoid(sum_o1)
                 d_ypred_d_b3 = deriv_sigmoid(sum_o1)
 
 
-                # Neuron o1
+                <span class="hljs-comment"># Neuron o1</span>
                 d_ypred_d_w5 = self.h1 * deriv_sigmoid(sum_o1)
                 d_ypred_d_w6 = self.h2 * deriv_sigmoid(sum_o1)
                 d_ypred_d_b3 = deriv_sigmoid(sum_o1)
@@ -81,53 +81,55 @@ class OurNeuralNetwork:
                 d_ypred_d_h1 = self.w5 * deriv_sigmoid(sum_o1)
                 d_ypred_d_h2 = self.w6 * deriv_sigmoid(sum_o1)
 
-                # Neuron h1
-                d_h1_d_w1 = x[0] * deriv_sigmoid(sum_h1)
-                d_h1_d_w2 = x[1] * deriv_sigmoid(sum_h1)
+                <span class="hljs-comment"># Neuron h1</span>
+                d_h1_d_w1 = x[<span class="hljs-number">0</span>] * deriv_sigmoid(sum_h1)
+                d_h1_d_w2 = x[<span class="hljs-number">1</span>] * deriv_sigmoid(sum_h1)
                 d_h1_d_b1 = deriv_sigmoid(sum_h1)
 
-                # Neuron h2
-                d_h2_d_w3 = x[0] * deriv_sigmoid(sum_h2)
-                d_h2_d_w4 = x[1] * deriv_sigmoid(sum_h2)
+                <span class="hljs-comment"># Neuron h2</span>
+                d_h2_d_w3 = x[<span class="hljs-number">0</span>] * deriv_sigmoid(sum_h2)
+                d_h2_d_w4 = x[<span class="hljs-number">1</span>] * deriv_sigmoid(sum_h2)
                 d_h2_d_b2 = deriv_sigmoid(sum_h2)
 
-                # --- Update weights and biases
-                ## Δv = -n∇C, n 为学习率，∇C为n维向量微分算子，Nabla算子         
-                # Neuron h1
+                <span class="hljs-comment"># --- Update weights and biases</span>
+                <span class="hljs-comment">## Δv = -n∇C, n 为学习率，∇C为n维向量微分算子，Nabla算子         </span>
+                <span class="hljs-comment"># Neuron h1</span>
                 self.w1 -= learn_rate * d_L_d_ypred * d_ypred_d_h1 * d_h1_d_w1
                 self.w2 -= learn_rate * d_L_d_ypred * d_ypred_d_h1 * d_h1_d_w2
                 self.b1 -= learn_rate * d_L_d_ypred * d_ypred_d_h1 * d_h1_d_b1
 
-                # Neuron h2
+                <span class="hljs-comment"># Neuron h2</span>
                 self.w3 -= learn_rate * d_L_d_ypred * d_ypred_d_h2 * d_h2_d_w3
                 self.w4 -= learn_rate * d_L_d_ypred * d_ypred_d_h2 * d_h2_d_w4
                 self.b2 -= learn_rate * d_L_d_ypred * d_ypred_d_h2 * d_h2_d_b2
 
-                # Neuron o1
+                <span class="hljs-comment"># Neuron o1</span>
                 self.w5 -= learn_rate * d_L_d_ypred * d_ypred_d_w5
                 self.w6 -= learn_rate * d_L_d_ypred * d_ypred_d_w6
                 self.b3 -= learn_rate * d_L_d_ypred * d_ypred_d_b3
-
-                if epoch % 10 == 0:
-                    ## Apply a function to 1-D slices along the given axis.
-                    y_preds = np.apply_along_axis(self.feedforward, 1, data)
+                        
+                <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>:
+                    <span class="hljs-comment">## Apply a function to 1-D slices along the given axis.</span>
+                    y_preds = np.apply_along_axis(self.feedforward, <span class="hljs-number">1</span>, data)
                     loss = mse_loss(all_y_trues, y_preds)
-                    print(&quot;Epoch %d loss: %.3f&quot; % (epoch, loss))
+                    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Epoch %d loss: %.3f&quot;</span> % (epoch, loss))
 
 data = np.array([
-  [-2, -1],  # Alice
-  [25, 6],   # Bob
-  [17, 4],   # Charlie
-  [-15, -6], # Diana
+  [-<span class="hljs-number">2</span>, -<span class="hljs-number">1</span>],  <span class="hljs-comment"># Alice</span>
+  [<span class="hljs-number">25</span>, <span class="hljs-number">6</span>],   <span class="hljs-comment"># Bob</span>
+  [<span class="hljs-number">17</span>, <span class="hljs-number">4</span>],   <span class="hljs-comment"># Charlie</span>
+  [-<span class="hljs-number">15</span>, -<span class="hljs-number">6</span>], <span class="hljs-comment"># Diana</span>
 ])
 
 all_y_tures = np.array([
-  1, # Alice
-  0, # Bob
-  0, # Charlie
-  1, # Diana
+  <span class="hljs-number">1</span>, <span class="hljs-comment"># Alice</span>
+  <span class="hljs-number">0</span>, <span class="hljs-comment"># Bob</span>
+  <span class="hljs-number">0</span>, <span class="hljs-comment"># Charlie</span>
+  <span class="hljs-number">1</span>, <span class="hljs-comment"># Diana</span>
 ]
 )
 
 network = OurNeuralNetwork()
-network.train(data, all_y_tures)</code></pre><p>这是一个经典的logistic regression(即sigmoid回归)，优化算法(optimizers, solver)使用SGD，不是最好的算法，但是可以补充</p></article></main>
+network.train(data, all_y_tures)
+</code></pre><p>这是一个经典的logistic regression(即sigmoid回归)，优化算法(optimizers, solver)使用SGD，不是最好的算法，但是可以补充</p>
+</article></main>

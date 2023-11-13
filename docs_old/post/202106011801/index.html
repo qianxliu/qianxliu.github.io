@@ -1,15 +1,26 @@
-<!DOCTYPE html><head><title>Android Handler - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>Android Handler</h1><blockquote><p>关于Handler，Google官方给予了以下解释</p></blockquote><h1 id="looper">Looper</h1><p>Looper类用于为线程运行消息循环。默认情况下，线程没有与之关联的消息循环；要创建一个，请在要运行循环的线程中调用prepare（），然后调用loop（），让它处理消息，直到循环停止。 Class used to run a message loop for a thread. Threads by default do not have a message loop associated with them; to create one, call prepare() in the thread that is to run the loop, and then loop() to have it process messages until the loop is stopped.</p><p>大多数与消息循环的交互都是通过Handler类进行的。 Most interaction with a message loop is through the Handler class.</p><p>这是一个典型的Looper线程实现示例，使用prepare（）和loop（）的分离来创建一个初始处理程序来与Looper通信。 This is a typical example of the implementation of a Looper thread, using the separation of prepare() and loop() to create an initial Handler to communicate with the Looper.</p><pre><code class="language-java">  class LooperThread extends Thread {
-      public Handler mHandler;
+<!DOCTYPE html><head><title>Android Handler - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>Android Handler</h1><blockquote>
+<p>关于Handler，Google官方给予了以下解释</p>
+</blockquote>
+<h1>Looper</h1>
+<p>Looper类用于为线程运行消息循环。默认情况下，线程没有与之关联的消息循环；要创建一个，请在要运行循环的线程中调用prepare（），然后调用loop（），让它处理消息，直到循环停止。
+Class used to run a message loop for a thread. Threads by default do not have a message loop associated with them; to create one, call prepare() in the thread that is to run the loop, and then loop() to have it process messages until the loop is stopped.</p>
+<p>大多数与消息循环的交互都是通过Handler类进行的。
+Most interaction with a message loop is through the Handler class.</p>
+<p>这是一个典型的Looper线程实现示例，使用prepare（）和loop（）的分离来创建一个初始处理程序来与Looper通信。
+This is a typical example of the implementation of a Looper thread, using the separation of prepare() and loop() to create an initial Handler to communicate with the Looper.</p>
+<pre><code class="hljs language-java">  <span class="hljs-keyword">class</span> <span class="hljs-title class_">LooperThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> {
+      <span class="hljs-keyword">public</span> Handler mHandler;
 
-      public void run() {
+      <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
           Looper.prepare();
 
-          mHandler = new Handler(Looper.myLooper()) {
-              public void handleMessage(Message msg) {
-                  // process incoming messages here
+          mHandler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Handler</span>(Looper.myLooper()) {
+              <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handleMessage</span><span class="hljs-params">(Message msg)</span> {
+                  <span class="hljs-comment">// process incoming messages here</span>
               }
           };
 
           Looper.loop();
       }
-  }</code></pre></article></main>
+  }
+</code></pre></article></main>

@@ -1,17 +1,28 @@
-<!DOCTYPE html><head><title>尾递归 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script></head><main><article><h1>尾递归</h1><h1 id="函数递归调用自身的技巧叫做递归">函数递归调用自身的技巧叫做递归</h1><p>递归是很神奇的概念。所有学编程和有志于解答世上最复杂的难题的人，都一定要好好理解一下什么是递归。</p><p>而尾递归是一种我们通常称之为“迭代”的递归方式。这篇文章无法确切地教给你到底什么是递归什么是尾递归，因为它们的真正含义需要有志者仔细体会。</p><h1 id="尾递归">尾递归</h1><p>尾递归是带着一个“迭代变量”不断向深处递归，相当于边递归，边计算，等递归完成时，结果也计算出来了。</p><p>In computer science, a tail call is a subroutine call performed as the final action of a procedure. If the target of a tail is the same subroutine, the subroutine is said to be tail-recursive, which is a special case of direct recursion. Tail recursion (or tail-end recursion) is particularly useful, and often easy to handle in implementations. 尾递归是返回递归关系最后一个动作的递归方式。</p><p>而递归中不计算任何值，到最后Return时递归求解。</p><h1 id="递归和迭代（尾递归）的fibonacci-numbers实现">递归和迭代（尾递归）的Fibonacci Numbers实现</h1><pre><code class="language-python">## The Recursion and Iteration implemention by qianxin
-## Dedicated to Fibonacci(1170—1250)
+<!DOCTYPE html><head><title>尾递归 - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"></head><main><article><h1>尾递归</h1><h1>函数递归调用自身的技巧叫做递归</h1>
+<p>递归是很神奇的概念。所有学编程和有志于解答世上最复杂的难题的人，都一定要好好理解一下什么是递归。</p>
+<p>而尾递归是一种我们通常称之为“迭代”的递归方式。这篇文章无法确切地教给你到底什么是递归什么是尾递归，因为它们的真正含义需要有志者仔细体会。</p>
+<h1>尾递归</h1>
+<p>尾递归是带着一个“迭代变量”不断向深处递归，相当于边递归，边计算，等递归完成时，结果也计算出来了。</p>
+<p>In computer science, a tail call is a subroutine call performed as the final action of a procedure. If the target of a tail is the same subroutine, the subroutine is said to be tail-recursive, which is a special case of direct recursion. Tail recursion (or tail-end recursion) is particularly useful, and often easy to handle in implementations.
+尾递归是返回递归关系最后一个动作的递归方式。</p>
+<p>而递归中不计算任何值，到最后Return时递归求解。</p>
+<h1>递归和迭代（尾递归）的Fibonacci Numbers实现</h1>
+<pre><code class="hljs language-python"><span class="hljs-comment">## The Recursion and Iteration implemention by qianxin</span>
+<span class="hljs-comment">## Dedicated to Fibonacci(1170—1250)</span>
 
-## Recursion Fibonacci Numbers
-def Rfib(i):
-    if(i == 1 or i == 2):
-        return 1
-    else:
-        return Rfib(i-1)+Rfib(i-2)
+<span class="hljs-comment">## Recursion Fibonacci Numbers</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">Rfib</span>(<span class="hljs-params">i</span>):
+    <span class="hljs-keyword">if</span>(i == <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> i == <span class="hljs-number">2</span>):
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> Rfib(i-<span class="hljs-number">1</span>)+Rfib(i-<span class="hljs-number">2</span>)
 
-## Iteration Fibonacci Numbers
-def Ifib(i, a, b):
-    if(i == 1 or i == 2):
-    # That&#39;s a Iteration! By Tail Recursion
-        return b
-    else:
-        return Ifib(i-1, b, a+b)</code></pre><p>献给Fibonacci(1170—1250)。</p></article></main>
+<span class="hljs-comment">## Iteration Fibonacci Numbers</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">Ifib</span>(<span class="hljs-params">i, a, b</span>):
+    <span class="hljs-keyword">if</span>(i == <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> i == <span class="hljs-number">2</span>):
+    <span class="hljs-comment"># That&#x27;s a Iteration! By Tail Recursion</span>
+        <span class="hljs-keyword">return</span> b
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> Ifib(i-<span class="hljs-number">1</span>, b, a+b)
+</code></pre><p>献给Fibonacci(1170—1250)。</p>
+</article></main>
