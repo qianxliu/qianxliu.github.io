@@ -94,9 +94,6 @@ const mapstr = (parts, ...inserts) => {
 };
 
 const makePage = (() => {
-  //const templateRaw = fs.readFileSync(p`./units/template.html`).toString();
-  const templateRaw = fs.readFileSync(p`./units/template.html`).toString();
-  const template = minify.htmlEnhanced(templateRaw);
   const marked = new Marked(
     markedHighlight({
       langPrefix: 'hljs language-',
@@ -107,73 +104,44 @@ const makePage = (() => {
     })
   );
 
-  // katex
-
-  const inlineRule = /^\$+([^$\n]+?)\$+/;
-  const blockRule = /^(\${1,2})\n((?:\\[^]|[^\\])+?)\n\1(?:\n|$)/;
+  const rule = /^\$+([^$\n]+?)\$+/;
 
   function markedKatex(options = {}) {
     return {
       extensions: [
-        inlineKatex(options, createRenderer(options, false)),
-        blockKatex(options, createRenderer(options, true))
+        {
+          name: 'inlineKatex',
+          level: 'inline',
+          start(src) { return src.indexOf('$'); },
+          tokenizer(src, tokens) {
+            const match = src.match(rule);
+            if (match) {
+              return {
+                type: 'inlineKatex',
+                raw: match[0],
+                text: match[1].trim()
+              };
+            }
+          },
+          renderer: (token) => katex.renderToString(token.text, { ...options, displayMode: token.displayMode }) + '\n'
+        }
       ]
     };
   }
 
-  function createRenderer(options, newlineAfter) {
-    return (token) => katex.renderToString(token.text, { ...options, displayMode: token.displayMode }) + (newlineAfter ? '\n' : '');
-  }
-
-  function inlineKatex(options, renderer) {
-    return inlineKatex = {
-      name: 'inlineKatex',
-      level: 'inline',
-      start(src) { return src.indexOf('$'); },        // Hint to Marked.js to stop and check for a match
-      tokenizer(src, tokens) {
-        const match = src.match(inlineRule); // only matches start of src
-
-        if (match) {
-          const trimText = match[1].trim();
-
-          return {
-            type: 'inlineKatex',
-            raw: match[0],
-            text: trimText
-          };
-        }
-      },
-      renderer
-    };
-  }
-  function blockKatex(options, renderer) {
-    return {
-      name: 'blockKatex',
-      level: 'block',
-      tokenizer(src, tokens) {
-        const match = src.match(blockRule);
-        if (match) {
-          return {
-            type: 'blockKatex',
-            raw: match[0],
-            text: match[2].trim(),
-            displayMode: match[1].length === 2
-          };
-        }
-      },
-      renderer
-    };
-  }
   const options = {
     throwOnError: false,
     output: "mathml"
   };
+
   marked.use(markedKatex(options));
 
   return ({ isMarkdown, path: rpath, title, description = "", content }) => {
     if (isMarkdown) {
       content = `<article><h1>${title}</h1>${marked.parse(content)}</article>`;
     }
+    const templateRaw = fs.readFileSync(p`./units/template.html`).toString();
+    const template = minify.htmlEnhanced(templateRaw);
     const result = template
       .replace("/*{title}*/", title)
       .replace("/*{description}*/", description)

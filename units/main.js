@@ -21,7 +21,7 @@ let onPageLoad = () => {
 onscroll = () => {
   topBar.className =
     scrollPos < (scrollRecords[location] = scrollPos = scrollY) &&
-    scrollPos /* Was set to "scrollY" */ > 55
+      scrollPos /* Was set to "scrollY" */ > 55
       ? "hidden"
       : "";
 };

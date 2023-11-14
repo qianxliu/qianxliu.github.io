@@ -1,32 +1,44 @@
 <!DOCTYPE html><head><title>Fibonacci Numbers（$AX=XΛ$） - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>Fibonacci Numbers（$AX=XΛ$）</h1><blockquote>
 <p>本文所讲的例子，可以很好地帮助我们理解线代的第二部分。</p>
 </blockquote>
-<h1>Fibonacci Numbers（<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>X</mi><mo>=</mo><mi>X</mi><mi mathvariant="normal">Λ</mi></mrow><annotation encoding="application/x-tex">AX=XΛ</annotation></semantics></math></span>）</h1>
+<h1>Fibonacci Numbers（<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>X</mi><mo>=</mo><mi>X</mi><mi mathvariant="normal">Λ</mi></mrow><annotation encoding="application/x-tex">AX=XΛ</annotation></semantics></math></span>
+）</h1>
 <h2>递归定义</h2>
 <p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>=</mo><msub><mi>F</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>F</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">F_{k+2} = F_{k+1} + F_{k}</annotation></semantics></math></span>
-<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F_0 = 0</annotation></semantics></math></span></p>
-<h2><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>100</mn></msub></mrow><annotation encoding="application/x-tex">F_{100}</annotation></semantics></math></span></h2>
-<h3>系数矩阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span></h3>
+
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F_0 = 0</annotation></semantics></math></span>
+</p>
+<h2><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>100</mn></msub></mrow><annotation encoding="application/x-tex">F_{100}</annotation></semantics></math></span>
+</h2>
+<h3>系数矩阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span>
+</h3>
 <p>令通项
 $u_k= \left[ \begin{matrix} 
 F_{k+1} \ 
 F_{k}
 \end{matrix} \right]$
-此项对应系数矩阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span></p>
-<h3>转换矩阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span></h3>
+此项对应系数矩阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span>
+</p>
+<h3>转换矩阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>
+</h3>
 <p>则$u_{k+1}= \left[ \begin{matrix} 
 1 &amp; 1 \ 
 1 &amp; 0
 \end{matrix} \right]u_k$
-此项对应转换矩阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span></p>
-<p>方阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>可适用特征值</p>
-<h3><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>−</mo><mi>λ</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">A-λI</annotation></semantics></math></span>特征值</h3>
+此项对应转换矩阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>
+</p>
+<p>方阵<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>
+可适用特征值</p>
+<h3><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>−</mo><mi>λ</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">A-λI</annotation></semantics></math></span>
+特征值</h3>
 <p>$A-λI = \left[ \begin{matrix} 
 1-λ &amp; 1 \ 
 1 &amp; -λ
 \end{matrix} \right] = λ^2-λ-1$</p>
-<p>解得 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>±</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">λ=\frac{1 \pm \sqrt{5}}{2}</annotation></semantics></math></span></p>
-<h3><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>λ</mi><mi>I</mi><mo stretchy="false">)</mo><mi>X</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(A-λI)X=0</annotation></semantics></math></span>求解特征向量</h3>
+<p>解得 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>±</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">λ=\frac{1 \pm \sqrt{5}}{2}</annotation></semantics></math></span>
+</p>
+<h3><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>λ</mi><mi>I</mi><mo stretchy="false">)</mo><mi>X</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(A-λI)X=0</annotation></semantics></math></span>
+求解特征向量</h3>
 <p>因为
 $(A-λI)X = \left[ \begin{matrix} 
 1-λ &amp; 1 \ 
@@ -35,18 +47,28 @@ $(A-λI)X = \left[ \begin{matrix}
 λ \ 
 1
 \end{matrix} \right]= λ^2-λ-1+λ-λ$</p>
-<p>其中<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>λ</mi><mn>2</mn></msup><mo>−</mo><mi>λ</mi><mo>−</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">λ^2-λ-1 = 0</annotation></semantics></math></span>,则<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>λ</mi><mi>I</mi><mo stretchy="false">)</mo><mi>X</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(A-λI)X=0</annotation></semantics></math></span>，因为<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>±</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">λ=\frac{1 \pm \sqrt{5}}{2}</annotation></semantics></math></span>，特征向量<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_1, x_2</annotation></semantics></math></span>为
+<p>其中<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>λ</mi><mn>2</mn></msup><mo>−</mo><mi>λ</mi><mo>−</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">λ^2-λ-1 = 0</annotation></semantics></math></span>
+,则<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>λ</mi><mi>I</mi><mo stretchy="false">)</mo><mi>X</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(A-λI)X=0</annotation></semantics></math></span>
+，因为<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>±</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">λ=\frac{1 \pm \sqrt{5}}{2}</annotation></semantics></math></span>
+，特征向量<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_1, x_2</annotation></semantics></math></span>
+为
 $\left[ \begin{matrix} 
 \frac{1 + \sqrt{5}}{2} \ 
 1
-\end{matrix} \right]<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>和</mtext></mrow><annotation encoding="application/x-tex">和</annotation></semantics></math></span>\left[ \begin{matrix} 
+\end{matrix} \right]<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>和</mtext></mrow><annotation encoding="application/x-tex">和</annotation></semantics></math></span>
+\left[ \begin{matrix} 
 \frac{1 - \sqrt{5}}{2} \ 
 1
 \end{matrix} \right]$</p>
-<p>可得<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mn>0</mn></msub><mo>=</mo><mfrac><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><msub><mi>x</mi><mn>2</mn></msub></mrow><mrow><msub><mi>λ</mi><mn>1</mn></msub><mo>−</mo><msub><mi>λ</mi><mn>2</mn></msub></mrow></mfrac><mo stretchy="false">(</mo><msub><mi>λ</mi><mn>1</mn></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>+</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac><mo separator="true">;</mo><msub><mi>λ</mi><mn>2</mn></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">u_0 = \frac{x_1-x_2}{λ_1-λ_2}(λ_1=\frac{1 + \sqrt{5}}{2}; λ_2=\frac{1 - \sqrt{5}}{2})</annotation></semantics></math></span></p>
-<h3><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mn>100</mn></msub></mrow><annotation encoding="application/x-tex">u_{100}</annotation></semantics></math></span> 特征值乘特征向量</h3>
+<p>可得<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mn>0</mn></msub><mo>=</mo><mfrac><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><msub><mi>x</mi><mn>2</mn></msub></mrow><mrow><msub><mi>λ</mi><mn>1</mn></msub><mo>−</mo><msub><mi>λ</mi><mn>2</mn></msub></mrow></mfrac><mo stretchy="false">(</mo><msub><mi>λ</mi><mn>1</mn></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>+</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac><mo separator="true">;</mo><msub><mi>λ</mi><mn>2</mn></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">u_0 = \frac{x_1-x_2}{λ_1-λ_2}(λ_1=\frac{1 + \sqrt{5}}{2}; λ_2=\frac{1 - \sqrt{5}}{2})</annotation></semantics></math></span>
+</p>
+<h3><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mn>100</mn></msub></mrow><annotation encoding="application/x-tex">u_{100}</annotation></semantics></math></span>
+ 特征值乘特征向量</h3>
 <p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mn>100</mn></msub><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><msub><mi>λ</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>100</mn></msup><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><mo stretchy="false">(</mo><msub><mi>λ</mi><mn>2</mn></msub><msup><mo stretchy="false">)</mo><mn>100</mn></msup><msub><mi>x</mi><mn>2</mn></msub></mrow><mrow><msub><mi>λ</mi><mn>1</mn></msub><mo>−</mo><msub><mi>λ</mi><mn>2</mn></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">u_{100}= \frac{(λ_1)^{100}x_1-(λ_2)^{100}x_2}{λ_1-λ_2}</annotation></semantics></math></span>
+
 即接近于<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac><msup><mo stretchy="false">)</mo><mn>100</mn></msup></mrow><msqrt><mn>5</mn></msqrt></mfrac></mrow><annotation encoding="application/x-tex">\frac{({\frac{1+\sqrt{5}}{2}})^{100}}{\sqrt{5}}</annotation></semantics></math></span>
+
 即<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>1</mn><mo>+</mo><msqrt><mn>5</mn></msqrt></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{1 + \sqrt{5}}{2}</annotation></semantics></math></span>
+
 黄金比率得证。</p>
 </article></main>
