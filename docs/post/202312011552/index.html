@@ -1,0 +1,36 @@
+<!DOCTYPE html><head><title> Universality And Particularity - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1> Universality And Particularity</h1><h1>Universality And Particularity</h1>
+<p>Today let me talk about &quot;philosophy&quot;. A complex issue, has a bigger influence on the complex reality.</p>
+<p>Just because the math is a little too simple in real world, I couldn&#39;t deal with that at the moment.</p>
+<h2>Rigorous LeetCode 5</h2>
+<p><a href="https://leetcode.cn/problems/longest-palindromic-substring/description/">https://leetcode.cn/problems/longest-palindromic-substring/description/</a></p>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">string <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(string s)</span> </span>{
+        string ans;
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; s.<span class="hljs-built_in">size</span>(); ++i)
+        {
+            string s1 = <span class="hljs-built_in">palindrome</span>(s, i, i);
+            string s2 = <span class="hljs-built_in">palindrome</span>(s, i, i+<span class="hljs-number">1</span>);
+            ans = ans.<span class="hljs-built_in">size</span>() &gt; s1.<span class="hljs-built_in">size</span>() ? ans : s1;
+            ans = ans.<span class="hljs-built_in">size</span>() &gt; s2.<span class="hljs-built_in">size</span>() ? ans : s2;
+        }
+        <span class="hljs-keyword">return</span> ans;
+    }
+    <span class="hljs-function">string <span class="hljs-title">palindrome</span><span class="hljs-params">(string s, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span>
+    </span>{
+        <span class="hljs-keyword">while</span>(l &gt;= <span class="hljs-number">0</span> &amp;&amp; r &lt; s.<span class="hljs-built_in">size</span>() &amp;&amp; s[l] == s[r])
+        {
+            --l;
+            ++r;
+        }
+        <span class="hljs-keyword">return</span> s.<span class="hljs-built_in">substr</span>(l+<span class="hljs-number">1</span>, r-l<span class="hljs-number">-1</span>);
+    }
+};
+</code></pre><p>If it is this:</p>
+<pre><code class="hljs language-cpp">    ans = s1.<span class="hljs-built_in">size</span>() &gt; ans.<span class="hljs-built_in">size</span>() ? s1 : ans;
+    ans = s2.<span class="hljs-built_in">size</span>() &gt; ans.<span class="hljs-built_in">size</span>() ? s2 : ans;
+</code></pre><p>The algorithm will be a little slower than previous.</p>
+<p>So programmer who pursues extreme performance always care about</p>
+<pre><code class="hljs language-bash">the distribution of inputs.
+</code></pre><p>However, in reality, mathematicians(or others) are originally very few(exceptional).</p>
+</article></main>
