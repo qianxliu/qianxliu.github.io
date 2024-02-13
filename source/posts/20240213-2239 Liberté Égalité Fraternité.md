@@ -8,7 +8,7 @@ Today Let's talk about "Égalité"(Equality).
 
 In the old times, the *Gods* are more equal than other animals.
 
-If they commited some crimes, they're usually punished more lightly than poors.
+If they commited some crimes, they're usually punished more lightly than the poors.
 
 The *Gods* cannot be punished, and *Gods' sons* cannot be punished.
 
