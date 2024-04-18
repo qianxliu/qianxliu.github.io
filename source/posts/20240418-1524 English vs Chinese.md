@@ -43,7 +43,7 @@ Not Professional Diffculties/Differences For Chinese:
 
 (tongue)F(connected speech) > R ~= I ~= (teeth)G ~= E > JS^[3]
 
-For /r//R/ like:
+For /r//R/ like IPAs:
 (tongue) below: F, middle: E/C, above: I
 
 Also, not professional. There, neat comparisons. Linguistics is still difficult, Esperanto probably didn't study Chinese.
