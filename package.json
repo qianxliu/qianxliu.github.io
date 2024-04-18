@@ -9,7 +9,7 @@
   "dependencies": {
     "highlight.js": "latest",
     "htmlclean": "latest",
-    "katex": "latest",
+    "katex": "^0.16.10",
     "marked": "latest",
     "marked-highlight": "latest",
     "terser": "latest"
