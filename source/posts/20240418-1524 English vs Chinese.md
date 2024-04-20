@@ -2,7 +2,8 @@
 tags: Humanities, Research, NonMath
 ```
 
-> The definition of inconsistence of a human also could be: The past would hate the current. And the lonely current thinks the past is the immature.
+> Why do someones dislike their past.
+> Such as when I see my past posts, I want to delete a lot.
 
 
 # English vs Chinese(quick learning on speaking)
@@ -11,10 +12,9 @@ Basics: International Phonetic Alphabet
 
 ## Most Different Pronunciations ^[1]
 
-
 ### Consonant Sounds
 
-The keys is the /θ/, /v/
+The keys are the /θ/, /v/
 
 IPA: /θ/, /v/, /l/, /r/
 
@@ -37,6 +37,10 @@ Chinese: 哦 ou /oʊ/, /əʊ/ doesn't exist.
 Mandarin Chinese distinguishes between aspirated and 
 unaspirated consonants (e.g., "p" vs. "ph", "s" vs "sh"), which is not a feature of English pronunciation.(ChatGPT)
 
+Speaking Diffcuities Comparsion: ^[3]
+
+Linguistics is still difficult, Esperanto probably didn't consider Chinese.
+<!--
 ### Random Toughts On (ONLY) Speaking
 
 Not Professional Diffculties/Differences For Chinese: 
@@ -46,7 +50,8 @@ Not Professional Diffculties/Differences For Chinese:
 For /r//R/ like IPAs:
 (tongue) below: F, middle: E/C, above: I
 
-Also, not professional. There, neat comparisons. Linguistics is still difficult, Esperanto probably didn't study Chinese.
+Also, not professional. There, neat comparisons. 
+-->
 
 ## Reference
 
