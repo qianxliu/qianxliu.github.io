@@ -267,6 +267,7 @@ const posts = [];
 
       meta.date = `${year}.${month}.${day} ${hour}:${minute}`;
     }
+    debugger;
     if (!meta.tags) meta.tags = ["blog"];
 
     posts.push(meta);
@@ -277,8 +278,16 @@ const posts = [];
       content,
     });
   });
-  posts.sort((post1, post2) => post2.id - post1.id);
 }
+posts.sort((post1, post2) => 
+  {
+    if (post1.tags.includes("top") == post2.tags.includes("top"))
+      return post2.id - post1.id;
+    else 
+      return (post1.tags.includes("top") ? -1 : 1); 
+  }
+);
+
 
 // Custom Pages
 const pages = [];

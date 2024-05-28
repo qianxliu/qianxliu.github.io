@@ -1,7 +1,3 @@
-```
-tags: Humanities, NonMath
-```
-
 > Why do someones dislike their past.
 > Such as when I see my past posts, I want to delete a lot.
 

@@ -1,3 +1,7 @@
+```
+tags: top
+```
+
 > 自变量（Independent variable）一词来自数学。也叫实验刺激(inputs)。——qianxin
 
 # Math-Based Approach on Neural Networks

@@ -1,3 +1,7 @@
+```
+tags: top
+```
+
 > https://leetcode.cn/problems/longest-common-prefix/description/
 > What's the "sort"?
 > A kind of overresearched cheating methods
