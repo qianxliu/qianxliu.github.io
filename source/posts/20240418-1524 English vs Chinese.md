@@ -1,5 +1,5 @@
 ```
-tags: Humanities, Research, NonMath
+tags: Humanities, NonMath
 ```
 
 > Why do someones dislike their past.
