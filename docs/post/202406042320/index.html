@@ -1,0 +1,92 @@
+<!DOCTYPE html><head><title>Familiars - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>Familiars</h1><h1>Differences with English(Indo-European, Germanic)</h1>
+<p><a href="https://en.wikipedia.org/wiki/List_of_languages_by_number_of_native_speakers">https://en.wikipedia.org/wiki/List_of_languages_by_number_of_native_speakers</a></p>
+<p>Weight: Different Family * 5, Different Branch * 2.</p>
+<pre><code class="hljs language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-comment">// base: Indo-European, Germanic</span>
+    vector&lt;pair&lt;string, vector&lt;<span class="hljs-type">int</span>&gt;&gt;&gt; langs = {
+        {{<span class="hljs-string">&quot;Chinese&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Spanish&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Hindi&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Bengali&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Portuguese&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Russian&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Japanese&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Vietnamese&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Turkish&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Marathi&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Telugu&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Punjabi&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Korean&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
+    };
+    
+    <span class="hljs-type">int</span> people[] = {<span class="hljs-number">941</span>,
+        <span class="hljs-number">486</span>,  
+<span class="hljs-number">345</span>  ,
+<span class="hljs-number">237</span>  ,
+<span class="hljs-number">236</span>  ,
+<span class="hljs-number">148</span>  ,
+<span class="hljs-number">123</span>  ,
+<span class="hljs-number">86</span>  ,
+<span class="hljs-number">85</span>  ,
+<span class="hljs-number">84</span>  ,
+<span class="hljs-number">83</span>  ,
+<span class="hljs-number">83</span>  ,
+<span class="hljs-number">83</span>  ,
+<span class="hljs-number">82</span>  ,
+<span class="hljs-number">81</span>};
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; langs.<span class="hljs-built_in">size</span>(); ++i)
+        langs[i].second[<span class="hljs-number">0</span>] = people[i];
+
+    <span class="hljs-type">int</span> family = <span class="hljs-number">5</span>, branch = <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; l : langs)
+    {
+        l.second.<span class="hljs-built_in">push_back</span>(l.second[<span class="hljs-number">0</span>] * (l.second[<span class="hljs-number">1</span>] ? family : <span class="hljs-number">1</span>) * (l.second[<span class="hljs-number">2</span>] ? branch : <span class="hljs-number">1</span>));
+    }
+
+
+    <span class="hljs-built_in">sort</span>(langs.<span class="hljs-built_in">begin</span>(), langs.<span class="hljs-built_in">end</span>(), [](pair&lt;string, vector&lt;<span class="hljs-type">int</span>&gt;&gt; a, pair&lt;string, vector&lt;<span class="hljs-type">int</span>&gt;&gt; b){
+        <span class="hljs-keyword">return</span> a.second[<span class="hljs-number">3</span>] &gt; b.second[<span class="hljs-number">3</span>];
+    });
+    
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> lang : langs)
+    {
+        cout &lt;&lt; lang.first &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> c : lang.second)
+            cout &lt;&lt; c &lt;&lt; <span class="hljs-string">&#x27;\t&#x27;</span>;
+        cout &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;
+    }
+
+
+}
+</code></pre><pre><code class="hljs language-bash">Chinese
+941	1	1	9410	
+Japanese
+123	1	1	1230	
+Spanish
+486	0	1	972	
+Vietnamese
+86	1	1	860	
+Turkish
+85	1	1	850	
+Telugu
+83	1	1	830	
+Korean
+83	1	1	830	
+Hindi
+345	0	1	690	
+Bengali
+237	0	1	474	
+Portuguese
+236	0	1	472	
+Russian
+148	0	1	296	
+Marathi
+84	0	1	168	
+Punjabi
+83	0	1	166
+</code></pre></article></main>
