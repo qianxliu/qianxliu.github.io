@@ -1,6 +1,5 @@
 <!DOCTYPE html><head><title>Familiars - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>Familiars</h1><h1>Differences with English(Indo-European, Germanic)</h1>
 <p><a href="https://en.wikipedia.org/wiki/List_of_languages_by_number_of_native_speakers">https://en.wikipedia.org/wiki/List_of_languages_by_number_of_native_speakers</a></p>
-<p>Weight: Different Family * 5, Different Branch * 2.</p>
 <pre><code class="hljs language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
@@ -8,24 +7,25 @@
 <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
 </span>{
     <span class="hljs-comment">// base: Indo-European, Germanic</span>
+    <span class="hljs-comment">// Branch: Latin/Germanic == 2, others == 3</span>
     vector&lt;pair&lt;string, vector&lt;<span class="hljs-type">int</span>&gt;&gt;&gt; langs = {
-        {{<span class="hljs-string">&quot;Chinese&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Spanish&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Hindi&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Bengali&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Portuguese&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Russian&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Japanese&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Vietnamese&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Turkish&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Marathi&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Telugu&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Punjabi&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Korean&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Tamil&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;Egyptian&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
-        {{<span class="hljs-string">&quot;German&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>}},
-        {{<span class="hljs-string">&quot;French&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Chinese&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Spanish&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>}},
+        {{<span class="hljs-string">&quot;Hindi&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>}},
+        {{<span class="hljs-string">&quot;Bengali&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>}},
+        {{<span class="hljs-string">&quot;Portuguese&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>}},
+        {{<span class="hljs-string">&quot;Russian&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>}},
+        {{<span class="hljs-string">&quot;Japanese&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Vietnamese&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Turkish&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Marathi&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>}},
+        {{<span class="hljs-string">&quot;Telugu&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Punjabi&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>}},
+        {{<span class="hljs-string">&quot;Korean&quot;</span>},{<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Tamil&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;Egyptian&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;German&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>}},
+        {{<span class="hljs-string">&quot;French&quot;</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>}},
     };
     
     <span class="hljs-type">int</span> people[] = {<span class="hljs-number">941</span>,
@@ -51,10 +51,9 @@
     <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; langs.<span class="hljs-built_in">size</span>(); ++i)
         langs[i].second[<span class="hljs-number">0</span>] = people[i];
 
-    <span class="hljs-type">int</span> family = <span class="hljs-number">5</span>, branch = <span class="hljs-number">2</span>;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; l : langs)
     {
-        l.second.<span class="hljs-built_in">push_back</span>(l.second[<span class="hljs-number">0</span>] * (l.second[<span class="hljs-number">1</span>] ? family : <span class="hljs-number">1</span>) * (l.second[<span class="hljs-number">2</span>] ? branch : <span class="hljs-number">1</span>));
+        l.second.<span class="hljs-built_in">push_back</span>(l.second[<span class="hljs-number">0</span>] * l.second[<span class="hljs-number">1</span>]  * l.second[<span class="hljs-number">2</span>]);
     }
 
 
@@ -69,45 +68,42 @@
             cout &lt;&lt; c &lt;&lt; <span class="hljs-string">&#x27;\t&#x27;</span>;
         cout &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;
     }
-
-
 }
 </code></pre><pre><code class="hljs language-bash">Chinese
-941	1	1	9410	
-Japanese
-123	1	1	1230	
-Spanish
-486	0	1	972	
-Vietnamese
-86	1	1	860	
-Turkish
-85	1	1	850	
-Telugu
-83	1	1	830	
-Korean
-83	1	1	830	
-Tamil
-82	1	1	820	
-Egyptian
-81	1	1	810	
+941	5	1	4705	
 Hindi
-345	0	1	690	
+345	1	3	1035	
+Spanish
+486	1	2	972	
 Bengali
-237	0	1	474	
+237	1	3	711	
+Japanese
+123	5	1	615	
 Portuguese
-236	0	1	472	
+236	1	2	472	
 Russian
-148	0	1	296	
+148	1	3	444	
+Vietnamese
+86	5	1	430	
+Turkish
+85	5	1	425	
+Telugu
+83	5	1	415	
+Korean
+83	5	1	415	
+Tamil
+82	5	1	410	
+Egyptian
+81	5	1	405	
 Marathi
-84	0	1	168	
+84	1	3	252	
 Punjabi
-83	0	1	166	
+83	1	3	249	
 French
-78	0	1	156	
+78	1	2	156	
 German
-79	0	0	79
-</code></pre><p>This program doesn&#39;t consider Slavic(Cyrillic alphabet)/Hindi langauges&#39; huge differences with other branches.</p>
-<p>英语/英語/Inglés/Tiếng Việt/İngilizce/영어/Inglês/Английский язык/Anglais</p>
+79	1	1	79
+</code></pre><p>英语/英語/Inglés/Tiếng Việt/İngilizce/영어/Inglês/Английский язык/Anglais</p>
 <p>So, can I know bir Türk? or Русский? or Français?</p>
 <p>If I know them(You saw, I&#39;m an English now), I probably can not live in my society. Just like a Русский learned English.</p>
 <p>Don Quijote de la Mancha can not build an United States.</p>
