@@ -1,0 +1,80 @@
+<!DOCTYPE html><head><title>Probility - 兴趣使然的无名小站</title><meta name="description" content=""><script src="/bundle.js" onload="[].flat||(location='/update.html')"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/atom-one-dark.min.css"></head><main><article><h1>Probility</h1><h1>Probility(not Measure Theory)</h1>
+<p>This article is also in English because of many reasons. In China, there&#39;s less probility theory derived from measurable space. And this article is not about the literature.</p>
+<p>Originally the least people found interests on the basic science/mathematics, so English, English.</p>
+<p>And the Greek alphabet is the ancestor of the Cyrillic scripts or Latin.</p>
+<p>You know, it&#39;s about <em>serious</em> probility. But now I only have a very popular/<em>new</em> book I bought many years ago which is not very serious. And it&#39;s English.</p>
+<h2>Basic Concepts</h2>
+<p>ZFC(NBG/Proper class,Gödel&#39;s incompleteness theorems): Classes are collections which can be defined, sets are particular classes which are relatively small and there are classes which are not sets. Collections is a notion which is expressed via both these mathematical objects, but need not be well-defined otherwise.(<a href="https://math.stackexchange.com/questions/172966/what-are-the-differences-between-class-set-family-and-collection">https://math.stackexchange.com/questions/172966/what-are-the-differences-between-class-set-family-and-collection</a>)</p>
+<p>extended real number line: <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>R</mi><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline R</annotation></semantics></math></span>
+, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>∪</mo><mo stretchy="false">(</mo><mo>−</mo><mi mathvariant="normal">∞</mi><mo separator="true">,</mo><mo>+</mo><mi mathvariant="normal">∞</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">R \cup ( -\infty, +\infty)</annotation></semantics></math></span>
+, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mi mathvariant="normal">∞</mi><mo separator="true">,</mo><mo>+</mo><mi mathvariant="normal">∞</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[ -\infty, +\infty]</annotation></semantics></math></span>
+</p>
+<p>countable set: A set <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span>
+ is countable if its cardinality <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|S|</annotation></semantics></math></span>
+ is less than or equal to <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">ℵ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\aleph _{0}</annotation></semantics></math></span>
+(the cardinality of the set of all natural numbers). The aleph numbers differ from the infinity (∞) commonly found in algebra and calculus, in that the alephs measure the sizes of sets, while infinity is commonly defined either as an extreme limit of the real number line (applied to a function or sequence that &quot;diverges to infinity&quot; or &quot;increases without bound&quot;), or as an extreme point of the extended real number line. </p>
+<p>pairwise disjoint: All <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>E</mi><mi>k</mi></msub><msubsup><mo stretchy="false">}</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi mathvariant="normal">∞</mi></msubsup></mrow><annotation encoding="application/x-tex">\{E_k\}_{k=1}^{\infty}</annotation></semantics></math></span>
+ implies that <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>E</mi><mi>k</mi><mi>c</mi></msubsup><mo>∈</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">E_k^c \in \Sigma</annotation></semantics></math></span>
+ </p>
+<h2>σ-algebra and Measure Spaces</h2>
+<p>Consider a set <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span>
+. A <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">σ</annotation></semantics></math></span>
+–algebra <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span>
+ of subsets of <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span>
+ which is a class <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span>
+ satisfying the following conditions:</p>
+<ul>
+<li><p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∅</mi><mo>∈</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\empty ∈ \Sigma</annotation></semantics></math></span>
+</p>
+</li>
+<li><p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>∈</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\mu \in \Sigma</annotation></semantics></math></span>
+ then its complement <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>μ</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">\mu^c</annotation></semantics></math></span>
+ is also in <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span>
+</p>
+</li>
+<li><p>if <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>μ</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mo>∈</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu_1, \mu_2,..., \in \mu</annotation></semantics></math></span>
+ then <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>⋃</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi mathvariant="normal">∞</mi></msubsup><msub><mi>μ</mi><mi>k</mi></msub><mo>∈</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">\bigcup _{k=1}^{\infty }\mu_{k} \in \mu</annotation></semantics></math></span>
+</p>
+</li>
+</ul>
+<p>So class <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><mi mathvariant="normal">∅</mi><mo separator="true">,</mo><mi>X</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{\empty, X\}</annotation></semantics></math></span>
+ is a <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">σ</annotation></semantics></math></span>
+–algebra.</p>
+<h2>Measure and Probability Space</h2>
+<p>A set <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span>
+ and a <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span>
+-algerbra <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span>
+ over <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span>
+. A set function <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span>
+ from <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span>
+ to <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>R</mi><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline R</annotation></semantics></math></span>
+ is called a measure if the following conditions hold:</p>
+<ul>
+<li><strong>Non-negativity</strong>: For all <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>∈</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">X \in \Sigma</annotation></semantics></math></span>
+, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mu(X) \ge 0</annotation></semantics></math></span>
+</li>
+<li><strong>Countable additivity</strong>(<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span>
+-additivity): 
+ For all countable collections <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>X</mi><mi>k</mi></msub><msubsup><mo stretchy="false">}</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi mathvariant="normal">∞</mi></msubsup></mrow><annotation encoding="application/x-tex">\{X_k\}_{k=1}^{\infty}</annotation></semantics></math></span>
+ of pairwise disjoint sets in <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span>
+,</li>
+</ul>
+<p> <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mrow><mo fence="true">(</mo><msubsup><mo>⋃</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi mathvariant="normal">∞</mi></msubsup><msub><mi>X</mi><mi>k</mi></msub><mo fence="true">)</mo></mrow><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi mathvariant="normal">∞</mi></msubsup><mi>μ</mi><mo stretchy="false">(</mo><msub><mi>X</mi><mi>k</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mu \left(\bigcup _{k=1}^{\infty }X_{k}\right)=\sum _{k=1}^{\infty }\mu (X_{k})</annotation></semantics></math></span>
+</p>
+<p>so, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo stretchy="false">(</mo><mi>E</mi><mo stretchy="false">)</mo><mo>=</mo><mi>μ</mi><mo stretchy="false">(</mo><mi>E</mi><mo>∪</mo><mi mathvariant="normal">∅</mi><mo stretchy="false">)</mo><mo>=</mo><mi>μ</mi><mo stretchy="false">(</mo><mi>E</mi><mo stretchy="false">)</mo><mo>+</mo><mi>μ</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∅</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mu (E)=\mu (E\cup \varnothing )=\mu (E)+\mu (\varnothing )</annotation></semantics></math></span>
+</p>
+<ul>
+<li><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∅</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mu(\empty) = 0</annotation></semantics></math></span>
+</li>
+</ul>
+<p>If the condition of non-negativity is dropped, and <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span>
+ takes on at most one of the values of <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\pm∞</annotation></semantics></math></span>
+ then <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span>
+ is called a signed measure.</p>
+<p>The pair <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>X</mi><mo separator="true">,</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(X,\Sigma)</annotation></semantics></math></span>
+ is called a measurable space, and the members of <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span>
+ are called measurable sets.</p>
+<p>A triple <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>X</mi><mo separator="true">,</mo><mi mathvariant="normal">Σ</mi><mo separator="true">,</mo><mi>μ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(X,\Sigma ,\mu )</annotation></semantics></math></span>
+ is called a measure space. A probability measure is a measure with total measure one – that is, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\mu (X)=1</annotation></semantics></math></span>
+. A probability space is a measure space with a probability measure. </p>
+</article></main>
