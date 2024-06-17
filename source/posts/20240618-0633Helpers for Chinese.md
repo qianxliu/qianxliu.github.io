@@ -10,7 +10,7 @@ Your 美国(TOP 1)：United States. China. United States of America.
 
 Your 英国(TOP 2)：United Kingdom. China. Britsh.
 
-Your 德国：Deutschland. China. Im Deutschen gibt es keine Wörter, die mit C beginnen
+Your 德国：Deutschland. China. Im Deutschen gibt es keine Wörter, die mit C beginnen, aber 德国 ist so ein gutes Wort.
 
 Your 法国：France. Chine.
 
