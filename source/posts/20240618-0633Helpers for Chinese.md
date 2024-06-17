@@ -16,4 +16,4 @@ Your 法国：France. Chine.
 
 Your 韩国：한국. 중국.
 
-The most important things I suggest is to change the names about 美国，英国，德国。 
+The most important things I suggest is to largely change the names about 美国，英国，and slightly 德国。 
