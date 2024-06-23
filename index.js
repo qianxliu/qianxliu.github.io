@@ -279,14 +279,15 @@ const posts = [];
     });
   });
 }
-posts.sort((post1, post2) => 
-  {
-    if (post1.tags.includes("top") == post2.tags.includes("top"))
-      return post2.id - post1.id;
-    else 
-      return (post1.tags.includes("top") ? -1 : 1); 
+
+const tops = ["置顶", "トップに固定", "상단고정", "Pin", "Épingler", "top"];
+posts.sort((post1, post2) => {
+  if (tops.some(term => post1.tags.includes(term)) === tops.some(term => post2.tags.includes(term))) {
+    return post2.id - post1.id; // Sort by id in descending order if both are equally topped or not topped
+  } else {
+    return tops.some(term => post1.tags.includes(term)) ? -1 : 1; // Posts that are topped come first
   }
-);
+});
 
 
 // Custom Pages
