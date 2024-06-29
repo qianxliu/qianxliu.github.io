@@ -26,7 +26,3 @@ United-Kingdoms
 ## More
 
 Turkey(Ottoman)
-
-## Probably Concidences
-
-The reconstructed autonym *Slověninъ is usually considered a derivation from slovo ("word"), originally denoting "people who speak (the same language)", meaning "people who understand one another", in contrast to the Slavic word denoting "German people", namely *němьcь, meaning "silent, mute people" (from Slavic *němъ "mute, mumbling"). The word slovo ("word") and the related slava ("glory, fame") and sluh ("hearing") originate from the Proto-Indo-European root *ḱlew- ("be spoken of, glory"), cognate with Ancient Greek κλέος (kléos "fame"), as in the name Pericles, Latin clueō ("be called"), and English loud.[citation needed].
