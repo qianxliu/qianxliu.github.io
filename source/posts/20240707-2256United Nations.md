@@ -10,9 +10,9 @@ Permanent members of the United Nations Security Council:
 
 - 3 Close to English language
 
-- 2 English language
+- 2 United + 1 United Nations(United Kingdoms, United States, United Nations)
 
-- 2 United
+- 2 English language
 
 - 1 United States
 
