@@ -2,7 +2,7 @@
 
 Permanent members of the United Nations Security Council:
 
-- 5 Eurasian continent
+- 5 Eurasian language
 
 - 4 Indo-European language family
 
@@ -23,7 +23,7 @@ This world is managed by English obviously. Who says no?
 
 国際連合安全保障理事会の常任理事国：
 
-- 5 ユーラシア大陸
+- 5 ユーラシア大陸語族
 
 - 4 インド・ヨーロッパ語族
 
