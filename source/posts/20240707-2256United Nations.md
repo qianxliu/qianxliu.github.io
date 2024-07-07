@@ -19,6 +19,12 @@ Permanent members of the United Nations Security Council:
 
 This world is managed by English obviously. Who says no?
 
+<!--
+Better to kick out the UK, which is an island nation so it can not represent represent the majority of people.
+
+Japan is also but Asians are generally more left, and Japanese is a different language not English. And Japan's latitude is closer to that of most countries in the world and it's more longer/higher/diverser, not like the UK.
+-->
+
 # 国連
 
 国際連合安全保障理事会の常任理事国：
